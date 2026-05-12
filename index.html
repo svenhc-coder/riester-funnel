@@ -13,7 +13,7 @@
 
 <script>
 function check() {
-    fetch("http://178.105.85.47:8000/health")
+    fetch("https://api.versicherungs-fuchs.online/health")
     .then(res => res.json())
     .then(data => {
         document.getElementById("result").innerHTML = data.status;
