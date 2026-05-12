@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Riester Check</title>
+</head>
+<body>
+
+<h1>Riester Check läuft 🚀</h1>
+
+<button onclick="check()">Check starten</button>
+
+<p id="result"></p>
+
+<script>
+function check() {
+    fetch("http://178.105.85.47:8000/health")
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("result").innerHTML = data.status;
+    });
+}
+</script>
+
+</body>
+</html>
