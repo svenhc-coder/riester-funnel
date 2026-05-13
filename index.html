@@ -92,78 +92,28 @@ const emitEvent = async (eventType, payload) => {
   console.debug('[RIESTER EVENT]', event);
 };
 
-// ─── FRAGEN ───────────────────────────────────────────────────────────────────
+// ─── FRAGEN (12 Fragen) ───────────────────────────────────────────────────────
 const QUESTIONS = [
   {
-    id:'vertragsbeginn', question:'Wann haben Sie Ihren Riester-Vertrag abgeschlossen?',
-    hint:'Datum auf der Police oder Standmitteilung.',
+    id:'vertragstyp', question:'Um welche Art von Riester-Vertrag handelt es sich?',
+    hint:'Steht meist auf dem Deckblatt der Police oder der Standmitteilung.',
     options:[
-      {label:'Vor 2005 – klassischer Altvertrag',value:'vor2005'},
-      {label:'2005 – 2010',value:'2005_2010'},
-      {label:'2010 – 2015',value:'2010_2015'},
-      {label:'Nach 2015',value:'nach2015'},
+      {label:'Klassische Rentenversicherung (mit Garantiezins)',value:'klassisch'},
+      {label:'Fondsgebundene Rentenversicherung',value:'fondsgebunden'},
+      {label:'Banksparplan oder Bausparvertrag',value:'banksparplan'},
+      {label:'Wohn-Riester (Eigenheimrente)',value:'wohn_riester'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
     ]
   },
   {
-    id:'beitrag', question:'Wie hoch ist Ihr monatlicher Beitrag?',
-    hint:'Betrag inkl. staatlicher Zulage, der abgebucht wird.',
+    id:'abschlussjahr', question:'In welchem Zeitraum wurde der Vertrag abgeschlossen?',
+    hint:'Das Abschlussjahr steht auf der Police oder im Eröffnungsschreiben des Anbieters.',
     options:[
-      {label:'Unter 25 € – sehr gering',value:'0_25'},
-      {label:'25 – 100 €',value:'25_100'},
-      {label:'100 – 200 € – solide',value:'100_200'},
-      {label:'Über 200 € – maximum',value:'200plus'},
-    ]
-  },
-  {
-    id:'kinder', question:'Wie viele kindergeldberechtigte Kinder haben Sie?',
-    hint:'Jedes Kind bringt bis zu 300 € Kinderzulage/Jahr.',
-    options:[
-      {label:'Keine Kinder',value:'0'},
-      {label:'1 Kind',value:'1'},
-      {label:'2 oder mehr Kinder',value:'2plus'},
-    ]
-  },
-  {
-    id:'beschaeftigung', question:'Was beschreibt Ihre aktuelle Situation am besten?',
-    hint:'Entscheidet über Ihre Förderberechtigung.',
-    options:[
-      {label:'Angestellt (sozialversicherungspflichtig)',value:'angestellt'},
-      {label:'Beamter / Beamtin',value:'beamter'},
-      {label:'Selbstständig',value:'selbststaendig'},
-      {label:'Aktuell nicht beschäftigt',value:'nicht'},
-    ]
-  },
-  {
-    id:'beitrag_konstant', question:'Zahlen Sie Ihren Beitrag konstant und regelmäßig?',
-    hint:'Unterbrechungen können Förderjahre kosten.',
-    options:[
-      {label:'Ja – ich zahle immer pünktlich',value:'ja'},
-      {label:'Nein – es gab Pausen oder Schwankungen',value:'nein'},
-    ]
-  },
-  {
-    id:'zulagen', question:'Werden Ihre Zulagen (Grund- + Kinderzulage) jährlich beantragt?',
-    hint:'Zulagen werden NICHT automatisch gewährt – sie müssen aktiv beantragt werden.',
-    options:[
-      {label:'Ja – werden jedes Jahr beantragt',value:'ja'},
-      {label:'Nein oder ich weiß es nicht',value:'nein_unklar'},
-    ]
-  },
-  {
-    id:'garantiewunsch', question:'Wie wichtig ist Ihnen eine garantierte Mindestleistung?',
-    hint:'Hohe Garantie = weniger Wachstumspotenzial.',
-    options:[
-      {label:'Sehr wichtig – Sicherheit steht an erster Stelle',value:'wichtig'},
-      {label:'Rendite ist wichtiger als Garantie',value:'egal'},
-    ]
-  },
-  {
-    id:'zusatzbausteine', question:'Enthält Ihr Vertrag zusätzliche Absicherungen?',
-    hint:'Zusatzbausteine können bei Vertragsauflösung verloren gehen.',
-    options:[
-      {label:'Berufsunfähigkeitsabsicherung (BU)',value:'bu'},
-      {label:'Hinterbliebenenschutz / Rente',value:'hinterbliebenen'},
-      {label:'Nein / keine Ahnung',value:'nein'},
+      {label:'Vor 2005',value:'vor2005'},
+      {label:'2005 – 2012',value:'2005_2012'},
+      {label:'2013 – 2017',value:'2013_2017'},
+      {label:'Ab 2018',value:'ab2018'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
     ]
   },
   {
@@ -171,101 +121,211 @@ const QUESTIONS = [
     hint:'',
     options:[
       {label:'Aktiv – ich zahle regelmäßig',value:'aktiv'},
-      {label:'Ruhend – ich zahle derzeit nichts',value:'ruhend'},
+      {label:'Beitragsfrei gestellt',value:'beitragsfrei'},
+      {label:'Pausiert / vorübergehend ausgesetzt',value:'pausiert'},
+      {label:'Gekündigt / aufgelöst',value:'gekuendigt'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
     ]
   },
   {
-    id:'ziel', question:'Was ist Ihr primäres Ziel mit der Altersvorsorge?',
-    hint:'Hilft uns, die richtige Einschätzung zu geben.',
+    id:'beitrag', question:'Wie hoch ist Ihr monatlicher Beitrag (inkl. Zulage)?',
+    hint:'Der Gesamtbetrag, der monatlich vom Konto abgebucht wird – inkl. staatlicher Zulage.',
     options:[
-      {label:'Staatliche Förderung voll ausschöpfen',value:'foerderung'},
-      {label:'Maximale Rendite erzielen',value:'rendite'},
-      {label:'Sicheres Fundament fürs Alter',value:'sicherheit'},
+      {label:'Unter 50 €',value:'unter50'},
+      {label:'50 – 100 €',value:'50_100'},
+      {label:'100 – 200 €',value:'100_200'},
+      {label:'Über 200 €',value:'ueber200'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
     ]
-  }
+  },
+  {
+    id:'kinder', question:'Wie viele kindergeldberechtigte Kinder haben Sie?',
+    hint:'Jedes Kind kann eine Kinderzulage begründen – sofern diese auch beantragt wird.',
+    options:[
+      {label:'Keine Kinder',value:'0'},
+      {label:'1 Kind',value:'1'},
+      {label:'2 Kinder',value:'2'},
+      {label:'3 oder mehr Kinder',value:'3plus'},
+    ]
+  },
+  {
+    id:'zulagen', question:'Wie werden Ihre Zulagen (Grund- + Kinderzulage) beantragt?',
+    hint:'Zulagen müssen aktiv beantragt werden – viele Anbieter übernehmen das automatisch.',
+    options:[
+      {label:'Automatisch – mein Anbieter beantragt jährlich',value:'automatisch'},
+      {label:'Ich muss es selbst beantragen',value:'selbst'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
+    ]
+  },
+  {
+    id:'anlage_av', question:'Tragen Sie den Riester-Vertrag in der Steuererklärung ein (Anlage AV)?',
+    hint:'Damit können Sie bis zu 2.100 € jährlich als Sonderausgaben geltend machen.',
+    options:[
+      {label:'Ja, jährlich',value:'jaehrlich'},
+      {label:'Manchmal / unregelmäßig',value:'manchmal'},
+      {label:'Nein',value:'nie'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
+    ]
+  },
+  {
+    id:'einkommen', question:'Wie hoch ist Ihr ungefähres Jahreseinkommen (brutto)?',
+    hint:'Hilft einzuschätzen, wie groß der steuerliche Vorteil durch die Anlage AV sein kann.',
+    options:[
+      {label:'Unter 25.000 €',value:'unter25k'},
+      {label:'25.000 – 50.000 €',value:'25_50k'},
+      {label:'50.000 – 90.000 €',value:'50_90k'},
+      {label:'Über 90.000 €',value:'ueber90k'},
+      {label:'Selbstständig / variabel',value:'selbststaendig'},
+    ]
+  },
+  {
+    id:'beschaeftigung', question:'Was beschreibt Ihre aktuelle Beschäftigungssituation am besten?',
+    hint:'Entscheidet über die grundsätzliche Förderberechtigung für Riester-Produkte.',
+    options:[
+      {label:'Angestellt (sozialversicherungspflichtig)',value:'angestellt'},
+      {label:'Verbeamtet',value:'beamter'},
+      {label:'Selbstständig',value:'selbststaendig'},
+      {label:'In Elternzeit',value:'elternzeit'},
+      {label:'Derzeit nicht beschäftigt / arbeitslos',value:'nicht'},
+    ]
+  },
+  {
+    id:'transparenz', question:'Wie gut kennen Sie die Kosten und Konditionen Ihres Vertrags?',
+    hint:'Effektivkosten (z. B. in %) stehen in der Regel auf Ihrer jährlichen Standmitteilung.',
+    options:[
+      {label:'Klar – ich kenne Kosten und Konditionen',value:'klar'},
+      {label:'Eher unklar',value:'unklar'},
+      {label:'Wirkt hoch / fühlt sich teuer an',value:'hoch'},
+      {label:'Weiß ich nicht',value:'unbekannt'},
+    ]
+  },
+  {
+    id:'risikoprofil', question:'Was ist Ihnen bei der Altersvorsorge am wichtigsten?',
+    hint:'Keine richtige oder falsche Antwort – es geht um Ihre persönliche Präferenz.',
+    options:[
+      {label:'Sicherheit – möglichst keine Verluste',value:'sicherheit'},
+      {label:'Balance – Rendite und Absicherung',value:'balance'},
+      {label:'Rendite – maximales Wachstum',value:'rendite'},
+    ]
+  },
+  {
+    id:'zielbild', question:'Was möchten Sie mit Ihrer Altersvorsorge als nächstes tun?',
+    hint:'Ab 2027 gibt es das neue staatlich geförderte Altersvorsorgedepot (ETF-basiert) als Alternative zu Riester.',
+    options:[
+      {label:'Vertrag behalten und ggf. optimieren',value:'behalten'},
+      {label:'Wechsel ins Altersvorsorgedepot ab 2027 prüfen',value:'wechsel_pruefen'},
+      {label:'Erst prüfen lassen, dann entscheiden',value:'erst_pruefen'},
+      {label:'Weiß ich noch nicht',value:'unbekannt'},
+    ]
+  },
 ];
 
-// ─── AMPEL-LOGIK ──────────────────────────────────────────────────────────────
+// ─── SCORING (3 Scores + Ampel) ───────────────────────────────────────────────
+function berechneScores(a) {
+  // S1: Förder-/Zulagen-Risiko (0–100, hoch = schlecht) · Q5–Q9
+  let s1 = 0;
+  if (a.zulagen === 'unbekannt') s1 += 35;
+  else if (a.zulagen === 'selbst') s1 += 22;
+  if (a.anlage_av === 'nie') s1 += 28;
+  else if (a.anlage_av === 'manchmal') s1 += 14;
+  else if (a.anlage_av === 'unbekannt') s1 += 20;
+  if (['2','3plus'].includes(a.kinder) && a.zulagen !== 'automatisch') s1 += 15;
+  if (['selbststaendig','nicht'].includes(a.beschaeftigung)) s1 += 12;
+  if (a.einkommen === 'selbststaendig') s1 += 8;
+  s1 = Math.min(100, s1);
+
+  // S2: Vertrags-/Kosten-Risiko (0–100, hoch = schlecht) · Q1–Q4 + Q10
+  let s2 = 0;
+  if (a.vertragstyp === 'unbekannt') s2 += 18;
+  if (['2013_2017','ab2018'].includes(a.abschlussjahr)) s2 += 22;
+  else if (a.abschlussjahr === 'unbekannt') s2 += 12;
+  if (a.vertrag_status === 'beitragsfrei') s2 += 15;
+  else if (a.vertrag_status === 'pausiert') s2 += 22;
+  else if (a.vertrag_status === 'gekuendigt') s2 += 30;
+  else if (a.vertrag_status === 'unbekannt') s2 += 8;
+  if (a.beitrag === 'unter50') s2 += 12;
+  else if (a.beitrag === 'unbekannt') s2 += 8;
+  if (a.transparenz === 'hoch') s2 += 28;
+  else if (a.transparenz === 'unklar') s2 += 16;
+  else if (a.transparenz === 'unbekannt') s2 += 10;
+  s2 = Math.min(100, s2);
+
+  // S3: Depot-Wechsel-Eignung ab 2027 (0–100, hoch = gut) · Q11–Q12
+  let s3 = 25;
+  if (a.risikoprofil === 'rendite') s3 += 30;
+  else if (a.risikoprofil === 'balance') s3 += 15;
+  if (a.zielbild === 'wechsel_pruefen') s3 += 30;
+  else if (a.zielbild === 'erst_pruefen') s3 += 12;
+  if (['2013_2017','ab2018'].includes(a.abschlussjahr) && ['hoch','unklar'].includes(a.transparenz)) s3 += 12;
+  if (a.risikoprofil !== 'sicherheit') s3 += 8;
+  s3 = Math.min(100, s3);
+
+  return { s1, s2, s3 };
+}
+
 function berechneAmpel(a) {
-  let g=0,r=0,ge=0;
-  if (['vor2005','2005_2010'].includes(a.vertragsbeginn)) g+=2;
-  else if (a.vertragsbeginn==='2010_2015') ge+=1;
-  else if (a.vertragsbeginn==='nach2015') r+=2;
-  if (a.beitrag==='0_25') r+=2; else if (a.beitrag==='25_100') ge+=1; else g+=1;
-  if (a.kinder==='2plus') g+=2; else if (a.kinder==='1') g+=1;
-  if (['angestellt','beamter'].includes(a.beschaeftigung)) g+=1; else if (a.beschaeftigung==='selbststaendig') r+=1;
-  if (a.beitrag_konstant==='ja') g+=1; else r+=1;
-  if (a.zulagen==='ja') g+=2; else r+=2;
-  if (a.garantiewunsch==='wichtig') g+=1; else { ge+=1; if(a.vertragsbeginn==='nach2015') r+=1; }
-  if (['bu','hinterbliebenen'].includes(a.zusatzbausteine)) g+=1;
-  if (a.vertrag_status==='ruhend') r+=1;
-  if (a.ziel==='rendite'&&a.garantiewunsch==='wichtig') r+=1;
-  else if (a.ziel==='foerderung'&&a.zulagen==='ja') g+=1;
-  if (g>=r+3) return 'green';
-  if (r>=g+2) return 'red';
-  return 'yellow';
+  const { s1, s2 } = berechneScores(a);
+  if (s1 >= 60 || s2 >= 60) return 'red';
+  if (s1 >= 30 || s2 >= 30) return 'yellow';
+  return 'green';
 }
 
-// Score als Zahl (0–100) für Pre-Gate Anzeige
+// Orientierungswert für PreLeadGate (0–100, hoch = gut)
 function berechneScore(a) {
-  let pts=0, max=16;
-  if (['vor2005','2005_2010'].includes(a.vertragsbeginn)) pts+=4;
-  else if (a.vertragsbeginn==='2010_2015') pts+=2;
-  if (a.beitrag==='200plus') pts+=3; else if (a.beitrag==='100_200') pts+=2; else if (a.beitrag==='25_100') pts+=1;
-  if (a.kinder==='2plus') pts+=3; else if (a.kinder==='1') pts+=2;
-  if (a.zulagen==='ja') pts+=3; else pts-=1;
-  if (a.beitrag_konstant==='ja') pts+=1;
-  if (['angestellt','beamter'].includes(a.beschaeftigung)) pts+=2;
-  pts = Math.max(0, Math.min(max, pts));
-  return Math.round((pts/max)*100);
+  const { s1, s2 } = berechneScores(a);
+  return Math.round(100 - (s1 * 0.5 + s2 * 0.5));
 }
 
-// ─── HANDLUNGSEMPFEHLUNG ──────────────────────────────────────────────────────
+// ─── HANDLUNGSEMPFEHLUNG (Indizien, keine Gewissheiten) ───────────────────────
 function getHandlungsempfehlung(a, ampel) {
-  const vb=a.vertragsbeginn, z=a.zulagen, g=a.garantiewunsch, ziel=a.ziel, s=a.vertrag_status, b=a.beschaeftigung;
+  const { s1, s2, s3 } = berechneScores(a);
 
-  if (['vor2005','2005_2010'].includes(vb) && z==='ja' && g==='wichtig') return {
-    action:'behalten_optimieren', icon:'✅',
-    titel:'Vertrag behalten & optimieren',
-    begruendung:'Ihr Altvertrag ist eine solide Basis. Die staatlichen Zulagen werden genutzt und die Beitragsgarantie passt zu Ihrem Sicherheitswunsch. Kleinere Justierungen können die Rendite verbessern.',
-    risiko:'Gering', risikoColor:'#22c55e',
-    naechste_schritte:['Zulagenstatus und Mindestbeitrag jährlich prüfen','Fondsaufteilung auf Rendite optimieren','Kostenstruktur im Deep-Check analysieren'],
-    empfohlene_entscheidung:'Vertrag behalten – Zulagen sicherstellen, Beitrag optimieren und Fondsaufteilung prüfen.',
-    nichts_machen:'Ohne Anpassung verschenken Sie jährlich bis zu 475 € staatliche Förderung und zahlen unnötig hohe Kosten. Über 20 Jahre summiert sich das auf bis zu 9.500 € verlorenes Potenzial.',
-    cta_tier:'deep_check'
+  if (a.vertrag_status === 'gekuendigt') return {
+    action:'bereits_beendet', icon:'ℹ️',
+    titel:'Vertrag offenbar bereits beendet',
+    kurzinterpretation:'Auf Basis Ihrer Angaben scheint der Vertrag nicht mehr aktiv zu sein. Das schränkt sinnvolle nächste Schritte ein – ob noch Handlungsbedarf besteht, lässt sich erst mit den Unterlagen klären.',
+    was_bedeutet_das:'Es könnte Restwerte oder noch nicht abgerufene Guthaben geben. Was konkret möglich ist, lässt sich erst mit dem Vertragsdokument oder einer Bestätigung des Anbieters beurteilen.',
+    naechste_schritte:['Letzte Standmitteilung oder Kündigungsbestätigung heraussuchen','Mögliche Restwerte beim Anbieter schriftlich anfragen','Im Deep-Check prüfen, ob noch Handlungsbedarf besteht'],
   };
 
-  if (s==='ruhend'||(b==='nicht')|(b==='selbststaendig'&&z==='nein_unklar')) return {
-    action:'beitragsfrei', icon:'⏸️',
-    titel:'Beitragsfreistellung prüfen',
-    begruendung:'Ihr Vertrag läuft aktuell nicht mit vollem Förderpotenzial. Eine vorübergehende Beitragsfreistellung schützt das Angesparte, ohne weitere Kosten zu verursachen – bis Ihre Situation sich klärt.',
-    risiko:'Mittel', risikoColor:'#eab308',
-    naechste_schritte:['Anbieter kontaktieren und Beitragsfreistellung anfragen','Förderjahre genau berechnen','Alternativen für die Lückenzeit prüfen'],
-    empfohlene_entscheidung:'Vertrag beitragsfrei stellen – angesparte Gelder bleiben erhalten, keine weiteren Kosten entstehen.',
-    nichts_machen:'Weiterzahlen ohne aktive Förderberechtigung ist reines Verlustgeschäft: Sie zahlen Beiträge, bekommen aber keine staatlichen Zulagen. Jeder Monat kostet Sie bares Geld ohne Gegenwert.',
-    cta_tier:'expert'
+  if (s1 >= 55) return {
+    action:'foerder_risiko', icon:'⚠️',
+    titel:'Hinweise auf möglicherweise ungenutztes Förderpotenzial',
+    kurzinterpretation:'Ihre Antworten deuten darauf hin, dass staatliche Förderungen möglicherweise nicht vollständig abgerufen werden. Das ist ein häufiges Muster – und lässt sich oft gezielt verbessern. Ob das auf Ihren Vertrag zutrifft, lässt sich erst mit Ihren Unterlagen belastbar sagen.',
+    was_bedeutet_das:'Zulagen müssen aktiv beantragt werden und können unter Umständen rückwirkend nachgeholt werden. Ob eine Lücke besteht und wie groß sie ist, zeigt erst eine Prüfung der tatsächlichen Zulagenhistorie – zum Beispiel beim Anbieter oder im Deep-Check.',
+    naechste_schritte:['Zulagen-Status schriftlich beim Anbieter anfragen','Anlage AV in der nächsten Steuererklärung nicht vergessen','Im Deep-Check prüfen, ob und was optimiert werden kann'],
   };
 
-  if (vb==='nach2015'&&z==='nein_unklar'&&ziel==='rendite'&&g==='egal') return {
-    action:'wechsel_pruefen', icon:'🔄',
-    titel:'Alternativen ernsthaft prüfen',
-    begruendung:'Ihr Vertrag nutzt die staatliche Förderung nicht optimal und passt nicht zu Ihrem Renditeziel. Neuere Produkte (z. B. Altersvorsorgedepot ab 2027) könnten deutlich besser zu Ihrer Situation passen.',
-    risiko:'Hoch – Förderung geht verloren', risikoColor:'#ef4444',
-    naechste_schritte:['Vollständige Vertragsanalyse im Deep-Check','Wechseloptionen und Kosten berechnen lassen','Experten-Zweitmeinung einholen (kostenlos)'],
-    empfohlene_entscheidung:'Alternativen analysieren – das neue Altersvorsorgedepot ab 2027 könnte für Ihr Renditeziel deutlich besser passen.',
-    nichts_machen:'Jedes Jahr in diesem Vertrag bedeutet: Sie lassen staatliche Förderung liegen, zahlen versteckte Kosten und verpassen das neue ETF-basierte Altersvorsorgedepot ab 2027 vollständig.',
-    cta_tier:'expert'
+  if (s2 >= 55) return {
+    action:'kosten_risiko', icon:'🔍',
+    titel:'Hinweise auf mögliche Kosten- oder Vertragsrisiken',
+    kurzinterpretation:'Einige Ihrer Angaben – insbesondere zu Kosten und Vertragsstatus – deuten auf mögliche Stellschrauben hin. Das muss nicht zwingend negativ sein, sollte aber geprüft werden. Belastbare Aussagen sind erst mit Ihren Vertragsdaten möglich.',
+    was_bedeutet_das:'Ob und wie stark Kosten die Entwicklung Ihres Vertrags beeinflussen, lässt sich erst mit den tatsächlichen Vertragsdaten beurteilen. Effektivkostenquoten stehen in der Regel auf der Standmitteilung.',
+    naechste_schritte:['Aktuelle Standmitteilung heraussuchen','Effektivkostenquote im Vertrag oder der Standmitteilung suchen','Im Deep-Check Kosten- und Vertragsstruktur analysieren lassen'],
+  };
+
+  if (s3 >= 65 && ampel !== 'green') return {
+    action:'depot_pruefen', icon:'🔄',
+    titel:'Altersvorsorgedepot ab 2027 könnte eine Option sein',
+    kurzinterpretation:'Basierend auf Ihren Angaben spricht einiges dafür, die neue Depotoption ab 2027 in die Überlegungen einzubeziehen. Das bedeutet nicht automatisch, dass der bestehende Vertrag schlechter ist – ein Vergleich lohnt sich.',
+    was_bedeutet_das:'Ob ein Wechsel oder eine Parallelführung sinnvoll ist, hängt von Ihrem Vertrag im Detail ab – zum Beispiel Garantien, verbleibende Laufzeit und Wechselkosten. Eine pauschale Einschätzung wäre hier unseriös. Es spricht dafür, beide Szenarien gegenüberzustellen.',
+    naechste_schritte:['Standmitteilung und Garantiewerte des bestehenden Vertrags prüfen','Depot-Option 2027 parallel im Blick behalten','Im Deep-Check beide Szenarien evidenzbasiert gegenüberstellen'],
+  };
+
+  if (ampel === 'green') return {
+    action:'solide', icon:'✅',
+    titel:'Keine offensichtlichen Warnsignale erkennbar',
+    kurzinterpretation:'Auf Basis Ihrer Antworten ergeben sich keine direkten Hinweise auf dringenden Handlungsbedarf. Das ist eine gute Ausgangslage – aber keine Garantie, dass alles optimal läuft.',
+    was_bedeutet_das:'Auch bei einem unauffälligen Quick-Check können im Detail Optimierungspotenziale stecken – zum Beispiel bei Fondsstrategie, Kostentransparenz oder der neuen Depotoption ab 2027. Ob das auf Ihren Vertrag zutrifft, lässt sich erst mit der Standmitteilung beurteilen.',
+    naechste_schritte:['Nächste Standmitteilung im Detail lesen','Zulagenquittung beim Anbieter anfordern','Depot-Option ab 2027 als mögliche Ergänzung im Blick behalten'],
   };
 
   return {
     action:'optimieren', icon:'🔧',
-    titel:'Optimierungspotenzial vorhanden',
-    begruendung:'Ihr Vertrag läuft – aber es gibt konkrete Stellschrauben. Ungeklärte Zulagen, nicht optimale Beitragshöhe oder Kostenstruktur kosten Sie bares Geld über die Laufzeit.',
-    risiko:'Mittel', risikoColor:'#eab308',
-    naechste_schritte:['Zulagenstatus bei Anbieter klären','Optimalen Mindestbeitrag berechnen','Kostenquote mit ähnlichen Produkten vergleichen'],
-    empfohlene_entscheidung:'Mindestbeitrag prüfen, Zulagenstatus beim Anbieter klären und Kostenstruktur analysieren lassen.',
-    nichts_machen:'Ungeklärte Zulagen und falsche Beitragshöhe kosten Sie nachweislich Geld. Bei 20 Jahren Restlaufzeit summiert das auf 4.000–8.000 € verschenkte Förderung.',
-    cta_tier:'deep_check'
+    titel:'Prüfung empfohlen – mögliche Stellschrauben erkennbar',
+    kurzinterpretation:'Einige Ihrer Antworten deuten auf Felder hin, die sich lohnen könnten zu überprüfen. Ohne Vertragsdaten lässt sich das nicht präziser eingrenzen. Es spricht dafür, einen genaueren Blick zu werfen.',
+    was_bedeutet_das:'Ob und in welchem Umfang Verbesserungen möglich sind, hängt von Ihrem konkreten Vertrag ab. Der Quick-Check gibt eine Orientierung – mehr nicht. Belastbar entscheiden lässt sich erst mit Ihrer Standmitteilung.',
+    naechste_schritte:['Aktuelle Standmitteilung oder Vertragsunterlagen heraussuchen','Zulagen- und Beitragsstatus beim Anbieter klären','Im Deep-Check alle relevanten Details analysieren lassen'],
   };
 }
 
@@ -286,11 +346,8 @@ function Nav({onStartCheck}) {
   return React.createElement('nav',{style:{position:'fixed',top:0,left:0,right:0,zIndex:100,background:scrolled?'rgba(8,8,8,0.92)':'transparent',backdropFilter:scrolled?'blur(16px)':'none',borderBottom:scrolled?'1px solid rgba(255,255,255,0.06)':'none',transition:'all 0.3s'}},
     React.createElement('div',{style:{maxWidth:1140,margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:64}},
       React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10}},
-        React.createElement(Ic.Fox),
-        React.createElement('div',null,
-          React.createElement('span',{style:{color:'#f0ede8',fontWeight:700,fontSize:16}},'Versicherungsfuchs'),
-          React.createElement('span',{style:{color:'#c25700',fontWeight:600,fontSize:13,marginLeft:8}},'Riester-Check')
-        )
+        React.createElement('img',{src:'data:image/png;base64,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',alt:'Versicherungsfuchs',style:{height:36,width:'auto',objectFit:'contain'}}),
+        React.createElement('span',{style:{color:'#c25700',fontWeight:600,fontSize:13,marginLeft:4}},'Riester-Check')
       ),
       React.createElement('div',{style:{display:'flex',gap:16,alignItems:'center'}},
         React.createElement('a',{href:'#faq',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'FAQ'),
@@ -313,10 +370,10 @@ function Hero({onStartCheck}) {
       React.createElement('span',{style:{color:'#c25700'}},'noch wirklich optimal?')
     ),
     React.createElement('p',{style:{fontSize:'clamp(16px,2vw,19px)',color:'rgba(240,237,232,0.6)',lineHeight:1.65,marginBottom:16,maxWidth:580,margin:'0 auto 16px'}},
-      'Millionen Verträge laufen unter ihrem Potenzial. Ungenutzte Zulagen, falsche Beiträge, veraltete Produkte – das kostet Sie bares Geld. Erkennen Sie es in 3 Minuten.'
+      'Viele Riester-Verträge laufen, ohne dass Inhaber wissen, ob Zulagen vollständig abgerufen werden, ob Kosten stimmen – und was ab 2027 mit dem neuen Altersvorsorgedepot kommt. Orientierung in 3 Minuten.'
     ),
     React.createElement('p',{style:{fontSize:15,color:'rgba(194,87,0,0.8)',fontWeight:600,marginBottom:36}},
-      '⚠ 7 von 10 geprüften Verträgen haben Optimierungspotenzial.'
+      '12 Fragen · Kostenlos · Kein Dokument nötig · Sofortergebnis'
     ),
     React.createElement('div',{style:{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}},
       React.createElement('button',{className:'btn-primary glow-fox-sm',style:{fontSize:17,padding:'16px 36px'},onClick:onStartCheck},'Kostenloser Schnell-Check',React.createElement(Ic.Arrow)),
@@ -351,7 +408,7 @@ function PricingV2({onStartCheck,onDeepCheck,onExpert}) {
     {
       id:'free', label:'Quick Check', badge:'KOSTENLOS', price:'0 €', sub:'Sofortergebnis · Keine Anmeldung',
       featured:false,
-      features:['10 gezielte Fragen','Ampel-Einschätzung (Grün/Gelb/Rot)','Handlungsempfehlung (regelbasiert)','Keine Dokumente nötig'],
+      features:['12 gezielte Fragen','Ampel-Einschätzung (Grün/Gelb/Rot)','3 Scores: Förderrisiko, Kostenrisiko, Depot-Eignung','Keine Dokumente nötig'],
       cta:'Jetzt kostenlos starten', ctaFn:onStartCheck,
       note:''
     },
@@ -408,7 +465,7 @@ function PricingV2({onStartCheck,onDeepCheck,onExpert}) {
 // ─── WIE ES FUNKTIONIERT ──────────────────────────────────────────────────────
 function WieFunktioniert({onStartCheck}) {
   const steps=[
-    {n:'01',title:'Schnell-Check (kostenlos)',desc:'10 Fragen, kein Dokument. Sie erhalten sofort eine Ersteinschätzung und klare Handlungsempfehlung.',icon:'⚡',color:'rgba(194,87,0,0.15)'},
+    {n:'01',title:'Schnell-Check (kostenlos)',desc:'12 Fragen, kein Dokument. Sie erhalten sofort eine Orientierung mit 3 Scores und Hinweisen auf mögliche Handlungsfelder.',icon:'⚡',color:'rgba(194,87,0,0.15)'},
     {n:'02',title:'Deep Check für 19 €',desc:'Standmitteilung hochladen. KI analysiert alle Details und liefert einen vollständigen Bericht in 24h.',icon:'🔎',color:'rgba(59,130,246,0.12)'},
     {n:'03',title:'Expert-Verified für 39 €',desc:'Zusätzlich prüft ein qualifizierter Berater Ihren Fall manuell. Höchste Sicherheit, klares „Von Experten geprüft"-Siegel.',icon:'✅',color:'rgba(34,197,94,0.12)'},
   ];
@@ -605,9 +662,9 @@ function PreLeadGate({answers,onUnlock}) {
   },[score]);
 
   const cfg={
-    green:{color:'#22c55e',bg:'rgba(34,197,94,0.08)',border:'rgba(34,197,94,0.25)',label:'Gute Ausgangslage',headline:'Ihr Vertrag hat Potenzial – aber haben Sie alles ausgeschöpft?',sub:'73 % unserer Nutzer mit „grünem" Ergebnis finden bei der Detailanalyse noch Optimierungspotenzial.'},
-    yellow:{color:'#eab308',bg:'rgba(234,179,8,0.08)',border:'rgba(234,179,8,0.25)',label:'Optimierungspotenzial erkannt',headline:'Ihr Vertrag läuft – aber er könnte deutlich mehr für Sie arbeiten.',sub:'Ungenutzte Zulagen, falsche Beitragshöhe oder versteckte Kosten kosten Sie über die Laufzeit Tausende Euro.'},
-    red:{color:'#ef4444',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.25)',label:'Handlungsbedarf erkannt',headline:'Ihr Vertrag könnte kritisch sein.',sub:'Mehrere Faktoren deuten auf erhebliche Schwächen hin. Jedes Jahr ohne Anpassung kostet Sie nachweislich Förderung und Rendite.'},
+    green:{color:'#22c55e',bg:'rgba(34,197,94,0.08)',border:'rgba(34,197,94,0.25)',label:'Keine offensichtlichen Warnsignale',headline:'Gute Ausgangslage – aber steckt noch Potenzial drin?',sub:'Auch bei grünem Ergebnis können sich im Detail Stellschrauben ergeben. Das vollständige Bild zeigt erst die Auswertung mit Ihren Unterlagen.'},
+    yellow:{color:'#eab308',bg:'rgba(234,179,8,0.08)',border:'rgba(234,179,8,0.25)',label:'Prüfung empfohlen',headline:'Hinweise auf mögliche Optimierungsfelder erkannt.',sub:'Einige Ihrer Antworten deuten auf Bereiche hin, die sich lohnen könnten zu klären. Belastbare Aussagen sind erst mit Ihrem Vertragsdokument möglich.'},
+    red:{color:'#ef4444',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.25)',label:'Klärungsbedarf erkannt',headline:'Mehrere Hinweise auf mögliche Risiken oder Förderlücken.',sub:'Ihre Antworten deuten auf Felder hin, die dringend geprüft werden sollten. Ob und was tatsächlich betroffen ist, lässt sich erst mit Ihren Vertragsunterlagen sagen.'},
   }[ampel];
 
   return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
@@ -709,105 +766,107 @@ function LeadCapture({onSubmit,answers}) {
   );
 }
 
-// ─── ERGEBNIS + HANDLUNGSEMPFEHLUNG ───────────────────────────────────────────
+// ─── ERGEBNIS (4-Block-Struktur) ──────────────────────────────────────────────
 function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
   const ampel=berechneAmpel(answers);
-  const score=berechneScore(answers);
+  const scores=berechneScores(answers);
   const empfehlung=getHandlungsempfehlung(answers,ampel);
-  const [scoreAnim,setScoreAnim]=useState(0);
 
   useEffect(()=>{
-    emitEvent('result_viewed',{email:lead.email,ampel,score,empfehlung:empfehlung.action});
-    const t=setTimeout(()=>setScoreAnim(score),400);
-    return()=>clearTimeout(t);
+    emitEvent('result_viewed',{email:lead.email,ampel,s1:scores.s1,s2:scores.s2,s3:scores.s3,empfehlung:empfehlung.action});
   },[]);
 
   const ampelCfg={
-    green:{color:'#22c55e',label:'Gute Ausgangslage',text:'Ihr Vertrag hat eine solide Basis.'},
-    yellow:{color:'#eab308',label:'Optimierungspotenzial',text:'Konkrete Stellschrauben vorhanden.'},
-    red:{color:'#ef4444',label:'Handlungsbedarf',text:'Mehrere kritische Faktoren erkannt.'},
+    green:{color:'#22c55e',label:'Keine offensichtlichen Warnsignale',desc:'Auf Basis Ihrer Antworten ergeben sich keine direkten Hinweise auf dringenden Handlungsbedarf.'},
+    yellow:{color:'#eab308',label:'Prüfung empfohlen',desc:'Einige Ihrer Antworten deuten auf Felder hin, die sich lohnen könnten zu klären oder zu optimieren.'},
+    red:{color:'#ef4444',label:'Klärungsbedarf erkannt',desc:'Mehrere Ihrer Antworten zeigen Hinweise auf mögliche Förderlücken oder Vertragsrisiken. Ob und was tatsächlich betroffen ist, lässt sich erst mit Ihren Unterlagen belastbar sagen.'},
   }[ampel];
 
-  const recClass={behalten_optimieren:'rec-behalten',optimieren:'rec-optimieren',beitragsfrei:'rec-beitragsfrei',wechsel_pruefen:'rec-wechsel'}[empfehlung.action];
-
   const checkItems=[
-    {label:'Vertragsbeginn',val:{vor2005:'Vor 2005',  '2005_2010':'2005–2010','2010_2015':'2010–2015',nach2015:'Ab 2015'}[answers.vertragsbeginn]},
-    {label:'Monatsbeitrag',val:{'0_25':'<25 €','25_100':'25–100 €','100_200':'100–200 €','200plus':'>200 €'}[answers.beitrag]},
-    {label:'Kinder',val:{0:'Keine',1:'1 Kind','2plus':'2+'}[answers.kinder]},
-    {label:'Zulagen',val:{ja:'✓ Genutzt','nein_unklar':'⚠ Unklar'}[answers.zulagen]},
-    {label:'Vertragsstatus',val:{aktiv:'Aktiv',ruhend:'⚠ Ruhend'}[answers.vertrag_status]},
-    {label:'Garantiewunsch',val:{wichtig:'Hoch',egal:'Niedrig'}[answers.garantiewunsch]},
+    {label:'Vertragstyp',val:{klassisch:'Klassisch',fondsgebunden:'Fondsgebunden',banksparplan:'Bank-/Bauspar',wohn_riester:'Wohn-Riester',unbekannt:'Unbekannt'}[answers.vertragstyp]||'–'},
+    {label:'Abschlussjahr',val:{vor2005:'Vor 2005','2005_2012':'2005–2012','2013_2017':'2013–2017',ab2018:'Ab 2018',unbekannt:'Unbekannt'}[answers.abschlussjahr]||'–'},
+    {label:'Status',val:{aktiv:'Aktiv',beitragsfrei:'Beitragsfrei',pausiert:'Pausiert',gekuendigt:'Gekündigt',unbekannt:'Unbekannt'}[answers.vertrag_status]||'–'},
+    {label:'Monatsbeitrag',val:{unter50:'< 50 €','50_100':'50–100 €','100_200':'100–200 €',ueber200:'> 200 €',unbekannt:'Unbekannt'}[answers.beitrag]||'–'},
+    {label:'Zulagen',val:{automatisch:'Automatisch',selbst:'Selbst',unbekannt:'Unklar'}[answers.zulagen]||'–'},
+    {label:'Zielbild',val:{behalten:'Behalten',wechsel_pruefen:'Wechsel prüfen',erst_pruefen:'Erst prüfen',unbekannt:'Noch offen'}[answers.zielbild]||'–'},
   ];
+
+  const scoreBarColor=(val,invert)=>invert?(val>=60?'#ef4444':val>=30?'#eab308':'#22c55e'):(val>=60?'#22c55e':val>=30?'#eab308':'#ef4444');
 
   return React.createElement('div',{style:{minHeight:'100vh',padding:'80px 24px 60px',maxWidth:660,margin:'0 auto'},className:'fade-up'},
 
-    // ── Ampel + Score
+    // ── BLOCK 1: Ampel + Kurzinterpretation + Score-Bars
     React.createElement('div',{style:{borderRadius:20,padding:'32px',marginBottom:20,border:`1.5px solid ${ampelCfg.color}28`,background:`${ampelCfg.color}08`,textAlign:'center'}},
       React.createElement('div',{style:{display:'flex',justifyContent:'center',gap:10,marginBottom:16}},
         ['green','yellow','red'].map(c=>
           React.createElement('div',{key:c,style:{width:28,height:28,borderRadius:'50%',background:{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c],opacity:ampel===c?1:0.18,boxShadow:ampel===c?`0 0 14px ${{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c]}`:'none'}})
         )
       ),
-      React.createElement('div',{style:{fontWeight:700,color:ampelCfg.color,fontSize:13,marginBottom:6}},ampelCfg.label),
-      React.createElement('div',{style:{fontSize:'clamp(18px,2.5vw,22px)',fontWeight:800,marginBottom:20}},ampelCfg.text),
-      React.createElement('div',{style:{maxWidth:360,margin:'0 auto'}},
-        React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:6}},
-          React.createElement('span',{style:{fontSize:12,color:'rgba(240,237,232,0.4)'}},'Ihr Vertrags-Score'),
-          React.createElement('span',{style:{fontSize:14,fontWeight:700,color:ampelCfg.color}},`${score} / 100`)
-        ),
-        React.createElement('div',{className:'score-bar-outer'},
-          React.createElement('div',{className:'score-bar-inner',style:{width:`${scoreAnim}%`,background:ampelCfg.color,transition:'width 1.2s cubic-bezier(.25,.8,.25,1)'}})
-        )
-      )
-    ),
-
-    // ── Handlungsempfehlung
-    React.createElement('div',{className:`rec-card ${recClass}`,style:{marginBottom:20}},
-      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:12}},
-        React.createElement('span',{style:{fontSize:24}}),empfehlung.icon,
-        React.createElement('h3',{style:{fontWeight:800,fontSize:18}}),empfehlung.titel
-      ),
-      React.createElement('p',{style:{color:'rgba(240,237,232,0.7)',fontSize:14,lineHeight:1.65,marginBottom:16}},empfehlung.begruendung),
-      React.createElement('div',{style:{display:'flex',gap:8,alignItems:'center',marginBottom:14}},
-        React.createElement('span',{style:{fontSize:12,color:'rgba(240,237,232,0.45)'}},'Risiko:'),
-        React.createElement('span',{style:{fontWeight:600,fontSize:13,color:empfehlung.risikoColor}},empfehlung.risiko)
-      ),
-      React.createElement('div',null,
-        React.createElement('div',{style:{fontSize:12,color:'rgba(240,237,232,0.45)',marginBottom:8,fontWeight:600,textTransform:'uppercase',letterSpacing:'0.05em'}},'Nächste Schritte'),
-        empfehlung.naechste_schritte.map((s,i)=>
-          React.createElement('div',{key:i,style:{display:'flex',gap:10,marginBottom:8}},
-            React.createElement('div',{style:{width:22,height:22,borderRadius:'50%',background:'rgba(194,87,0,0.18)',color:'#c25700',fontSize:11,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},i+1),
-            React.createElement('span',{style:{fontSize:14,color:'rgba(240,237,232,0.75)',lineHeight:1.45}},s)
+      React.createElement('div',{style:{fontWeight:700,color:ampelCfg.color,fontSize:13,marginBottom:8,textTransform:'uppercase',letterSpacing:'0.07em'}},ampelCfg.label),
+      React.createElement('p',{style:{fontSize:'clamp(14px,2vw,15px)',color:'rgba(240,237,232,0.7)',lineHeight:1.65,maxWidth:440,margin:'0 auto 24px'}},ampelCfg.desc),
+      React.createElement('div',{style:{maxWidth:380,margin:'0 auto',textAlign:'left'}},
+        [
+          {label:'Förder-/Zulagen-Risiko',val:scores.s1,invert:true},
+          {label:'Vertrags-/Kosten-Risiko',val:scores.s2,invert:true},
+          {label:'Depot-Wechsel-Eignung 2027',val:scores.s3,invert:false},
+        ].map(({label,val,invert})=>
+          React.createElement('div',{key:label,style:{marginBottom:12}},
+            React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:4}},
+              React.createElement('span',{style:{fontSize:11,color:'rgba(240,237,232,0.45)'}},label),
+              React.createElement('span',{style:{fontSize:11,fontWeight:700,color:scoreBarColor(val,invert)}},String(val)+' / 100')
+            ),
+            React.createElement('div',{className:'score-bar-outer'},
+              React.createElement('div',{className:'score-bar-inner',style:{width:`${val}%`,background:scoreBarColor(val,invert)}})
+            )
           )
         )
       )
     ),
 
-    // ── Empfohlene Entscheidung
-    React.createElement('div',{style:{borderRadius:14,padding:'18px 22px',marginBottom:12,background:'rgba(194,87,0,0.07)',border:'1.5px solid rgba(194,87,0,0.22)',borderLeft:'3px solid #c25700'}},
-      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
-        React.createElement('span',{style:{fontSize:15}},'🎯'),
-        React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#c25700',textTransform:'uppercase',letterSpacing:'0.08em'}},'Empfohlene Entscheidung')
+    // ── BLOCK 2: Was bedeutet das?
+    React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'22px 24px',marginBottom:12}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:12}},
+        React.createElement('span',{style:{fontSize:20}},empfehlung.icon),
+        React.createElement('h3',{style:{fontWeight:700,fontSize:16,margin:0}},empfehlung.titel)
       ),
-      React.createElement('p',{style:{color:'rgba(240,237,232,0.9)',fontSize:15,fontWeight:600,lineHeight:1.5,margin:0}},empfehlung.empfohlene_entscheidung)
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.7)',fontSize:14,lineHeight:1.7,marginBottom:14}},empfehlung.kurzinterpretation),
+      React.createElement('div',{style:{borderTop:'1px solid rgba(255,255,255,0.06)',paddingTop:14}},
+        React.createElement('div',{style:{fontSize:11,color:'rgba(240,237,232,0.35)',textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:8,fontWeight:600}},'Was bedeutet das konkret?'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.65)',fontSize:14,lineHeight:1.65,margin:0}},empfehlung.was_bedeutet_das)
+      )
     ),
 
-    // ── Was passiert, wenn du nichts machst
-    React.createElement('div',{style:{borderRadius:14,padding:'18px 22px',marginBottom:20,background:'rgba(239,68,68,0.05)',border:'1.5px solid rgba(239,68,68,0.18)'}},
-      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
-        React.createElement('span',{style:{fontSize:15}},'⏰'),
-        React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#ef4444',textTransform:'uppercase',letterSpacing:'0.08em'}},'Was passiert, wenn du nichts machst')
-      ),
-      React.createElement('p',{style:{color:'rgba(240,237,232,0.65)',fontSize:14,lineHeight:1.65,margin:0}},empfehlung.nichts_machen)
+    // Nächste Schritte
+    React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px 24px',marginBottom:20}},
+      React.createElement('div',{style:{fontSize:11,color:'rgba(240,237,232,0.35)',textTransform:'uppercase',letterSpacing:'0.07em',marginBottom:12,fontWeight:600}},'Mögliche nächste Schritte'),
+      empfehlung.naechste_schritte.map((s,i)=>
+        React.createElement('div',{key:i,style:{display:'flex',gap:10,marginBottom:i<empfehlung.naechste_schritte.length-1?10:0}},
+          React.createElement('div',{style:{width:22,height:22,borderRadius:'50%',background:'rgba(194,87,0,0.18)',color:'#c25700',fontSize:11,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},i+1),
+          React.createElement('span',{style:{fontSize:14,color:'rgba(240,237,232,0.75)',lineHeight:1.5}},s)
+        )
+      )
     ),
 
-    // ── App CTA – myinsure.de
+    // ── BLOCK 3: Belastbare Einschätzung = Deep-Check
+    React.createElement('div',{style:{borderRadius:14,padding:'18px 22px',marginBottom:20,background:'rgba(194,87,0,0.07)',border:'1.5px solid rgba(194,87,0,0.22)',borderLeft:'3px solid #c25700'}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+        React.createElement('span',{style:{fontSize:15}},'🔬'),
+        React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#c25700',textTransform:'uppercase',letterSpacing:'0.08em'}},'Belastbare Einschätzung')
+      ),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.8)',fontSize:14,lineHeight:1.65,margin:0}},
+        'Der Quick-Check zeigt Hinweise – keine Gewissheiten. Belastbar prüfen lässt sich Ihr Vertrag erst im Deep-Check mit Ihrer Standmitteilung oder Ihrem Vertragsdokument. Erst dann sind Aussagen wie „lohnt sich / Wechsel sinnvoll" seriös möglich.'
+      )
+    ),
+
+    // ── BLOCK 4: CTAs
+
+    // CTA A: Kunde werden
     React.createElement('a',{
       href:APP_LOGIN_URL,target:'_blank',rel:'noopener noreferrer',
-      style:{display:'block',marginBottom:20,textDecoration:'none'},
-      onClick:()=>emitEvent('app_cta_clicked',{source:'result_page',ampel,score})
+      style:{display:'block',marginBottom:12,textDecoration:'none'},
+      onClick:()=>emitEvent('app_cta_clicked',{source:'result_page',ampel})
     },
-      React.createElement('div',{style:{borderRadius:14,padding:'20px 24px',background:'linear-gradient(135deg,rgba(194,87,0,0.14),rgba(127,46,0,0.09))',border:'1.5px solid rgba(194,87,0,0.38)',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,cursor:'pointer',transition:'all 0.2s'}},
+      React.createElement('div',{style:{borderRadius:14,padding:'20px 24px',background:'linear-gradient(135deg,rgba(194,87,0,0.14),rgba(127,46,0,0.09))',border:'1.5px solid rgba(194,87,0,0.38)',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,cursor:'pointer'}},
         React.createElement('div',null,
           React.createElement('div',{style:{fontWeight:800,fontSize:16,marginBottom:3,color:'#f0ede8'}},'Jetzt Kunde werden & Zugang sichern'),
           React.createElement('div',{style:{color:'rgba(240,237,232,0.45)',fontSize:13}},'myinsure.de · Ihr persönlicher Versicherungsbereich')
@@ -818,25 +877,12 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
       )
     ),
 
-    // ── Ihre Angaben
-    React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px 22px',marginBottom:20}},
-      React.createElement('h3',{style:{fontWeight:600,fontSize:13,marginBottom:14,color:'rgba(240,237,232,0.45)',textTransform:'uppercase',letterSpacing:'0.07em'}},'Ihre Angaben'),
-      React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:10}},
-        checkItems.map(d=>
-          React.createElement('div',{key:d.label,style:{padding:'10px 12px',background:'rgba(255,255,255,0.03)',borderRadius:8}},
-            React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:11,marginBottom:3}},d.label),
-            React.createElement('div',{style:{fontWeight:600,fontSize:13}},d.val)
-          )
-        )
-      )
-    ),
-
-    // ── Upgrade CTAs
-    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}},
+    // CTA B: Deep-Check / Expert-Check
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:12}},
       React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px'}},
         React.createElement('div',{className:'badge badge-fox',style:{marginBottom:10}},'DEEP CHECK'),
         React.createElement('div',{style:{fontWeight:800,fontSize:20,marginBottom:4}},'19 €'),
-        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'KI-Analyse Ihrer Standmitteilung. Vollständiger Bericht in 24h.'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'KI-Analyse Ihrer Standmitteilung. Strukturierter Bericht in 24h. Erstattung bei Wechsel.'),
         React.createElement('button',{className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:14,padding:'12px'},onClick:()=>{emitEvent('upgrade_clicked',{tier:'deep_check'});onDeepCheck();}},
           React.createElement(Ic.Upload),'Deep Check'
         )
@@ -844,20 +890,20 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
       React.createElement('div',{style:{borderRadius:14,padding:'20px',border:'1.5px solid rgba(198,171,127,0.25)',background:'rgba(198,171,127,0.04)'}},
         React.createElement('div',{className:'badge badge-gold',style:{marginBottom:10}},'EXPERT-VERIFIED'),
         React.createElement('div',{style:{fontWeight:800,fontSize:20,marginBottom:4}},'39 €'),
-        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'+ Manuelle Experten-Prüfung. Siegel: „Von Experten geprüft".'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'+ Manuelle Experten-Prüfung. „Von Experten geprüft"-Siegel.'),
         React.createElement('button',{className:'btn-ghost',style:{width:'100%',justifyContent:'center',fontSize:14,padding:'12px',display:'flex',alignItems:'center',gap:6},onClick:()=>{emitEvent('upgrade_clicked',{tier:'expert'});onExpert();}},
           '✓ Expert-Check'
         )
       )
     ),
 
-    // ── Expert CTA / Zweitmeinung
+    // CTA C: Zweitmeinung (conditional)
     React.createElement('div',{className:'expert-cta',style:{borderRadius:16,padding:'24px',marginBottom:16}},
       React.createElement('div',{style:{display:'flex',gap:14,alignItems:'flex-start'}},
         React.createElement('div',{style:{width:44,height:44,borderRadius:12,background:'rgba(194,87,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,flexShrink:0}},'🎯'),
         React.createElement('div',null,
-          React.createElement('div',{style:{fontWeight:700,fontSize:16,marginBottom:5}},'Kostenlose Zweitmeinung mit einem Experten'),
-          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.55,marginBottom:14}},'Besprechen Sie Ihr Ergebnis 15 Minuten kostenlos mit einem Fachmann. Kein Verkaufsgespräch – nur Klarheit.'),
+          React.createElement('div',{style:{fontWeight:700,fontSize:16,marginBottom:5}},'Kostenlose Zweitmeinung buchen'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.55,marginBottom:14}},'15 Minuten. Kein Verkaufsgespräch – nur Klarheit über Ihre Situation und mögliche nächste Schritte.'),
           BOOKING_URL
             ? React.createElement('a',{href:BOOKING_URL,target:'_blank',rel:'noopener noreferrer',style:{textDecoration:'none'}},
                 React.createElement('button',{className:'btn-secondary',style:{fontSize:14,display:'inline-flex',alignItems:'center',gap:7},onClick:()=>emitEvent('booking_clicked',{source:'result_page'})},
@@ -870,7 +916,20 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
                 ),
                 React.createElement('p',{style:{color:'rgba(240,237,232,0.3)',fontSize:12,marginTop:6,marginBottom:0}},'⚙ Kalender wird noch eingerichtet')
               ),
-          React.createElement('p',{style:{color:'rgba(240,237,232,0.25)',fontSize:11,marginTop:8}},'Kein Beratungsvertrag. Keine automatische Buchung. Nur ein kurzes Gespräch.')
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.25)',fontSize:11,marginTop:8}},'Kein Beratungsvertrag. Keine automatische Buchung.')
+        )
+      )
+    ),
+
+    // Ihre Angaben
+    React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px 22px',marginBottom:16}},
+      React.createElement('h3',{style:{fontWeight:600,fontSize:13,marginBottom:14,color:'rgba(240,237,232,0.45)',textTransform:'uppercase',letterSpacing:'0.07em'}},'Ihre Angaben'),
+      React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:10}},
+        checkItems.map(d=>
+          React.createElement('div',{key:d.label,style:{padding:'10px 12px',background:'rgba(255,255,255,0.03)',borderRadius:8}},
+            React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:11,marginBottom:3}},d.label),
+            React.createElement('div',{style:{fontWeight:600,fontSize:13}},d.val)
+          )
         )
       )
     ),
