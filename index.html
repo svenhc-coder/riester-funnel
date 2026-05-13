@@ -276,55 +276,55 @@ function berechneScore(a) {
   return Math.round(100 - (s1 * 0.5 + s2 * 0.5));
 }
 
-// ─── HANDLUNGSEMPFEHLUNG (Indizien, keine Gewissheiten) ───────────────────────
+// ─── HANDLUNGSEMPFEHLUNG (Hinweise, keine Gewissheiten) ──────────────────────
 function getHandlungsempfehlung(a, ampel) {
   const { s1, s2, s3 } = berechneScores(a);
 
   if (a.vertrag_status === 'gekuendigt') return {
     action:'bereits_beendet', icon:'ℹ️',
-    titel:'Vertrag offenbar bereits beendet',
-    kurzinterpretation:'Auf Basis Ihrer Angaben scheint der Vertrag nicht mehr aktiv zu sein. Das schränkt sinnvolle nächste Schritte ein – ob noch Handlungsbedarf besteht, lässt sich erst mit den Unterlagen klären.',
-    was_bedeutet_das:'Es könnte Restwerte oder noch nicht abgerufene Guthaben geben. Was konkret möglich ist, lässt sich erst mit dem Vertragsdokument oder einer Bestätigung des Anbieters beurteilen.',
-    naechste_schritte:['Letzte Standmitteilung oder Kündigungsbestätigung heraussuchen','Mögliche Restwerte beim Anbieter schriftlich anfragen','Im Deep-Check prüfen, ob noch Handlungsbedarf besteht'],
+    titel:'Vertrag scheint nicht mehr aktiv zu sein',
+    kurzinterpretation:'Auf Basis Ihrer Angaben scheint der Vertrag nicht mehr aktiv zu sein. Ob noch Handlungsbedarf besteht, lässt sich erst mit den Unterlagen klären.',
+    was_bedeutet_das:'Es könnten noch nicht abgerufene Restwerte oder offene Fragen bestehen. Belastbare Aussagen sind nur mit dem tatsächlichen Vertragsdokument möglich. Auch ein beendeter Vertrag sollte formal korrekt dokumentiert sein.',
+    naechste_schritte:['Letzte Standmitteilung oder Bestätigung beim Anbieter anfordern','Prüfen, ob Restwerte noch vorhanden sind','Im Deep-Check klären, ob weitere Schritte sinnvoll sind'],
   };
 
   if (s1 >= 55) return {
     action:'foerder_risiko', icon:'⚠️',
-    titel:'Hinweise auf möglicherweise ungenutztes Förderpotenzial',
-    kurzinterpretation:'Ihre Antworten deuten darauf hin, dass staatliche Förderungen möglicherweise nicht vollständig abgerufen werden. Das ist ein häufiges Muster – und lässt sich oft gezielt verbessern. Ob das auf Ihren Vertrag zutrifft, lässt sich erst mit Ihren Unterlagen belastbar sagen.',
-    was_bedeutet_das:'Zulagen müssen aktiv beantragt werden und können unter Umständen rückwirkend nachgeholt werden. Ob eine Lücke besteht und wie groß sie ist, zeigt erst eine Prüfung der tatsächlichen Zulagenhistorie – zum Beispiel beim Anbieter oder im Deep-Check.',
-    naechste_schritte:['Zulagen-Status schriftlich beim Anbieter anfragen','Anlage AV in der nächsten Steuererklärung nicht vergessen','Im Deep-Check prüfen, ob und was optimiert werden kann'],
+    titel:'Hinweise auf möglicherweise ungenutzte Förderung',
+    kurzinterpretation:'Ihre Antworten deuten darauf hin, dass staatliche Förderungen möglicherweise nicht vollständig abgerufen werden. Das ist ein häufiges Muster und lässt sich oft verbessern – ob das bei Ihnen zutrifft, zeigen erst Ihre Unterlagen.',
+    was_bedeutet_das:'Zulagen müssen aktiv beantragt werden und können teils rückwirkend nachgeholt werden. Wie groß eine mögliche Lücke ist, zeigt erst eine Prüfung der tatsächlichen Zulagenhistorie. Bestehende Verträge haben Bestandsschutz – es gibt keinen Grund für hektische Schritte.',
+    naechste_schritte:['Zulagen-Status schriftlich beim Anbieter anfragen','Anlage AV bei der nächsten Steuererklärung sorgfältig ausfüllen','Im Deep-Check prüfen, ob Optimierungspotenzial besteht'],
   };
 
   if (s2 >= 55) return {
     action:'kosten_risiko', icon:'🔍',
-    titel:'Hinweise auf mögliche Kosten- oder Vertragsrisiken',
-    kurzinterpretation:'Einige Ihrer Angaben – insbesondere zu Kosten und Vertragsstatus – deuten auf mögliche Stellschrauben hin. Das muss nicht zwingend negativ sein, sollte aber geprüft werden. Belastbare Aussagen sind erst mit Ihren Vertragsdaten möglich.',
-    was_bedeutet_das:'Ob und wie stark Kosten die Entwicklung Ihres Vertrags beeinflussen, lässt sich erst mit den tatsächlichen Vertragsdaten beurteilen. Effektivkostenquoten stehen in der Regel auf der Standmitteilung.',
-    naechste_schritte:['Aktuelle Standmitteilung heraussuchen','Effektivkostenquote im Vertrag oder der Standmitteilung suchen','Im Deep-Check Kosten- und Vertragsstruktur analysieren lassen'],
+    titel:'Hinweise auf mögliche Kosten- oder Strukturthemen',
+    kurzinterpretation:'Einige Ihrer Angaben – insbesondere zu Kosten und Vertragsstatus – deuten auf mögliche Stellschrauben hin. Das muss nicht negativ sein, sollte aber geprüft werden.',
+    was_bedeutet_das:'Ob und wie stark Kosten die Entwicklung Ihres Vertrags beeinflussen, lässt sich erst mit den tatsächlichen Vertragsdaten beurteilen. Effektivkostenquoten stehen in der Regel auf der Standmitteilung. Altverträge können Besonderheiten haben, die erhalten werden sollten.',
+    naechste_schritte:['Aktuelle Standmitteilung heraussuchen','Effektivkostenquote und Vertragsstruktur darin identifizieren','Im Deep-Check Kosten- und Strukturanalyse durchführen lassen'],
   };
 
   if (s3 >= 65 && ampel !== 'green') return {
     action:'depot_pruefen', icon:'🔄',
-    titel:'Altersvorsorgedepot ab 2027 könnte eine Option sein',
-    kurzinterpretation:'Basierend auf Ihren Angaben spricht einiges dafür, die neue Depotoption ab 2027 in die Überlegungen einzubeziehen. Das bedeutet nicht automatisch, dass der bestehende Vertrag schlechter ist – ein Vergleich lohnt sich.',
-    was_bedeutet_das:'Ob ein Wechsel oder eine Parallelführung sinnvoll ist, hängt von Ihrem Vertrag im Detail ab – zum Beispiel Garantien, verbleibende Laufzeit und Wechselkosten. Eine pauschale Einschätzung wäre hier unseriös. Es spricht dafür, beide Szenarien gegenüberzustellen.',
-    naechste_schritte:['Standmitteilung und Garantiewerte des bestehenden Vertrags prüfen','Depot-Option 2027 parallel im Blick behalten','Im Deep-Check beide Szenarien evidenzbasiert gegenüberstellen'],
+    titel:'Altersvorsorgedepot ab 2027 als Option prüfen',
+    kurzinterpretation:'Basierend auf Ihren Angaben spricht einiges dafür, die neue Depotoption ab 2027 in die Überlegungen einzubeziehen. Das bedeutet nicht, dass der bestehende Vertrag schlechter ist – ein datenbasierter Vergleich ist der richtige Schritt.',
+    was_bedeutet_das:'Ob ein Wechsel oder eine Parallelführung sinnvoll ist, hängt von Ihrem Vertrag im Detail ab – Garantien, verbleibende Laufzeit und Wechselkosten spielen eine Rolle. Ein Wechsel ist ab 2027 freiwillig möglich; Bestandsschutz für bestehende Verträge bleibt bestehen.',
+    naechste_schritte:['Standmitteilung und Garantiewerte des bestehenden Vertrags heraussuchen','Depot-Option 2027 als Ergänzung oder Alternative im Blick behalten','Im Strategischen Deep-Check beide Szenarien evidenzbasiert gegenüberstellen'],
   };
 
   if (ampel === 'green') return {
     action:'solide', icon:'✅',
     titel:'Keine offensichtlichen Warnsignale erkennbar',
-    kurzinterpretation:'Auf Basis Ihrer Antworten ergeben sich keine direkten Hinweise auf dringenden Handlungsbedarf. Das ist eine gute Ausgangslage – aber keine Garantie, dass alles optimal läuft.',
-    was_bedeutet_das:'Auch bei einem unauffälligen Quick-Check können im Detail Optimierungspotenziale stecken – zum Beispiel bei Fondsstrategie, Kostentransparenz oder der neuen Depotoption ab 2027. Ob das auf Ihren Vertrag zutrifft, lässt sich erst mit der Standmitteilung beurteilen.',
-    naechste_schritte:['Nächste Standmitteilung im Detail lesen','Zulagenquittung beim Anbieter anfordern','Depot-Option ab 2027 als mögliche Ergänzung im Blick behalten'],
+    kurzinterpretation:'Auf Basis Ihrer Antworten ergeben sich keine direkten Hinweise auf dringenden Handlungsbedarf. Das ist eine gute Ausgangslage – aber kein abschließendes Urteil.',
+    was_bedeutet_das:'Auch bei einem unauffälligen Quick-Check können im Detail Optimierungspotenziale stecken – etwa bei Kostentransparenz, Zulagenhistorie oder der neuen Depotoption ab 2027. Bestehende Verträge haben Bestandsschutz; es gibt keinen Grund für hektische Schritte.',
+    naechste_schritte:['Nächste Standmitteilung sorgfältig lesen','Zulagenquittung beim Anbieter anfordern','Optional: Depot-Option ab 2027 als mögliche Ergänzung klären lassen'],
   };
 
   return {
     action:'optimieren', icon:'🔧',
     titel:'Prüfung empfohlen – mögliche Stellschrauben erkennbar',
-    kurzinterpretation:'Einige Ihrer Antworten deuten auf Felder hin, die sich lohnen könnten zu überprüfen. Ohne Vertragsdaten lässt sich das nicht präziser eingrenzen. Es spricht dafür, einen genaueren Blick zu werfen.',
-    was_bedeutet_das:'Ob und in welchem Umfang Verbesserungen möglich sind, hängt von Ihrem konkreten Vertrag ab. Der Quick-Check gibt eine Orientierung – mehr nicht. Belastbar entscheiden lässt sich erst mit Ihrer Standmitteilung.',
+    kurzinterpretation:'Einige Ihrer Antworten deuten auf Felder hin, die sich lohnen könnten zu überprüfen. Ohne Vertragsdaten lässt sich das nicht präziser eingrenzen.',
+    was_bedeutet_das:'Ob und in welchem Umfang Verbesserungen möglich sind, hängt von Ihrem konkreten Vertrag ab. Der Quick-Check gibt eine Orientierung – mehr nicht. Belastbar entscheiden lässt sich erst mit Ihrer Standmitteilung. Bestehende Verträge haben Bestandsschutz – keine Hektik.',
     naechste_schritte:['Aktuelle Standmitteilung oder Vertragsunterlagen heraussuchen','Zulagen- und Beitragsstatus beim Anbieter klären','Im Deep-Check alle relevanten Details analysieren lassen'],
   };
 }
@@ -350,7 +350,7 @@ function Nav({onStartCheck}) {
         React.createElement('span',{style:{color:'#c25700',fontWeight:600,fontSize:13,marginLeft:4}},'Riester-Check')
       ),
       React.createElement('div',{style:{display:'flex',gap:16,alignItems:'center'}},
-        React.createElement('a',{href:'#faq',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'FAQ'),
+        React.createElement('a',{href:'#depot-info',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'Reform 2027'),
         React.createElement('a',{href:'#pricing',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'Preise'),
         React.createElement('button',{className:'btn-primary',style:{padding:'9px 22px',fontSize:14},onClick:onStartCheck},'Jetzt prüfen')
       )
@@ -363,24 +363,23 @@ function Hero({onStartCheck}) {
   return React.createElement('section',{style:{paddingTop:140,paddingBottom:60,textAlign:'center',maxWidth:800,margin:'0 auto',padding:'140px 24px 60px'}},
     React.createElement('div',{style:{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(194,87,0,0.1)',border:'1px solid rgba(194,87,0,0.25)',borderRadius:100,padding:'6px 16px',marginBottom:28}},
       React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:'#22c55e',boxShadow:'0 0 8px #22c55e',display:'inline-block'}}),
-      React.createElement('span',{style:{color:'#c6ab7f',fontSize:13,fontWeight:500}},'Riester-Check 2026/2027 · Kostenlos starten')
+      React.createElement('span',{style:{color:'#c6ab7f',fontSize:13,fontWeight:500}},'Riester-Check 2026/2027 · Kostenlos · Bestandsschutz beachten')
     ),
     React.createElement('h1',{style:{fontSize:'clamp(34px,5vw,58px)',fontWeight:800,lineHeight:1.1,marginBottom:20,letterSpacing:'-0.02em'}},
-      'Ist Ihr Riester-Vertrag',React.createElement('br'),
-      React.createElement('span',{style:{color:'#c25700'}},'noch wirklich optimal?')
+      React.createElement('span',{style:{color:'#c25700'}},'Riester-Check 2026/2027:'),React.createElement('br'),' Erst einordnen. Dann richtig entscheiden.'
     ),
     React.createElement('p',{style:{fontSize:'clamp(16px,2vw,19px)',color:'rgba(240,237,232,0.6)',lineHeight:1.65,marginBottom:16,maxWidth:580,margin:'0 auto 16px'}},
-      'Viele Riester-Verträge laufen, ohne dass Inhaber wissen, ob Zulagen vollständig abgerufen werden, ob Kosten stimmen – und was ab 2027 mit dem neuen Altersvorsorgedepot kommt. Orientierung in 3 Minuten.'
+      'In 3 Minuten sehen Sie, ob bei Förderung, Zulagen oder Vertragsstruktur Handlungsbedarf bestehen könnte – und ob ein Wechsel in die neue Vorsorge-Welt ab 2027 grundsätzlich relevant wird. Für harte Zahlen prüfen wir danach Ihre Standmitteilung im Deep-Check.'
     ),
     React.createElement('p',{style:{fontSize:15,color:'rgba(194,87,0,0.8)',fontWeight:600,marginBottom:36}},
       '12 Fragen · Kostenlos · Kein Dokument nötig · Sofortergebnis'
     ),
     React.createElement('div',{style:{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}},
-      React.createElement('button',{className:'btn-primary glow-fox-sm',style:{fontSize:17,padding:'16px 36px'},onClick:onStartCheck},'Kostenloser Schnell-Check',React.createElement(Ic.Arrow)),
+      React.createElement('button',{className:'btn-primary glow-fox-sm',style:{fontSize:17,padding:'16px 36px'},onClick:onStartCheck},'Schnell-Check starten',React.createElement(Ic.Arrow)),
       React.createElement('a',{href:'#pricing',style:{textDecoration:'none'}},React.createElement('button',{className:'btn-secondary',style:{fontSize:15,padding:'16px 28px'}},'Alle Optionen ansehen'))
     ),
     React.createElement('div',{style:{display:'flex',gap:28,justifyContent:'center',marginTop:32,flexWrap:'wrap'}},
-      ['Kostenlos & unverbindlich','3 Min. · Kein Dokument nötig','DSGVO-konform · SSL'].map(t=>
+      ['Schnell-Check kostenlos','Bestandsschutz: keine Hektik','DSGVO-konform · SSL'].map(t=>
         React.createElement('div',{key:t,style:{display:'flex',alignItems:'center',gap:7,color:'rgba(240,237,232,0.45)',fontSize:13}},
           React.createElement('span',{style:{color:'#22c55e'}},React.createElement(Ic.Check)),t
         )
@@ -391,7 +390,7 @@ function Hero({onStartCheck}) {
 
 // ─── TRUST ────────────────────────────────────────────────────────────────────
 function Trust() {
-  const stats=[{n:'12.400+',l:'Verträge geprüft'},{n:'4,8 ★',l:'Kundenbewertung'},{n:'73 %',l:'mit Optimierungspotenzial'},{n:'100 %',l:'Erstattung bei Wechsel'}];
+  const stats=[{n:'3 Min.',l:'Kostenloser Schnell-Check'},{n:'12',l:'gezielte Fragen'},{n:'2027',l:'Reform im Blick'},{n:'100 %',l:'Erstattung bei Wechsel'}];
   return React.createElement('section',{style:{padding:'0 24px 80px',maxWidth:1140,margin:'0 auto'}},
     React.createElement('div',{className:'glass',style:{borderRadius:16,padding:'32px 48px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))',gap:24,textAlign:'center'}},
       stats.map(s=>React.createElement('div',{key:s.n},
@@ -420,17 +419,17 @@ function PricingV2({onStartCheck,onDeepCheck,onExpert}) {
       note:'19,– € werden bei Vertragswechsel vollständig erstattet.'
     },
     {
-      id:'expert', label:'Expert-Verified', badge:'HÖCHSTE SICHERHEIT', price:'39 €', sub:'Von Experten geprüft · Human-in-the-loop',
+      id:'expert', label:'Strategischer Deep Check', badge:'STRATEGIE + 2027', price:'39 €', sub:'Performance + 2027-Einordnung · Entscheidungsvorlage',
       featured:false,
-      features:['Alles aus Deep Check','Manuelle Prüfung durch qualifizierten Berater','„Von Experten geprüft"-Siegel','Priorisierte Bearbeitung (12h)','Erstattungsgarantie bei Wechsel','Kostenlose Zweitmeinung im Anschluss'],
-      cta:'Expert-Check starten', ctaFn:onExpert,
-      note:'Kein Beratungsvertrag enthalten. Unabhängige Vorprüfung.'
+      features:['Alles aus Standard Deep Check','Auswertung Wertentwicklung/Performance (aus Standmitteilung)','Zielabgleich: Sicherheit vs. Rendite','2027-Option: Altersvorsorgedepot einordnen','Klare Entscheidungsvorlage: behalten/optimieren/2027','Erstattungsgarantie bei Wechsel'],
+      cta:'Strategische Analyse starten', ctaFn:onExpert,
+      note:'Kein Beratungsvertrag. Aussagen nur auf Basis Ihrer Unterlagen.'
     }
   ];
   return React.createElement('section',{id:'pricing',style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
     React.createElement('div',{style:{textAlign:'center',marginBottom:48}},
       React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'Preise'),
-      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em',marginBottom:12}},'Wählen Sie die richtige Tiefe'),
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em',marginBottom:12}},'Orientierung, Prüfung, Strategie'),
       React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:16,maxWidth:500,margin:'0 auto'}},'Starten Sie kostenlos. Zahlen Sie nur, wenn Sie tiefer gehen möchten.')
     ),
     React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}},
@@ -467,12 +466,12 @@ function WieFunktioniert({onStartCheck}) {
   const steps=[
     {n:'01',title:'Schnell-Check (kostenlos)',desc:'12 Fragen, kein Dokument. Sie erhalten sofort eine Orientierung mit 3 Scores und Hinweisen auf mögliche Handlungsfelder.',icon:'⚡',color:'rgba(194,87,0,0.15)'},
     {n:'02',title:'Deep Check für 19 €',desc:'Standmitteilung hochladen. KI analysiert alle Details und liefert einen vollständigen Bericht in 24h.',icon:'🔎',color:'rgba(59,130,246,0.12)'},
-    {n:'03',title:'Expert-Verified für 39 €',desc:'Zusätzlich prüft ein qualifizierter Berater Ihren Fall manuell. Höchste Sicherheit, klares „Von Experten geprüft"-Siegel.',icon:'✅',color:'rgba(34,197,94,0.12)'},
+    {n:'03',title:'Strategischer Deep Check für 39 €',desc:'Zusätzlich zur Vertragsanalyse prüfen wir Performance-Hinweise aus Ihrer Standmitteilung und ordnen Ihren Vertrag im Kontext der Reform ab 2027 ein – für eine klare Entscheidungsvorlage.',icon:'✅',color:'rgba(34,197,94,0.12)'},
   ];
   return React.createElement('section',{id:'wie-es-funktioniert',style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
     React.createElement('div',{style:{textAlign:'center',marginBottom:52}},
       React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'Ablauf'),
-      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em'}}),'In 3 Schritten zur Klarheit'
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em'}},'In 3 Schritten zur Klarheit')
     ),
     React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}},
       steps.map((s,i)=>
@@ -494,13 +493,13 @@ function WieFunktioniert({onStartCheck}) {
 function FAQ() {
   const [open,setOpen]=useState(null);
   const items=[
-    {q:'Lohnt sich Riester in 2026 noch?',a:'Das hängt stark von Ihrer persönlichen Situation ab: Altverträge (vor 2010), Kinderzulagen und Beamtenstatus sind klassische Argumente dafür. Renditeorientierte Sparer ohne Kinder sollten Alternativen prüfen. Unser Check zeigt Ihnen schnell, wo Sie stehen.'},
-    {q:'Was ändert sich 2027 mit dem Altersvorsorgedepot?',a:'Ab 2027 startet das neue staatlich geförderte ETF-Depot. Riester-Verträge laufen weiter, können aber umgewidmet werden. Genau jetzt ist der richtige Zeitpunkt zu prüfen, ob ein Wechsel Sinn ergibt.'},
-    {q:'Was ist die Riester-Grundzulage 2026?',a:'175 € Grundzulage pro Jahr. Dazu: 185 € je Kind (geboren vor 2008) oder 300 € je Kind (geboren ab 2008). Wichtig: Zulagen müssen aktiv beantragt werden – das übernimmt meist der Anbieter, muss aber eingerichtet sein.'},
-    {q:'Kann ich meinen Riester-Vertrag kündigen?',a:'Technisch ja – aber fast nie sinnvoll. Alle Förderungen müssen zurückgezahlt werden. Sinnvoller ist meist: beitragsfrei stellen, Beitrag anpassen oder zu einem anderen Produkt wechseln. Unser Check zeigt Alternativen.'},
-    {q:'Was ist die Erstattungsgarantie?',a:'Wenn Sie nach dem Deep Check (19 €) oder Expert-Check (39 €) einen Vertragswechsel über uns abschließen, erstatten wir die Analysegebühr vollständig. Kein Risiko.'},
-    {q:'Was bedeutet „Von Experten geprüft"?',a:'Beim Expert-Verified Check prüft ein qualifizierter Finanzfachmann Ihren Fall manuell – zusätzlich zur automatischen Analyse. Das ist KEINE Beratung im Sinne des WpHG, sondern eine unabhängige Vorprüfung.'},
-    {q:'Wie lange dauert der Check?',a:'Der kostenlose Schnell-Check dauert ca. 3 Minuten. Deep Check: Ergebnis in 24h nach PDF-Upload. Expert-Verified: 12h Priorisierung.'},
+    {q:'Muss ich jetzt handeln?',a:'Nein. Bestehende Riester-Verträge haben Bestandsschutz – Sie können sie weiterführen wie bisher. Unser Schnell-Check dient der Orientierung, nicht dem Erzeugen von Hektik. Es gibt keinen Anlass für überstürzte Entscheidungen.'},
+    {q:'Soll ich meinen Riester-Vertrag wechseln oder kündigen?',a:'Das lässt sich seriös erst nach einem Deep-Check beurteilen – also mit Ihren tatsächlichen Vertragsdaten. Ein Wechsel in das neue Altersvorsorgedepot ist ab 2027 freiwillig möglich, aber keine Pflicht. Altverträge können Vorteile haben (z.B. alte Garantiekomponenten), deshalb gilt: erst prüfen, dann entscheiden.'},
+    {q:'Was ändert sich 2027 mit dem Altersvorsorgedepot?',a:'Ab 2027 startet die reformierte staatlich geförderte Altersvorsorge. Das neue Altersvorsorgedepot ermöglicht gefördertes Sparen über Fonds/ETF und soll flexibler und renditeorientierter sein. Bestehende Riester-Verträge laufen weiter (Bestandsschutz); ein Wechsel soll freiwillig und mit gedeckelten Wechselkosten möglich sein.'},
+    {q:'Warum brauche ich den Deep Check?',a:'Der Schnell-Check gibt eine erste Orientierung – aber keine belastbare Entscheidungsgrundlage. Für konkrete Aussagen zu Kosten, Wertentwicklung und sinnvollen nächsten Schritten brauchen wir Ihre tatsächlichen Vertragsdaten (Standmitteilung). Erst damit sind seriöse Empfehlungen möglich.'},
+    {q:'Was ist die Riester-Grundzulage 2026?',a:'175 € Grundzulage pro Jahr plus 185 € je Kind (vor 2008 geboren) oder 300 € je Kind (ab 2008 geboren). Wichtig: Zulagen müssen aktiv beantragt werden – das übernimmt meist der Anbieter automatisch, muss aber korrekt eingerichtet sein.'},
+    {q:'Was ist die Erstattungsgarantie?',a:'Wenn Sie nach dem Deep-Check (19 €) oder Strategischen Deep-Check (39 €) einen Vertragswechsel über uns abschließen, erstatten wir die Analysegebühr vollständig. Kein Risiko.'},
+    {q:'Wie lange dauert der Check?',a:'Der kostenlose Schnell-Check dauert ca. 3 Minuten. Deep Check: Ergebnis in 24h nach PDF-Upload. Strategischer Deep-Check: zusätzliche Performance- und Strategieanalyse in ca. 48h.'},
   ];
   return React.createElement('section',{id:'faq',style:{padding:'80px 24px',maxWidth:780,margin:'0 auto'}},
     React.createElement('div',{style:{textAlign:'center',marginBottom:44}},
@@ -524,7 +523,7 @@ function FooterCTA({onStartCheck}) {
   return React.createElement('section',{style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
     React.createElement('div',{className:'glass-warm glow-fox',style:{borderRadius:24,padding:'60px 48px',textAlign:'center'}},
       React.createElement('h2',{style:{fontSize:'clamp(22px,3vw,38px)',fontWeight:800,marginBottom:14,letterSpacing:'-0.02em'}},'Jetzt prüfen – kostenlos & unverbindlich'),
-      React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:17,marginBottom:36,maxWidth:440,margin:'0 auto 36px'}},'3 Minuten. Kein Dokument. Sofortergebnis.'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:17,marginBottom:36,maxWidth:440,margin:'0 auto 36px'}},'3 Minuten. Kein Dokument. Erst einordnen – dann richtig entscheiden.'),
       React.createElement('button',{className:'btn-primary glow-fox',style:{fontSize:17,padding:'16px 40px'},onClick:onStartCheck},'Schnell-Check starten',React.createElement(Ic.Arrow))
     )
   );
@@ -567,6 +566,55 @@ function Footer() {
   );
 }
 
+
+// ─── ALTERSVORSORGEDEPOT INFO ─────────────────────────────────────────────────
+function AltersvorsorgedepotInfo() {
+  const [open,setOpen]=React.useState(null);
+  const items=[
+    {
+      q:'Was ist das Altersvorsorgedepot (ab 2027)?',
+      a:'Ab 2027 startet die reformierte staatlich geförderte private Altersvorsorge. Kernpunkt ist das Altersvorsorgedepot, das gefördertes Sparen über Kapitalanlage (z.B. Fonds/ETF) ermöglicht und flexibler sein soll als bisherige Riester-Produkte. Zusätzlich ist ein kostengünstiges Standardprodukt vorgesehen, das als Orientierung dienen soll. Bestehende Riester-Verträge können weiterlaufen (Bestandsschutz); ein Wechsel ist vorgesehen, aber freiwillig.'
+    },
+    {
+      q:'Riester vs. Altersvorsorgedepot – was ist der Unterschied?',
+      a:'Riester (Bestand): Bestehende Verträge haben Bestandsschutz – kein Zwang zum Wechsel. Altverträge können besondere Vorteile haben (z.B. alte Garantiekomponenten), deshalb nicht hektisch kündigen oder umdecken. Altersvorsorgedepot (ab 2027): Neue Produktwelt, soll flexibler und renditeorientierter sein. Wechsel ab 2027 möglich, freiwillig; Wechselkosten sollen gemäß Reform gedeckelt sein.'
+    },
+    {
+      q:'Muss ich jetzt wechseln?',
+      a:'Nein. Ein Wechsel ist ab 2027 möglich, aber freiwillig. Bestehende Verträge haben Bestandsschutz. Ob ein Wechsel sinnvoll ist, hängt von Ihrem konkreten Vertrag ab – das lässt sich seriös erst mit Ihren Vertragsdaten beurteilen.'
+    },
+    {
+      q:'Warum keine konkreten Aussagen ohne meine Unterlagen?',
+      a:'Weil pauschale Bewertungen ohne echte Vertragsdaten unseriös wären. Ob Ihr Vertrag sinnvoll ist, hängt von Ihrer persönlichen Förderlogik, Ihren Kosten und Ihrer Vertragsstruktur ab. Der Schnell-Check gibt eine erste Orientierung. Belastbare Empfehlungen erstellen wir erst im Deep-Check mit Ihrer Standmitteilung.'
+    },
+  ];
+  return React.createElement('section',{id:'depot-info',style:{padding:'80px 24px',maxWidth:780,margin:'0 auto'}},
+    React.createElement('div',{style:{textAlign:'center',marginBottom:44}},
+      React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'Reform 2027'),
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,40px)',fontWeight:800,letterSpacing:'-0.02em',marginBottom:12}},'Riester & das Altersvorsorgedepot'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:15,maxWidth:520,margin:'0 auto'}},'Was die Reform bedeutet – und warum kein Grund zur Hektik besteht.')
+    ),
+    React.createElement('div',{className:'glass',style:{borderRadius:16,padding:'24px 28px',marginBottom:24}},
+      React.createElement('div',{style:{display:'flex',gap:12,alignItems:'flex-start'}},
+        React.createElement('div',{style:{width:36,height:36,borderRadius:10,background:'rgba(194,87,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,flexShrink:0}},'🛡'),
+        React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:700,fontSize:16,marginBottom:6}},'Bestandsschutz: Ihre Verträge sind sicher'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.6)',fontSize:14,lineHeight:1.65,margin:0}},'Bestehende Riester-Verträge können weiterlaufen wie bisher. Es gibt keine Pflicht zum Wechsel und keinen Anlass für hektische Umdeckungen. Altverträge können besondere Vorteile haben, die bei einem voreiligen Wechsel verloren gehen könnten.')
+        )
+      )
+    ),
+    items.map(function(item,i){
+      return React.createElement('div',{key:i,className:'glass',style:{borderRadius:12,marginBottom:10,overflow:'hidden'}},
+        React.createElement('button',{onClick:function(){setOpen(open===i?null:i);},style:{width:'100%',background:'none',border:'none',color:'#f0ede8',padding:'18px 22px',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,fontSize:15,fontWeight:600}},
+          item.q,
+          React.createElement('span',{style:{color:'#c25700',fontSize:22,flexShrink:0,transform:open===i?'rotate(45deg)':'none',transition:'transform 0.2s'}},'+')
+        ),
+        open===i&&React.createElement('div',{style:{padding:'0 22px 18px',color:'rgba(240,237,232,0.6)',fontSize:14,lineHeight:1.65}},item.a)
+      );
+    })
+  );
+}
+
 // ─── LANDING PAGE ─────────────────────────────────────────────────────────────
 function LandingPage({onStartCheck}) {
   const go=()=>{window.scrollTo(0,0);onStartCheck();};
@@ -575,6 +623,7 @@ function LandingPage({onStartCheck}) {
     React.createElement(Hero,{onStartCheck:go}),
     React.createElement(Trust),
     React.createElement(WieFunktioniert,{onStartCheck:go}),
+    React.createElement(AltersvorsorgedepotInfo),
     React.createElement(PricingV2,{onStartCheck:go,onDeepCheck:go,onExpert:go}),
     React.createElement(FAQ),
     React.createElement(FooterCTA,{onStartCheck:go}),
@@ -662,9 +711,9 @@ function PreLeadGate({answers,onUnlock}) {
   },[score]);
 
   const cfg={
-    green:{color:'#22c55e',bg:'rgba(34,197,94,0.08)',border:'rgba(34,197,94,0.25)',label:'Keine offensichtlichen Warnsignale',headline:'Gute Ausgangslage – aber steckt noch Potenzial drin?',sub:'Auch bei grünem Ergebnis können sich im Detail Stellschrauben ergeben. Das vollständige Bild zeigt erst die Auswertung mit Ihren Unterlagen.'},
-    yellow:{color:'#eab308',bg:'rgba(234,179,8,0.08)',border:'rgba(234,179,8,0.25)',label:'Prüfung empfohlen',headline:'Hinweise auf mögliche Optimierungsfelder erkannt.',sub:'Einige Ihrer Antworten deuten auf Bereiche hin, die sich lohnen könnten zu klären. Belastbare Aussagen sind erst mit Ihrem Vertragsdokument möglich.'},
-    red:{color:'#ef4444',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.25)',label:'Klärungsbedarf erkannt',headline:'Mehrere Hinweise auf mögliche Risiken oder Förderlücken.',sub:'Ihre Antworten deuten auf Felder hin, die dringend geprüft werden sollten. Ob und was tatsächlich betroffen ist, lässt sich erst mit Ihren Vertragsunterlagen sagen.'},
+    green:{color:'#22c55e',bg:'rgba(34,197,94,0.08)',border:'rgba(34,197,94,0.25)',label:'Keine starken Warnsignale',headline:'Gute Ausgangslage – kein Grund für hektische Schritte.',sub:'Es gibt aktuell keine klaren Hinweise auf verschenkte Förderung oder kritische Strukturthemen. Bestehende Verträge haben Bestandsschutz.'},
+    yellow:{color:'#eab308',bg:'rgba(234,179,8,0.08)',border:'rgba(234,179,8,0.25)',label:'Hinweise auf Optimierungspotenzial',headline:'Einige Angaben deuten auf Felder hin, die sich lohnen könnten zu prüfen.',sub:'Das bedeutet nicht automatisch, dass Ihr Vertrag schlecht ist. Belastbare Aussagen sind erst mit Ihren Vertragsdaten möglich.'},
+    red:{color:'#ef4444',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.25)',label:'Mehrere Risikosignale erkannt',headline:'Bitte zeitnah klären – ohne Panik.',sub:'Rot bedeutet nicht kündigen. Altverträge können Vorteile haben. Datenbasiert prüfen ist der richtige Schritt.'},
   }[ampel];
 
   return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
@@ -710,7 +759,7 @@ function PreLeadGate({answers,onUnlock}) {
       ),
 
       React.createElement('button',{className:'btn-primary glow-fox-sm',style:{width:'100%',justifyContent:'center',fontSize:16,padding:'16px'},onClick:onUnlock},
-        'Ergebnis freischalten & anzeigen',React.createElement(Ic.Arrow)
+        'Ergebnis anzeigen',React.createElement(Ic.Arrow)
       ),
       React.createElement('p',{style:{textAlign:'center',marginTop:12,color:'rgba(240,237,232,0.3)',fontSize:12}},'Kostenlos · Kein Spam · DSGVO-konform')
     )
@@ -740,8 +789,8 @@ function LeadCapture({onSubmit,answers}) {
 
   return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
     React.createElement('div',{style:{width:'100%',maxWidth:440}},
-      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:8,letterSpacing:'-0.01em'}},'Fast geschafft.'),
-      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:15,marginBottom:28,lineHeight:1.55}},'Geben Sie Ihre E-Mail-Adresse ein, um Ihr vollständiges Ergebnis zu erhalten. Wir senden es Ihnen auch per E-Mail zu.'),
+      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:8,letterSpacing:'-0.01em'}},'Ihr Ergebnis ist bereit.'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:15,marginBottom:28,lineHeight:1.55}},'Wir zeigen Ihnen jetzt Ihre Ampel-Einordnung inkl. nächster Schritte. Bitte E-Mail eingeben, damit wir Ihnen das Ergebnis zusätzlich zusenden können.'),
       React.createElement('form',{onSubmit:submit},
         React.createElement('input',{type:'text',placeholder:'Ihr Name (optional)',value:name,onChange:e=>setName(e.target.value),style:{marginBottom:12}}),
         React.createElement('input',{type:'email',placeholder:'Ihre E-Mail-Adresse *',value:email,onChange:e=>setEmail(e.target.value),required,style:{marginBottom:14}}),
@@ -751,7 +800,7 @@ function LeadCapture({onSubmit,answers}) {
             onClick:()=>setConsent(!consent)
           },consent&&React.createElement('svg',{width:10,height:10,viewBox:'0 0 10 10',fill:'none'},React.createElement('polyline',{points:'1.5 5 4 7.5 8.5 2.5',stroke:'white',strokeWidth:1.8}))),
           React.createElement('span',{style:{color:'rgba(240,237,232,0.45)',fontSize:13,lineHeight:1.5}},
-            'Ich stimme der ',React.createElement('a',{href:'#',style:{color:'#c6ab7f'}},'Datenschutzerklärung'),' zu. Keine Beratung gem. WpHG. Daten werden nach 14 Tagen gelöscht.'
+            'Ich stimme der Verarbeitung meiner Angaben zur Auswertung und Kontaktaufnahme zu. Widerruf jederzeit möglich. (',React.createElement('a',{href:'#datenschutz',style:{color:'#c6ab7f'}},'Datenschutz'),')'
           )
         ),
         error&&React.createElement('div',{style:{color:'#ef4444',fontSize:13,marginBottom:12}},error),
@@ -777,9 +826,9 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
   },[]);
 
   const ampelCfg={
-    green:{color:'#22c55e',label:'Keine offensichtlichen Warnsignale',desc:'Auf Basis Ihrer Antworten ergeben sich keine direkten Hinweise auf dringenden Handlungsbedarf.'},
-    yellow:{color:'#eab308',label:'Prüfung empfohlen',desc:'Einige Ihrer Antworten deuten auf Felder hin, die sich lohnen könnten zu klären oder zu optimieren.'},
-    red:{color:'#ef4444',label:'Klärungsbedarf erkannt',desc:'Mehrere Ihrer Antworten zeigen Hinweise auf mögliche Förderlücken oder Vertragsrisiken. Ob und was tatsächlich betroffen ist, lässt sich erst mit Ihren Unterlagen belastbar sagen.'},
+    green:{color:'#22c55e',label:'Grün: aktuell keine starken Warnsignale',desc:'Ihre Angaben sprechen dafür, dass Förderung/Struktur grundsätzlich stimmig sein könnten. Das ist kein Freifahrtschein – aber es gibt aktuell keine klaren Hinweise auf verschenkte Förderung oder kritische Strukturthemen. Bestandsschutz: kein Grund zur Hektik.'},
+    yellow:{color:'#eab308',label:'Gelb: Hinweise auf Optimierungspotenzial',desc:'Es gibt Anzeichen, dass Zulagen/Steuer oder die Vertragsstruktur nicht optimal genutzt werden. Das heißt nicht automatisch, dass Ihr Vertrag schlecht ist.'},
+    red:{color:'#ef4444',label:'Rot: bitte zeitnah klären (ohne Panik)',desc:'Ihre Angaben zeigen mehrere Risikosignale. Rot bedeutet nicht kündigen – es bedeutet: datenbasiert prüfen. Gerade weil Altverträge Vorteile haben können, sollte man nicht blind handeln.'},
   }[ampel];
 
   const checkItems=[
@@ -854,7 +903,7 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
         React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#c25700',textTransform:'uppercase',letterSpacing:'0.08em'}},'Belastbare Einschätzung')
       ),
       React.createElement('p',{style:{color:'rgba(240,237,232,0.8)',fontSize:14,lineHeight:1.65,margin:0}},
-        'Der Quick-Check zeigt Hinweise – keine Gewissheiten. Belastbar prüfen lässt sich Ihr Vertrag erst im Deep-Check mit Ihrer Standmitteilung oder Ihrem Vertragsdokument. Erst dann sind Aussagen wie „lohnt sich / Wechsel sinnvoll" seriös möglich.'
+        'Bestehende Verträge haben Bestandsschutz – es gibt keinen Grund für hektische Schritte. Der Quick-Check zeigt Hinweise, keine Gewissheiten. Belastbar prüfen lässt sich Ihr Vertrag erst im Deep-Check mit Ihrer Standmitteilung. Erst mit echten Vertragsdaten sind fundierte Empfehlungen möglich.'
       )
     ),
 
@@ -888,11 +937,11 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
         )
       ),
       React.createElement('div',{style:{borderRadius:14,padding:'20px',border:'1.5px solid rgba(198,171,127,0.25)',background:'rgba(198,171,127,0.04)'}},
-        React.createElement('div',{className:'badge badge-gold',style:{marginBottom:10}},'EXPERT-VERIFIED'),
+        React.createElement('div',{className:'badge badge-gold',style:{marginBottom:10}},'STRATEGISCHER CHECK'),
         React.createElement('div',{style:{fontWeight:800,fontSize:20,marginBottom:4}},'39 €'),
-        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'+ Manuelle Experten-Prüfung. „Von Experten geprüft"-Siegel.'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'+ Performance-Analyse + Zielabgleich + 2027-Einordnung. Klare Entscheidungsvorlage.'),
         React.createElement('button',{className:'btn-ghost',style:{width:'100%',justifyContent:'center',fontSize:14,padding:'12px',display:'flex',alignItems:'center',gap:6},onClick:()=>{emitEvent('upgrade_clicked',{tier:'expert'});onExpert();}},
-          '✓ Expert-Check'
+          '✓ Strategisch prüfen'
         )
       )
     ),
@@ -937,7 +986,7 @@ function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
     React.createElement('div',{style:{display:'flex',gap:10}},
       React.createElement('button',{className:'btn-ghost',style:{flex:1,justifyContent:'center'},onClick:onRestart},'Neu starten')
     ),
-    React.createElement('p',{style:{textAlign:'center',marginTop:20,color:'rgba(240,237,232,0.2)',fontSize:11,lineHeight:1.6}},'Kein Ersatz für individuelle Beratung gem. WpHG. Keine Empfehlung zur Kündigung. Keine rechtliche Bindung.')
+    React.createElement('p',{style:{textAlign:'center',marginTop:20,color:'rgba(240,237,232,0.2)',fontSize:11,lineHeight:1.6}},'Hinweis: Ersteinschätzung anhand Ihrer Angaben. Kein Ersatz für individuelle Beratung gem. WpHG. Keine Empfehlung zur Kündigung. Altverträge haben Bestandsschutz.')
   );
 }
 
@@ -950,7 +999,7 @@ function DeepCheckGate({lead,answers,tier,onBack}) {
   const [status,setStatus]=useState('uploaded');
   const price={deep_check:'19 €',expert:'39 €'}[tier]||'19 €';
   const statusOrder=['uploaded','extracted','parsed','llm_light_done','needs_human_review','approved','sent'];
-  const statusLabels={uploaded:'Datei hochgeladen',extracted:'Text extrahiert',parsed:'Snippets analysiert',llm_light_done:'KI-Analyse abgeschlossen',needs_human_review:tier==='expert'?'Experten-Prüfung läuft':'Review ausstehend',approved:'Bericht wird erstellt',sent:'Bericht zugestellt ✓'};
+  const statusLabels={uploaded:'Datei hochgeladen',extracted:'Text extrahiert',parsed:'Snippets analysiert',llm_light_done:'KI-Analyse abgeschlossen',needs_human_review:tier==='expert'?'Strategische Analyse läuft':'Review ausstehend',approved:'Bericht wird erstellt',sent:'Bericht zugestellt ✓'};
   const currentIdx=statusOrder.indexOf(status);
 
   const handleUpload=async()=>{
@@ -970,15 +1019,15 @@ function DeepCheckGate({lead,answers,tier,onBack}) {
   if(step==='payment') return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
     React.createElement('div',{style:{width:'100%',maxWidth:460}},
       React.createElement('button',{onClick:onBack,style:{background:'none',border:'none',color:'rgba(240,237,232,0.45)',cursor:'pointer',fontSize:14,marginBottom:24}},'← Zurück'),
-      React.createElement('div',{className:tier==='expert'?'badge badge-gold':'badge badge-fox',style:{marginBottom:14}},tier==='expert'?'EXPERT-VERIFIED':'DEEP CHECK'),
-      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:6}}),`${tier==='expert'?'Expert-Check':'Deep Check'} freischalten`,
+      React.createElement('div',{className:tier==='expert'?'badge badge-gold':'badge badge-fox',style:{marginBottom:14}},tier==='expert'?'STRATEGISCHER CHECK':'DEEP CHECK'),
+      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:6}}),`${tier==='expert'?'Strategischen Check':'Deep Check'} freischalten`,
       React.createElement('div',{style:{fontSize:38,fontWeight:800,color:'#c25700',marginBottom:4}},price),
       React.createElement('p',{style:{color:'rgba(240,237,232,0.45)',fontSize:14,marginBottom:28}},'Einmalig · Vollständige Erstattung bei Wechsel'),
       tier==='expert'&&React.createElement('div',{className:'glass',style:{borderRadius:12,padding:'14px 18px',marginBottom:20,display:'flex',gap:10}},
         React.createElement('span',{style:{fontSize:20}},'✅'),
         React.createElement('div',null,
-          React.createElement('div',{style:{fontWeight:600,fontSize:14,marginBottom:3}},'Von Experten geprüft – was das bedeutet:'),
-          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.5}},'Ein qualifizierter Fachmann prüft Ihren Fall zusätzlich manuell. Keine Beratung gem. WpHG. Unabhängige Vorprüfung.')
+          React.createElement('div',{style:{fontWeight:600,fontSize:14,marginBottom:3}},'Strategischer Deep Check – was das beinhaltet:'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.5}},'Performance-Auswertung, Zielabgleich und 2027-Einordnung auf Basis Ihrer Standmitteilung. Keine Beratung gem. WpHG.')
         )
       ),
       // Stripe Placeholder
@@ -1071,11 +1120,4 @@ function App() {
     view==='pregate'&&React.createElement(PreLeadGate,{answers,onUnlock:()=>setView('lead')}),
     view==='lead'&&React.createElement(LeadCapture,{onSubmit:l=>{setLead(l);setView('result');},answers}),
     view==='result'&&lead&&React.createElement(Ergebnis,{answers,lead,onDeepCheck:()=>goDeep('deep_check'),onExpert:()=>goDeep('expert'),onRestart:()=>{setAnswers({});setLead(null);setView('landing');}}),
-    view==='deepcheck'&&React.createElement(DeepCheckGate,{lead:lead||{email:''},answers,tier,onBack:()=>setView(lead?'result':'landing')})
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-</script>
-</body>
-</html>
+    view==='deepcheck'&&React.createElement(DeepCheckGate,{lead:lead||{email:''},answers,tier,onBack:()=>setView(lead?'
