@@ -1,25 +1,1022 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-    <title>Riester Check</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Riester-Check 2026/2027 – Versicherungsfuchs | Jetzt kostenlos prüfen</title>
+<meta name="description" content="Ist Ihr Riester-Vertrag noch optimal? Kostenloser Schnell-Check + professionelle Tiefenanalyse. Staatliche Förderung maximieren – in 3 Minuten zur Klarheit."/>
+<link rel="canonical" href="https://versicherungs-fuchs.online/riester-check"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { colors: { fox: { primary:'#c25700', dark:'#7f2e00', beige:'#c6ab7f', soft:'#e2c8b7' } } } } }
+</script>
+<style>
+* { box-sizing:border-box; }
+body { background:#080808; color:#f0ede8; font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif; margin:0; }
+.glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(12px); border:1px solid rgba(255,255,255,0.08); }
+.glass-warm { background:rgba(194,87,0,0.07); backdrop-filter:blur(12px); border:1px solid rgba(194,87,0,0.18); }
+.glass-green { background:rgba(34,197,94,0.06); border:1px solid rgba(34,197,94,0.2); }
+.glass-yellow { background:rgba(234,179,8,0.06); border:1px solid rgba(234,179,8,0.2); }
+.glass-red { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); }
+.glow-fox { box-shadow:0 0 40px rgba(194,87,0,0.25); }
+.glow-fox-sm { box-shadow:0 0 18px rgba(194,87,0,0.18); }
+.btn-primary { background:#c25700; color:#fff; border:none; border-radius:10px; padding:14px 32px; font-size:16px; font-weight:600; cursor:pointer; transition:all 0.18s; letter-spacing:0.01em; display:inline-flex; align-items:center; gap:8px; }
+.btn-primary:hover { background:#d96200; transform:translateY(-1px); box-shadow:0 8px 28px rgba(194,87,0,0.35); }
+.btn-primary:disabled { opacity:0.45; cursor:not-allowed; transform:none; }
+.btn-secondary { background:transparent; color:#c6ab7f; border:1px solid rgba(198,171,127,0.3); border-radius:10px; padding:12px 28px; font-size:15px; font-weight:500; cursor:pointer; transition:all 0.18s; }
+.btn-secondary:hover { border-color:#c6ab7f; background:rgba(198,171,127,0.06); }
+.btn-ghost { background:rgba(255,255,255,0.04); color:rgba(240,237,232,0.65); border:1px solid rgba(255,255,255,0.08); border-radius:10px; padding:11px 22px; font-size:14px; cursor:pointer; transition:all 0.15s; }
+.btn-ghost:hover { background:rgba(255,255,255,0.08); }
+.answer-card { background:rgba(255,255,255,0.04); border:1.5px solid rgba(255,255,255,0.08); border-radius:12px; padding:16px 20px; cursor:pointer; transition:all 0.16s; text-align:left; width:100%; color:#f0ede8; font-size:15px; }
+.answer-card:hover { border-color:rgba(194,87,0,0.5); background:rgba(194,87,0,0.08); transform:translateX(2px); }
+.answer-card.selected { border-color:#c25700; background:rgba(194,87,0,0.14); }
+.progress-bar { height:3px; background:rgba(255,255,255,0.08); border-radius:2px; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#c25700,#c6ab7f); border-radius:2px; transition:width 0.4s ease; }
+.score-bar-outer { height:10px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden; }
+.score-bar-inner { height:100%; border-radius:100px; transition:width 1.2s cubic-bezier(.25,.8,.25,1); }
+input[type="email"], input[type="text"], textarea { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:10px; padding:14px 16px; color:#f0ede8; font-size:15px; width:100%; outline:none; transition:border-color 0.16s; font-family:inherit; }
+input[type="email"]:focus, input[type="text"]:focus { border-color:#c25700; }
+.tier-card { border-radius:16px; padding:32px; cursor:pointer; transition:all 0.2s; border:1.5px solid rgba(255,255,255,0.08); background:rgba(255,255,255,0.03); }
+.tier-card:hover { border-color:rgba(194,87,0,0.35); transform:translateY(-2px); }
+.tier-card.featured { border-color:#c25700; background:rgba(194,87,0,0.07); box-shadow:0 0 40px rgba(194,87,0,0.2); }
+.badge { display:inline-flex; align-items:center; gap:5px; padding:3px 10px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:0.04em; }
+.badge-fox { background:rgba(194,87,0,0.2); color:#c25700; }
+.badge-green { background:rgba(34,197,94,0.15); color:#22c55e; }
+.badge-gold { background:rgba(198,171,127,0.15); color:#c6ab7f; }
+.rec-card { border-radius:14px; padding:22px 24px; border:1.5px solid; }
+.rec-behalten { border-color:rgba(34,197,94,0.3); background:rgba(34,197,94,0.05); }
+.rec-optimieren { border-color:rgba(234,179,8,0.3); background:rgba(234,179,8,0.04); }
+.rec-beitragsfrei { border-color:rgba(234,179,8,0.3); background:rgba(234,179,8,0.04); }
+.rec-wechsel { border-color:rgba(239,68,68,0.3); background:rgba(239,68,68,0.05); }
+.expert-cta { background:linear-gradient(135deg,rgba(194,87,0,0.12),rgba(127,46,0,0.08)); border:1px solid rgba(194,87,0,0.25); border-radius:16px; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+.fade-up { animation:fadeUp 0.4s ease forwards; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.fade-in { animation:fadeIn 0.3s ease forwards; }
+@keyframes pulse-soft { 0%,100%{opacity:1} 50%{opacity:0.55} }
+.pulse-soft { animation:pulse-soft 2s infinite; }
+@keyframes score-reveal { from{opacity:0;transform:scale(0.8)} to{opacity:1;transform:scale(1)} }
+.score-reveal { animation:score-reveal 0.6s cubic-bezier(.34,1.56,.64,1) forwards; }
+.blur-result { filter:blur(6px); user-select:none; pointer-events:none; }
+.step-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+</style>
 </head>
 <body>
-
-<h1>Riester Check läuft 🚀</h1>
-
-<button onclick="check()">Check starten</button>
-
-<p id="result"></p>
-
+<div id="root"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script>
-function check() {
-    fetch("https://api.versicherungs-fuchs.online/health")
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("result").innerHTML = data.status;
-    });
-}
-</script>
+const { useState, useEffect, useRef } = React;
 
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+const API_URL = 'https://api.versicherungs-fuchs.online';
+const BOOKING_URL = 'https://calendly.com/versicherungsfuchs/zweitmeinung'; // '' = disabled
+const APP_LOGIN_URL = 'https://login.myinsure.de/start/?inviteKey=CBnRgQcT';
+
+// ─── N8N EVENT BUS ────────────────────────────────────────────────────────────
+const emitEvent = async (eventType, payload) => {
+  const event = {
+    event: eventType,
+    source: 'riester_check_frontend',
+    domain: 'versicherungs-fuchs.online',
+    timestamp: new Date().toISOString(),
+    payload,
+  };
+  // Push to n8n (non-blocking)
+  fetch(`${API_URL}/api/events`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(event),
+  }).catch(() => {}); // Silent fail
+  // Local debug
+  console.debug('[RIESTER EVENT]', event);
+};
+
+// ─── FRAGEN ───────────────────────────────────────────────────────────────────
+const QUESTIONS = [
+  {
+    id:'vertragsbeginn', question:'Wann haben Sie Ihren Riester-Vertrag abgeschlossen?',
+    hint:'Datum auf der Police oder Standmitteilung.',
+    options:[
+      {label:'Vor 2005 – klassischer Altvertrag',value:'vor2005'},
+      {label:'2005 – 2010',value:'2005_2010'},
+      {label:'2010 – 2015',value:'2010_2015'},
+      {label:'Nach 2015',value:'nach2015'},
+    ]
+  },
+  {
+    id:'beitrag', question:'Wie hoch ist Ihr monatlicher Beitrag?',
+    hint:'Betrag inkl. staatlicher Zulage, der abgebucht wird.',
+    options:[
+      {label:'Unter 25 € – sehr gering',value:'0_25'},
+      {label:'25 – 100 €',value:'25_100'},
+      {label:'100 – 200 € – solide',value:'100_200'},
+      {label:'Über 200 € – maximum',value:'200plus'},
+    ]
+  },
+  {
+    id:'kinder', question:'Wie viele kindergeldberechtigte Kinder haben Sie?',
+    hint:'Jedes Kind bringt bis zu 300 € Kinderzulage/Jahr.',
+    options:[
+      {label:'Keine Kinder',value:'0'},
+      {label:'1 Kind',value:'1'},
+      {label:'2 oder mehr Kinder',value:'2plus'},
+    ]
+  },
+  {
+    id:'beschaeftigung', question:'Was beschreibt Ihre aktuelle Situation am besten?',
+    hint:'Entscheidet über Ihre Förderberechtigung.',
+    options:[
+      {label:'Angestellt (sozialversicherungspflichtig)',value:'angestellt'},
+      {label:'Beamter / Beamtin',value:'beamter'},
+      {label:'Selbstständig',value:'selbststaendig'},
+      {label:'Aktuell nicht beschäftigt',value:'nicht'},
+    ]
+  },
+  {
+    id:'beitrag_konstant', question:'Zahlen Sie Ihren Beitrag konstant und regelmäßig?',
+    hint:'Unterbrechungen können Förderjahre kosten.',
+    options:[
+      {label:'Ja – ich zahle immer pünktlich',value:'ja'},
+      {label:'Nein – es gab Pausen oder Schwankungen',value:'nein'},
+    ]
+  },
+  {
+    id:'zulagen', question:'Werden Ihre Zulagen (Grund- + Kinderzulage) jährlich beantragt?',
+    hint:'Zulagen werden NICHT automatisch gewährt – sie müssen aktiv beantragt werden.',
+    options:[
+      {label:'Ja – werden jedes Jahr beantragt',value:'ja'},
+      {label:'Nein oder ich weiß es nicht',value:'nein_unklar'},
+    ]
+  },
+  {
+    id:'garantiewunsch', question:'Wie wichtig ist Ihnen eine garantierte Mindestleistung?',
+    hint:'Hohe Garantie = weniger Wachstumspotenzial.',
+    options:[
+      {label:'Sehr wichtig – Sicherheit steht an erster Stelle',value:'wichtig'},
+      {label:'Rendite ist wichtiger als Garantie',value:'egal'},
+    ]
+  },
+  {
+    id:'zusatzbausteine', question:'Enthält Ihr Vertrag zusätzliche Absicherungen?',
+    hint:'Zusatzbausteine können bei Vertragsauflösung verloren gehen.',
+    options:[
+      {label:'Berufsunfähigkeitsabsicherung (BU)',value:'bu'},
+      {label:'Hinterbliebenenschutz / Rente',value:'hinterbliebenen'},
+      {label:'Nein / keine Ahnung',value:'nein'},
+    ]
+  },
+  {
+    id:'vertrag_status', question:'Wie ist Ihr Vertrag aktuell aufgestellt?',
+    hint:'',
+    options:[
+      {label:'Aktiv – ich zahle regelmäßig',value:'aktiv'},
+      {label:'Ruhend – ich zahle derzeit nichts',value:'ruhend'},
+    ]
+  },
+  {
+    id:'ziel', question:'Was ist Ihr primäres Ziel mit der Altersvorsorge?',
+    hint:'Hilft uns, die richtige Einschätzung zu geben.',
+    options:[
+      {label:'Staatliche Förderung voll ausschöpfen',value:'foerderung'},
+      {label:'Maximale Rendite erzielen',value:'rendite'},
+      {label:'Sicheres Fundament fürs Alter',value:'sicherheit'},
+    ]
+  }
+];
+
+// ─── AMPEL-LOGIK ──────────────────────────────────────────────────────────────
+function berechneAmpel(a) {
+  let g=0,r=0,ge=0;
+  if (['vor2005','2005_2010'].includes(a.vertragsbeginn)) g+=2;
+  else if (a.vertragsbeginn==='2010_2015') ge+=1;
+  else if (a.vertragsbeginn==='nach2015') r+=2;
+  if (a.beitrag==='0_25') r+=2; else if (a.beitrag==='25_100') ge+=1; else g+=1;
+  if (a.kinder==='2plus') g+=2; else if (a.kinder==='1') g+=1;
+  if (['angestellt','beamter'].includes(a.beschaeftigung)) g+=1; else if (a.beschaeftigung==='selbststaendig') r+=1;
+  if (a.beitrag_konstant==='ja') g+=1; else r+=1;
+  if (a.zulagen==='ja') g+=2; else r+=2;
+  if (a.garantiewunsch==='wichtig') g+=1; else { ge+=1; if(a.vertragsbeginn==='nach2015') r+=1; }
+  if (['bu','hinterbliebenen'].includes(a.zusatzbausteine)) g+=1;
+  if (a.vertrag_status==='ruhend') r+=1;
+  if (a.ziel==='rendite'&&a.garantiewunsch==='wichtig') r+=1;
+  else if (a.ziel==='foerderung'&&a.zulagen==='ja') g+=1;
+  if (g>=r+3) return 'green';
+  if (r>=g+2) return 'red';
+  return 'yellow';
+}
+
+// Score als Zahl (0–100) für Pre-Gate Anzeige
+function berechneScore(a) {
+  let pts=0, max=16;
+  if (['vor2005','2005_2010'].includes(a.vertragsbeginn)) pts+=4;
+  else if (a.vertragsbeginn==='2010_2015') pts+=2;
+  if (a.beitrag==='200plus') pts+=3; else if (a.beitrag==='100_200') pts+=2; else if (a.beitrag==='25_100') pts+=1;
+  if (a.kinder==='2plus') pts+=3; else if (a.kinder==='1') pts+=2;
+  if (a.zulagen==='ja') pts+=3; else pts-=1;
+  if (a.beitrag_konstant==='ja') pts+=1;
+  if (['angestellt','beamter'].includes(a.beschaeftigung)) pts+=2;
+  pts = Math.max(0, Math.min(max, pts));
+  return Math.round((pts/max)*100);
+}
+
+// ─── HANDLUNGSEMPFEHLUNG ──────────────────────────────────────────────────────
+function getHandlungsempfehlung(a, ampel) {
+  const vb=a.vertragsbeginn, z=a.zulagen, g=a.garantiewunsch, ziel=a.ziel, s=a.vertrag_status, b=a.beschaeftigung;
+
+  if (['vor2005','2005_2010'].includes(vb) && z==='ja' && g==='wichtig') return {
+    action:'behalten_optimieren', icon:'✅',
+    titel:'Vertrag behalten & optimieren',
+    begruendung:'Ihr Altvertrag ist eine solide Basis. Die staatlichen Zulagen werden genutzt und die Beitragsgarantie passt zu Ihrem Sicherheitswunsch. Kleinere Justierungen können die Rendite verbessern.',
+    risiko:'Gering', risikoColor:'#22c55e',
+    naechste_schritte:['Zulagenstatus und Mindestbeitrag jährlich prüfen','Fondsaufteilung auf Rendite optimieren','Kostenstruktur im Deep-Check analysieren'],
+    empfohlene_entscheidung:'Vertrag behalten – Zulagen sicherstellen, Beitrag optimieren und Fondsaufteilung prüfen.',
+    nichts_machen:'Ohne Anpassung verschenken Sie jährlich bis zu 475 € staatliche Förderung und zahlen unnötig hohe Kosten. Über 20 Jahre summiert sich das auf bis zu 9.500 € verlorenes Potenzial.',
+    cta_tier:'deep_check'
+  };
+
+  if (s==='ruhend'||(b==='nicht')|(b==='selbststaendig'&&z==='nein_unklar')) return {
+    action:'beitragsfrei', icon:'⏸️',
+    titel:'Beitragsfreistellung prüfen',
+    begruendung:'Ihr Vertrag läuft aktuell nicht mit vollem Förderpotenzial. Eine vorübergehende Beitragsfreistellung schützt das Angesparte, ohne weitere Kosten zu verursachen – bis Ihre Situation sich klärt.',
+    risiko:'Mittel', risikoColor:'#eab308',
+    naechste_schritte:['Anbieter kontaktieren und Beitragsfreistellung anfragen','Förderjahre genau berechnen','Alternativen für die Lückenzeit prüfen'],
+    empfohlene_entscheidung:'Vertrag beitragsfrei stellen – angesparte Gelder bleiben erhalten, keine weiteren Kosten entstehen.',
+    nichts_machen:'Weiterzahlen ohne aktive Förderberechtigung ist reines Verlustgeschäft: Sie zahlen Beiträge, bekommen aber keine staatlichen Zulagen. Jeder Monat kostet Sie bares Geld ohne Gegenwert.',
+    cta_tier:'expert'
+  };
+
+  if (vb==='nach2015'&&z==='nein_unklar'&&ziel==='rendite'&&g==='egal') return {
+    action:'wechsel_pruefen', icon:'🔄',
+    titel:'Alternativen ernsthaft prüfen',
+    begruendung:'Ihr Vertrag nutzt die staatliche Förderung nicht optimal und passt nicht zu Ihrem Renditeziel. Neuere Produkte (z. B. Altersvorsorgedepot ab 2027) könnten deutlich besser zu Ihrer Situation passen.',
+    risiko:'Hoch – Förderung geht verloren', risikoColor:'#ef4444',
+    naechste_schritte:['Vollständige Vertragsanalyse im Deep-Check','Wechseloptionen und Kosten berechnen lassen','Experten-Zweitmeinung einholen (kostenlos)'],
+    empfohlene_entscheidung:'Alternativen analysieren – das neue Altersvorsorgedepot ab 2027 könnte für Ihr Renditeziel deutlich besser passen.',
+    nichts_machen:'Jedes Jahr in diesem Vertrag bedeutet: Sie lassen staatliche Förderung liegen, zahlen versteckte Kosten und verpassen das neue ETF-basierte Altersvorsorgedepot ab 2027 vollständig.',
+    cta_tier:'expert'
+  };
+
+  return {
+    action:'optimieren', icon:'🔧',
+    titel:'Optimierungspotenzial vorhanden',
+    begruendung:'Ihr Vertrag läuft – aber es gibt konkrete Stellschrauben. Ungeklärte Zulagen, nicht optimale Beitragshöhe oder Kostenstruktur kosten Sie bares Geld über die Laufzeit.',
+    risiko:'Mittel', risikoColor:'#eab308',
+    naechste_schritte:['Zulagenstatus bei Anbieter klären','Optimalen Mindestbeitrag berechnen','Kostenquote mit ähnlichen Produkten vergleichen'],
+    empfohlene_entscheidung:'Mindestbeitrag prüfen, Zulagenstatus beim Anbieter klären und Kostenstruktur analysieren lassen.',
+    nichts_machen:'Ungeklärte Zulagen und falsche Beitragshöhe kosten Sie nachweislich Geld. Bei 20 Jahren Restlaufzeit summiert das auf 4.000–8.000 € verschenkte Förderung.',
+    cta_tier:'deep_check'
+  };
+}
+
+// ─── SVG ICONS ────────────────────────────────────────────────────────────────
+const Ic = {
+  Arrow: ()=>React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('line',{x1:5,y1:12,x2:19,y2:12}),React.createElement('polyline',{points:'12 5 19 12 12 19'})),
+  Check: ()=>React.createElement('svg',{width:15,height:15,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2.5,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('polyline',{points:'20 6 9 17 4 12'})),
+  Shield: ()=>React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('path',{d:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'})),
+  Upload: ()=>React.createElement('svg',{width:20,height:20,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('polyline',{points:'16 16 12 12 8 16'}),React.createElement('line',{x1:12,y1:12,x2:12,y2:21}),React.createElement('path',{d:'M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3'})),
+  Calendar: ()=>React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8,strokeLinecap:'round',strokeLinejoin:'round'},React.createElement('rect',{x:3,y:4,width:18,height:18,rx:2,ry:2}),React.createElement('line',{x1:16,y1:2,x2:16,y2:6}),React.createElement('line',{x1:8,y1:2,x2:8,y2:6}),React.createElement('line',{x1:3,y1:10,x2:21,y2:10})),
+  Fox: ()=>React.createElement('svg',{width:32,height:32,viewBox:'0 0 32 32',fill:'none'},React.createElement('circle',{cx:16,cy:16,r:16,fill:'#c25700',opacity:0.15}),React.createElement('path',{d:'M8 20 L12 12 L16 18 L20 12 L24 20',stroke:'#c25700',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round',fill:'none'}),React.createElement('circle',{cx:12,cy:11,r:2,fill:'#c25700'}),React.createElement('circle',{cx:20,cy:11,r:2,fill:'#c25700'})),
+};
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function Nav({onStartCheck}) {
+  const [scrolled,setScrolled]=useState(false);
+  useEffect(()=>{const h=()=>setScrolled(window.scrollY>20);window.addEventListener('scroll',h);return()=>window.removeEventListener('scroll',h);},[]);
+  return React.createElement('nav',{style:{position:'fixed',top:0,left:0,right:0,zIndex:100,background:scrolled?'rgba(8,8,8,0.92)':'transparent',backdropFilter:scrolled?'blur(16px)':'none',borderBottom:scrolled?'1px solid rgba(255,255,255,0.06)':'none',transition:'all 0.3s'}},
+    React.createElement('div',{style:{maxWidth:1140,margin:'0 auto',padding:'0 24px',display:'flex',alignItems:'center',justifyContent:'space-between',height:64}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10}},
+        React.createElement(Ic.Fox),
+        React.createElement('div',null,
+          React.createElement('span',{style:{color:'#f0ede8',fontWeight:700,fontSize:16}},'Versicherungsfuchs'),
+          React.createElement('span',{style:{color:'#c25700',fontWeight:600,fontSize:13,marginLeft:8}},'Riester-Check')
+        )
+      ),
+      React.createElement('div',{style:{display:'flex',gap:16,alignItems:'center'}},
+        React.createElement('a',{href:'#faq',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'FAQ'),
+        React.createElement('a',{href:'#pricing',style:{color:'rgba(240,237,232,0.5)',fontSize:14,textDecoration:'none'}},'Preise'),
+        React.createElement('button',{className:'btn-primary',style:{padding:'9px 22px',fontSize:14},onClick:onStartCheck},'Jetzt prüfen')
+      )
+    )
+  );
+}
+
+// ─── HERO ─────────────────────────────────────────────────────────────────────
+function Hero({onStartCheck}) {
+  return React.createElement('section',{style:{paddingTop:140,paddingBottom:60,textAlign:'center',maxWidth:800,margin:'0 auto',padding:'140px 24px 60px'}},
+    React.createElement('div',{style:{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(194,87,0,0.1)',border:'1px solid rgba(194,87,0,0.25)',borderRadius:100,padding:'6px 16px',marginBottom:28}},
+      React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:'#22c55e',boxShadow:'0 0 8px #22c55e',display:'inline-block'}}),
+      React.createElement('span',{style:{color:'#c6ab7f',fontSize:13,fontWeight:500}},'Riester-Check 2026/2027 · Kostenlos starten')
+    ),
+    React.createElement('h1',{style:{fontSize:'clamp(34px,5vw,58px)',fontWeight:800,lineHeight:1.1,marginBottom:20,letterSpacing:'-0.02em'}},
+      'Ist Ihr Riester-Vertrag',React.createElement('br'),
+      React.createElement('span',{style:{color:'#c25700'}},'noch wirklich optimal?')
+    ),
+    React.createElement('p',{style:{fontSize:'clamp(16px,2vw,19px)',color:'rgba(240,237,232,0.6)',lineHeight:1.65,marginBottom:16,maxWidth:580,margin:'0 auto 16px'}},
+      'Millionen Verträge laufen unter ihrem Potenzial. Ungenutzte Zulagen, falsche Beiträge, veraltete Produkte – das kostet Sie bares Geld. Erkennen Sie es in 3 Minuten.'
+    ),
+    React.createElement('p',{style:{fontSize:15,color:'rgba(194,87,0,0.8)',fontWeight:600,marginBottom:36}},
+      '⚠ 7 von 10 geprüften Verträgen haben Optimierungspotenzial.'
+    ),
+    React.createElement('div',{style:{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap'}},
+      React.createElement('button',{className:'btn-primary glow-fox-sm',style:{fontSize:17,padding:'16px 36px'},onClick:onStartCheck},'Kostenloser Schnell-Check',React.createElement(Ic.Arrow)),
+      React.createElement('a',{href:'#pricing',style:{textDecoration:'none'}},React.createElement('button',{className:'btn-secondary',style:{fontSize:15,padding:'16px 28px'}},'Alle Optionen ansehen'))
+    ),
+    React.createElement('div',{style:{display:'flex',gap:28,justifyContent:'center',marginTop:32,flexWrap:'wrap'}},
+      ['Kostenlos & unverbindlich','3 Min. · Kein Dokument nötig','DSGVO-konform · SSL'].map(t=>
+        React.createElement('div',{key:t,style:{display:'flex',alignItems:'center',gap:7,color:'rgba(240,237,232,0.45)',fontSize:13}},
+          React.createElement('span',{style:{color:'#22c55e'}},React.createElement(Ic.Check)),t
+        )
+      )
+    )
+  );
+}
+
+// ─── TRUST ────────────────────────────────────────────────────────────────────
+function Trust() {
+  const stats=[{n:'12.400+',l:'Verträge geprüft'},{n:'4,8 ★',l:'Kundenbewertung'},{n:'73 %',l:'mit Optimierungspotenzial'},{n:'100 %',l:'Erstattung bei Wechsel'}];
+  return React.createElement('section',{style:{padding:'0 24px 80px',maxWidth:1140,margin:'0 auto'}},
+    React.createElement('div',{className:'glass',style:{borderRadius:16,padding:'32px 48px',display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))',gap:24,textAlign:'center'}},
+      stats.map(s=>React.createElement('div',{key:s.n},
+        React.createElement('div',{style:{fontSize:32,fontWeight:800,color:'#c25700',lineHeight:1}},s.n),
+        React.createElement('div',{style:{color:'rgba(240,237,232,0.45)',fontSize:13,marginTop:5}},s.l)
+      ))
+    )
+  );
+}
+
+// ─── PRICING V2 (3 Tiers) ─────────────────────────────────────────────────────
+function PricingV2({onStartCheck,onDeepCheck,onExpert}) {
+  const tiers=[
+    {
+      id:'free', label:'Quick Check', badge:'KOSTENLOS', price:'0 €', sub:'Sofortergebnis · Keine Anmeldung',
+      featured:false,
+      features:['10 gezielte Fragen','Ampel-Einschätzung (Grün/Gelb/Rot)','Handlungsempfehlung (regelbasiert)','Keine Dokumente nötig'],
+      cta:'Jetzt kostenlos starten', ctaFn:onStartCheck,
+      note:''
+    },
+    {
+      id:'deep', label:'Deep Check', badge:'BELIEBT', price:'19 €', sub:'Vollständige Analyse · PDF-Upload',
+      featured:true,
+      features:['Alles aus Quick Check','PDF-Upload Ihrer Standmitteilung','KI-gestützte Vertragsanalyse','Strukturierter Bericht in 24h','Konkrete Kostenstruktur-Auswertung','Vollständige Erstattung bei Wechsel'],
+      cta:'Deep Check starten', ctaFn:onDeepCheck,
+      note:'19,– € werden bei Vertragswechsel vollständig erstattet.'
+    },
+    {
+      id:'expert', label:'Expert-Verified', badge:'HÖCHSTE SICHERHEIT', price:'39 €', sub:'Von Experten geprüft · Human-in-the-loop',
+      featured:false,
+      features:['Alles aus Deep Check','Manuelle Prüfung durch qualifizierten Berater','„Von Experten geprüft"-Siegel','Priorisierte Bearbeitung (12h)','Erstattungsgarantie bei Wechsel','Kostenlose Zweitmeinung im Anschluss'],
+      cta:'Expert-Check starten', ctaFn:onExpert,
+      note:'Kein Beratungsvertrag enthalten. Unabhängige Vorprüfung.'
+    }
+  ];
+  return React.createElement('section',{id:'pricing',style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
+    React.createElement('div',{style:{textAlign:'center',marginBottom:48}},
+      React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'Preise'),
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em',marginBottom:12}},'Wählen Sie die richtige Tiefe'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:16,maxWidth:500,margin:'0 auto'}},'Starten Sie kostenlos. Zahlen Sie nur, wenn Sie tiefer gehen möchten.')
+    ),
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}},
+      tiers.map(t=>
+        React.createElement('div',{key:t.id,className:`tier-card${t.featured?' featured':''}`,style:{position:'relative'}},
+          t.featured&&React.createElement('div',{style:{position:'absolute',top:-12,left:'50%',transform:'translateX(-50%)',background:'#c25700',color:'#fff',fontSize:11,fontWeight:700,borderRadius:100,padding:'4px 14px',letterSpacing:'0.05em',whiteSpace:'nowrap'}},'EMPFOHLEN'),
+          React.createElement('div',{className:`badge ${t.id==='expert'?'badge-gold':t.featured?'badge-fox':'badge-green'}`,style:{marginBottom:16}},t.badge),
+          React.createElement('div',{style:{fontSize:13,fontWeight:600,color:'rgba(240,237,232,0.6)',marginBottom:4}},t.label),
+          React.createElement('div',{style:{fontSize:42,fontWeight:800,marginBottom:4}},t.price),
+          React.createElement('div',{style:{color:'rgba(240,237,232,0.45)',fontSize:13,marginBottom:24}},t.sub),
+          t.features.map(f=>
+            React.createElement('div',{key:f,style:{display:'flex',alignItems:'center',gap:10,marginBottom:11}},
+              React.createElement('span',{style:{color:t.featured?'#c25700':'#22c55e',flexShrink:0}},React.createElement(Ic.Check)),
+              React.createElement('span',{style:{fontSize:14,color:'rgba(240,237,232,0.8)'}},f)
+            )
+          ),
+          React.createElement('button',{
+            className:t.featured?'btn-primary':'btn-ghost',
+            style:{width:'100%',marginTop:20,justifyContent:'center',fontSize:15},
+            onClick:t.ctaFn
+          },t.cta),
+          t.note&&React.createElement('p',{style:{color:'rgba(240,237,232,0.3)',fontSize:12,textAlign:'center',marginTop:12,lineHeight:1.5}},t.note)
+        )
+      )
+    ),
+    React.createElement('p',{style:{textAlign:'center',marginTop:24,color:'rgba(240,237,232,0.25)',fontSize:12}},
+      'Kein Beratungsvertrag. Keine Kündungsempfehlung. Unabhängige Vorprüfung. Kein Ersatz für individuelle Anlageberatung nach WpHG.'
+    )
+  );
+}
+
+// ─── WIE ES FUNKTIONIERT ──────────────────────────────────────────────────────
+function WieFunktioniert({onStartCheck}) {
+  const steps=[
+    {n:'01',title:'Schnell-Check (kostenlos)',desc:'10 Fragen, kein Dokument. Sie erhalten sofort eine Ersteinschätzung und klare Handlungsempfehlung.',icon:'⚡',color:'rgba(194,87,0,0.15)'},
+    {n:'02',title:'Deep Check für 19 €',desc:'Standmitteilung hochladen. KI analysiert alle Details und liefert einen vollständigen Bericht in 24h.',icon:'🔎',color:'rgba(59,130,246,0.12)'},
+    {n:'03',title:'Expert-Verified für 39 €',desc:'Zusätzlich prüft ein qualifizierter Berater Ihren Fall manuell. Höchste Sicherheit, klares „Von Experten geprüft"-Siegel.',icon:'✅',color:'rgba(34,197,94,0.12)'},
+  ];
+  return React.createElement('section',{id:'wie-es-funktioniert',style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
+    React.createElement('div',{style:{textAlign:'center',marginBottom:52}},
+      React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'Ablauf'),
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,42px)',fontWeight:800,letterSpacing:'-0.02em'}}),'In 3 Schritten zur Klarheit'
+    ),
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(280px,1fr))',gap:20}},
+      steps.map((s,i)=>
+        React.createElement('div',{key:i,className:'glass',style:{borderRadius:16,padding:32,position:'relative',overflow:'hidden'}},
+          React.createElement('div',{style:{width:44,height:44,borderRadius:12,background:s.color,display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,marginBottom:20}},s.icon),
+          React.createElement('div',{style:{color:'rgba(194,87,0,0.15)',fontSize:64,fontWeight:900,position:'absolute',top:-10,right:20,lineHeight:1,userSelect:'none'}},s.n),
+          React.createElement('h3',{style:{fontSize:19,fontWeight:700,marginBottom:10}},s.title),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:14,lineHeight:1.65}},s.desc)
+        )
+      )
+    ),
+    React.createElement('div',{style:{textAlign:'center',marginTop:36}},
+      React.createElement('button',{className:'btn-primary',onClick:onStartCheck},'Kostenlos starten',React.createElement(Ic.Arrow))
+    )
+  );
+}
+
+// ─── FAQ ─────────────────────────────────────────────────────────────────────
+function FAQ() {
+  const [open,setOpen]=useState(null);
+  const items=[
+    {q:'Lohnt sich Riester in 2026 noch?',a:'Das hängt stark von Ihrer persönlichen Situation ab: Altverträge (vor 2010), Kinderzulagen und Beamtenstatus sind klassische Argumente dafür. Renditeorientierte Sparer ohne Kinder sollten Alternativen prüfen. Unser Check zeigt Ihnen schnell, wo Sie stehen.'},
+    {q:'Was ändert sich 2027 mit dem Altersvorsorgedepot?',a:'Ab 2027 startet das neue staatlich geförderte ETF-Depot. Riester-Verträge laufen weiter, können aber umgewidmet werden. Genau jetzt ist der richtige Zeitpunkt zu prüfen, ob ein Wechsel Sinn ergibt.'},
+    {q:'Was ist die Riester-Grundzulage 2026?',a:'175 € Grundzulage pro Jahr. Dazu: 185 € je Kind (geboren vor 2008) oder 300 € je Kind (geboren ab 2008). Wichtig: Zulagen müssen aktiv beantragt werden – das übernimmt meist der Anbieter, muss aber eingerichtet sein.'},
+    {q:'Kann ich meinen Riester-Vertrag kündigen?',a:'Technisch ja – aber fast nie sinnvoll. Alle Förderungen müssen zurückgezahlt werden. Sinnvoller ist meist: beitragsfrei stellen, Beitrag anpassen oder zu einem anderen Produkt wechseln. Unser Check zeigt Alternativen.'},
+    {q:'Was ist die Erstattungsgarantie?',a:'Wenn Sie nach dem Deep Check (19 €) oder Expert-Check (39 €) einen Vertragswechsel über uns abschließen, erstatten wir die Analysegebühr vollständig. Kein Risiko.'},
+    {q:'Was bedeutet „Von Experten geprüft"?',a:'Beim Expert-Verified Check prüft ein qualifizierter Finanzfachmann Ihren Fall manuell – zusätzlich zur automatischen Analyse. Das ist KEINE Beratung im Sinne des WpHG, sondern eine unabhängige Vorprüfung.'},
+    {q:'Wie lange dauert der Check?',a:'Der kostenlose Schnell-Check dauert ca. 3 Minuten. Deep Check: Ergebnis in 24h nach PDF-Upload. Expert-Verified: 12h Priorisierung.'},
+  ];
+  return React.createElement('section',{id:'faq',style:{padding:'80px 24px',maxWidth:780,margin:'0 auto'}},
+    React.createElement('div',{style:{textAlign:'center',marginBottom:44}},
+      React.createElement('p',{style:{color:'#c25700',fontWeight:600,fontSize:13,letterSpacing:'0.1em',textTransform:'uppercase',marginBottom:12}},'FAQ'),
+      React.createElement('h2',{style:{fontSize:'clamp(26px,3.5vw,40px)',fontWeight:800,letterSpacing:'-0.02em'}}),'Häufige Fragen'
+    ),
+    items.map((item,i)=>
+      React.createElement('div',{key:i,className:'glass',style:{borderRadius:12,marginBottom:10,overflow:'hidden'}},
+        React.createElement('button',{onClick:()=>setOpen(open===i?null:i),style:{width:'100%',background:'none',border:'none',color:'#f0ede8',padding:'18px 22px',textAlign:'left',cursor:'pointer',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,fontSize:15,fontWeight:600}},
+          item.q,
+          React.createElement('span',{style:{color:'#c25700',fontSize:22,flexShrink:0,transform:open===i?'rotate(45deg)':'none',transition:'transform 0.2s'}},'+')
+        ),
+        open===i&&React.createElement('div',{style:{padding:'0 22px 18px',color:'rgba(240,237,232,0.6)',fontSize:14,lineHeight:1.65}},item.a)
+      )
+    )
+  );
+}
+
+// ─── FOOTER CTA ───────────────────────────────────────────────────────────────
+function FooterCTA({onStartCheck}) {
+  return React.createElement('section',{style:{padding:'80px 24px',maxWidth:1140,margin:'0 auto'}},
+    React.createElement('div',{className:'glass-warm glow-fox',style:{borderRadius:24,padding:'60px 48px',textAlign:'center'}},
+      React.createElement('h2',{style:{fontSize:'clamp(22px,3vw,38px)',fontWeight:800,marginBottom:14,letterSpacing:'-0.02em'}},'Jetzt prüfen – kostenlos & unverbindlich'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:17,marginBottom:36,maxWidth:440,margin:'0 auto 36px'}},'3 Minuten. Kein Dokument. Sofortergebnis.'),
+      React.createElement('button',{className:'btn-primary glow-fox',style:{fontSize:17,padding:'16px 40px'},onClick:onStartCheck},'Schnell-Check starten',React.createElement(Ic.Arrow))
+    )
+  );
+}
+
+function Footer() {
+  return React.createElement('footer',{style:{borderTop:'1px solid rgba(255,255,255,0.06)',padding:'40px 24px 32px',maxWidth:1140,margin:'0 auto'}},
+    // Hauptzeile
+    React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:20,marginBottom:24}},
+      // Brand
+      React.createElement('div',null,
+        React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+          React.createElement('div',{style:{width:28,height:28,borderRadius:8,background:'rgba(194,87,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}},
+            React.createElement('svg',{width:16,height:16,viewBox:'0 0 24 24',fill:'none',stroke:'#c25700',strokeWidth:2,strokeLinecap:'round',strokeLinejoin:'round'},
+              React.createElement('path',{d:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'})
+            )
+          ),
+          React.createElement('span',{style:{color:'rgba(240,237,232,0.7)',fontWeight:700,fontSize:14}},'iSurance Group GmbH')
+        ),
+        React.createElement('a',{href:'mailto:info@isurance-group.de',style:{color:'rgba(240,237,232,0.35)',fontSize:13,textDecoration:'none',display:'block',marginBottom:4}},'info@isurance-group.de'),
+        React.createElement('a',{href:'https://www.isurance-group.de',target:'_blank',rel:'noopener noreferrer',style:{color:'rgba(194,87,0,0.5)',fontSize:12,textDecoration:'none'}},'isurance-group.de ↗')
+      ),
+      // Links
+      React.createElement('div',{style:{display:'flex',gap:24,flexWrap:'wrap',alignItems:'center'}},
+        [['Impressum','#impressum'],['Datenschutz','#datenschutz'],['AGB','#agb'],['Widerrufsrecht','#widerrufsrecht']].map(([l,h])=>
+          React.createElement('a',{key:l,href:h,style:{color:'rgba(240,237,232,0.28)',fontSize:13,textDecoration:'none'}},l)
+        )
+      )
+    ),
+    // DSGVO + Legal Disclaimer
+    React.createElement('div',{style:{borderTop:'1px solid rgba(255,255,255,0.05)',paddingTop:20,display:'flex',flexWrap:'wrap',gap:12,justifyContent:'space-between',alignItems:'center'}},
+      React.createElement('div',{style:{color:'rgba(240,237,232,0.2)',fontSize:11,lineHeight:1.6,maxWidth:600}},
+        '© 2026 Versicherungsfuchs · iSurance Group GmbH · Keine Anlageberatung gem. WpHG. Alle Angaben ohne Gewähr. Kein Ersatz für individuelle Beratung.'
+      ),
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:6,color:'rgba(240,237,232,0.2)',fontSize:11}},
+        React.createElement('svg',{width:12,height:12,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2},React.createElement('path',{d:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'})),
+        'Daten werden nach 14 Tagen gelöscht · DSGVO Art. 17'
+      )
+    )
+  );
+}
+
+// ─── LANDING PAGE ─────────────────────────────────────────────────────────────
+function LandingPage({onStartCheck}) {
+  const go=()=>{window.scrollTo(0,0);onStartCheck();};
+  return React.createElement('div',null,
+    React.createElement(Nav,{onStartCheck:go}),
+    React.createElement(Hero,{onStartCheck:go}),
+    React.createElement(Trust),
+    React.createElement(WieFunktioniert,{onStartCheck:go}),
+    React.createElement(PricingV2,{onStartCheck:go,onDeepCheck:go,onExpert:go}),
+    React.createElement(FAQ),
+    React.createElement(FooterCTA,{onStartCheck:go}),
+    React.createElement(Footer)
+  );
+}
+
+// ─── SCHNELL-CHECK ────────────────────────────────────────────────────────────
+function SchnellCheck({onComplete,onBack}) {
+  const [idx,setIdx]=useState(0);
+  const [answers,setAnswers]=useState({});
+  const [selected,setSelected]=useState(null);
+  const [fade,setFade]=useState(false);
+  const q=QUESTIONS[idx];
+  const pct=Math.round((idx/QUESTIONS.length)*100);
+
+  const next=()=>{
+    if(!selected) return;
+    const na={...answers,[q.id]:selected};
+    setAnswers(na);
+    if(idx<QUESTIONS.length-1){
+      setFade(true);
+      setTimeout(()=>{setIdx(idx+1);setSelected(null);setFade(false);},180);
+    } else {
+      emitEvent('check_completed',{answers:na,ampel:berechneAmpel(na),score:berechneScore(na)});
+      onComplete(na);
+    }
+  };
+
+  const back=()=>{
+    if(idx===0){onBack();return;}
+    const prev={...answers}; delete prev[q.id];
+    setAnswers(prev); setIdx(idx-1); setSelected(answers[QUESTIONS[idx-1].id]||null);
+  };
+
+  return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:580}},
+      // Header
+      React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:28}},
+        React.createElement('button',{onClick:back,style:{background:'none',border:'none',color:'rgba(240,237,232,0.45)',cursor:'pointer',fontSize:14}},'← Zurück'),
+        React.createElement('span',{style:{color:'rgba(240,237,232,0.35)',fontSize:13}},`${idx+1} / ${QUESTIONS.length}`)
+      ),
+      // Progress
+      React.createElement('div',{className:'progress-bar',style:{marginBottom:8}},
+        React.createElement('div',{className:'progress-fill',style:{width:`${pct}%`}})
+      ),
+      React.createElement('div',{style:{color:'rgba(240,237,232,0.3)',fontSize:12,marginBottom:36,textAlign:'right'}},`${pct} % abgeschlossen`),
+      // Question
+      React.createElement('div',{style:{opacity:fade?0:1,transition:'opacity 0.18s'},className:'fade-up'},
+        React.createElement('h2',{style:{fontSize:'clamp(19px,3vw,26px)',fontWeight:700,marginBottom:8,lineHeight:1.3}},q.question),
+        q.hint&&React.createElement('p',{style:{color:'rgba(240,237,232,0.4)',fontSize:13,marginBottom:24}},q.hint),
+        React.createElement('div',{style:{display:'flex',flexDirection:'column',gap:10,marginBottom:32}},
+          q.options.map(opt=>
+            React.createElement('button',{key:opt.value,className:`answer-card${selected===opt.value?' selected':''}`,onClick:()=>setSelected(opt.value)},
+              React.createElement('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center'}},
+                React.createElement('span',null,opt.label),
+                selected===opt.value&&React.createElement('span',{style:{color:'#c25700'}},React.createElement(Ic.Check))
+              )
+            )
+          )
+        ),
+        React.createElement('button',{className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:16,opacity:selected?1:0.4,cursor:selected?'pointer':'not-allowed'},onClick:next,disabled:!selected},
+          idx<QUESTIONS.length-1?'Weiter':'Ergebnis anzeigen',React.createElement(Ic.Arrow)
+        )
+      ),
+      // Dots
+      React.createElement('div',{style:{display:'flex',justifyContent:'center',gap:6,marginTop:28}},
+        QUESTIONS.map((_,i)=>
+          React.createElement('div',{key:i,style:{width:6,height:6,borderRadius:'50%',background:i<=idx?'#c25700':'rgba(255,255,255,0.15)',transition:'all 0.2s'}})
+        )
+      )
+    )
+  );
+}
+
+// ─── PRE-LEAD-GATE (emotionaler Teaser VOR E-Mail) ────────────────────────────
+function PreLeadGate({answers,onUnlock}) {
+  const ampel=berechneAmpel(answers);
+  const score=berechneScore(answers);
+  const [animScore,setAnimScore]=useState(0);
+
+  useEffect(()=>{
+    const t=setTimeout(()=>setAnimScore(score),300);
+    return()=>clearTimeout(t);
+  },[score]);
+
+  const cfg={
+    green:{color:'#22c55e',bg:'rgba(34,197,94,0.08)',border:'rgba(34,197,94,0.25)',label:'Gute Ausgangslage',headline:'Ihr Vertrag hat Potenzial – aber haben Sie alles ausgeschöpft?',sub:'73 % unserer Nutzer mit „grünem" Ergebnis finden bei der Detailanalyse noch Optimierungspotenzial.'},
+    yellow:{color:'#eab308',bg:'rgba(234,179,8,0.08)',border:'rgba(234,179,8,0.25)',label:'Optimierungspotenzial erkannt',headline:'Ihr Vertrag läuft – aber er könnte deutlich mehr für Sie arbeiten.',sub:'Ungenutzte Zulagen, falsche Beitragshöhe oder versteckte Kosten kosten Sie über die Laufzeit Tausende Euro.'},
+    red:{color:'#ef4444',bg:'rgba(239,68,68,0.08)',border:'rgba(239,68,68,0.25)',label:'Handlungsbedarf erkannt',headline:'Ihr Vertrag könnte kritisch sein.',sub:'Mehrere Faktoren deuten auf erhebliche Schwächen hin. Jedes Jahr ohne Anpassung kostet Sie nachweislich Förderung und Rendite.'},
+  }[ampel];
+
+  return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:520},className:'fade-up'},
+
+      // Ampel-Box
+      React.createElement('div',{style:{borderRadius:20,padding:'32px',marginBottom:24,border:`1.5px solid ${cfg.border}`,background:cfg.bg,textAlign:'center'}},
+        React.createElement('div',{style:{display:'flex',justifyContent:'center',gap:12,marginBottom:20}},
+          ['green','yellow','red'].map(c=>
+            React.createElement('div',{key:c,style:{width:32,height:32,borderRadius:'50%',background:{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c],opacity:ampel===c?1:0.18,transition:'all 0.4s',boxShadow:ampel===c?`0 0 16px ${{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c]}`:'none'}})
+          )
+        ),
+        React.createElement('div',{style:{fontWeight:700,fontSize:15,color:cfg.color,marginBottom:8}},cfg.label),
+        React.createElement('h2',{style:{fontSize:'clamp(18px,2.5vw,24px)',fontWeight:800,lineHeight:1.3,marginBottom:10}},cfg.headline),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:14,lineHeight:1.6}},cfg.sub),
+
+        // Score-Balken
+        React.createElement('div',{style:{marginTop:20}},
+          React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:6}},
+            React.createElement('span',{style:{fontSize:12,color:'rgba(240,237,232,0.45)'}},'Vertrags-Score'),
+            React.createElement('span',{style:{fontSize:13,fontWeight:700,color:cfg.color},className:'score-reveal'},`${score} / 100`)
+          ),
+          React.createElement('div',{className:'score-bar-outer'},
+            React.createElement('div',{className:'score-bar-inner',style:{width:`${animScore}%`,background:cfg.color}})
+          ),
+          React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginTop:4,fontSize:11,color:'rgba(240,237,232,0.3)'}},
+            React.createElement('span',null,'Kritisch'),React.createElement('span',null,'Optimal')
+          )
+        )
+      ),
+
+      // Gate-Teaser (Details verschwommen)
+      React.createElement('div',{style:{borderRadius:14,marginBottom:20,overflow:'hidden',position:'relative'}},
+        React.createElement('div',{className:'glass blur-result',style:{padding:'20px 22px'}},
+          React.createElement('div',{style:{fontWeight:700,fontSize:15,marginBottom:8}},'Ihre Handlungsempfehlung:'),
+          React.createElement('div',{style:{background:'rgba(255,255,255,0.06)',borderRadius:8,padding:'12px 16px',marginBottom:8,fontSize:14}},'██████████ ████████████████'),
+          React.createElement('div',{style:{fontSize:13,color:'rgba(240,237,232,0.5)'}},'Nächste Schritte: ████████ · ████████ · ████████')
+        ),
+        React.createElement('div',{style:{position:'absolute',inset:0,display:'flex',alignItems:'center',justifyContent:'center',background:'rgba(8,8,8,0.6)',backdropFilter:'blur(2px)'}}),
+        React.createElement('div',{style:{textAlign:'center',padding:'12px',color:'rgba(240,237,232,0.5)',fontSize:13,background:'rgba(255,255,255,0.02)',borderTop:'1px solid rgba(255,255,255,0.06)'}},
+          '🔒 Vollständiges Ergebnis nach E-Mail-Eingabe'
+        )
+      ),
+
+      React.createElement('button',{className:'btn-primary glow-fox-sm',style:{width:'100%',justifyContent:'center',fontSize:16,padding:'16px'},onClick:onUnlock},
+        'Ergebnis freischalten & anzeigen',React.createElement(Ic.Arrow)
+      ),
+      React.createElement('p',{style:{textAlign:'center',marginTop:12,color:'rgba(240,237,232,0.3)',fontSize:12}},'Kostenlos · Kein Spam · DSGVO-konform')
+    )
+  );
+}
+
+// ─── LEAD CAPTURE ─────────────────────────────────────────────────────────────
+function LeadCapture({onSubmit,answers}) {
+  const [email,setEmail]=useState('');
+  const [name,setName]=useState('');
+  const [consent,setConsent]=useState(false);
+  const [error,setError]=useState('');
+  const [loading,setLoading]=useState(false);
+  const ampel=berechneAmpel(answers);
+
+  const submit=async(e)=>{
+    e.preventDefault();
+    if(!email.includes('@')){setError('Bitte gültige E-Mail-Adresse eingeben.');return;}
+    if(!consent){setError('Bitte Datenschutzerklärung zustimmen.');return;}
+    setError('');setLoading(true);
+    const lead={name,email,answers,ampel_status:ampel,timestamp:new Date().toISOString(),source:'schnell_check'};
+    // Backend call (non-blocking for demo)
+    fetch(`${API_URL}/api/lead`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...lead,score:berechneScore(answers)})}).catch(()=>{});
+    emitEvent('lead_created',{email,ampel,score:berechneScore(answers)});
+    setTimeout(()=>{setLoading(false);onSubmit(lead);},600);
+  };
+
+  return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:440}},
+      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:8,letterSpacing:'-0.01em'}},'Fast geschafft.'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:15,marginBottom:28,lineHeight:1.55}},'Geben Sie Ihre E-Mail-Adresse ein, um Ihr vollständiges Ergebnis zu erhalten. Wir senden es Ihnen auch per E-Mail zu.'),
+      React.createElement('form',{onSubmit:submit},
+        React.createElement('input',{type:'text',placeholder:'Ihr Name (optional)',value:name,onChange:e=>setName(e.target.value),style:{marginBottom:12}}),
+        React.createElement('input',{type:'email',placeholder:'Ihre E-Mail-Adresse *',value:email,onChange:e=>setEmail(e.target.value),required,style:{marginBottom:14}}),
+        React.createElement('label',{style:{display:'flex',alignItems:'flex-start',gap:12,marginBottom:18,cursor:'pointer'}},
+          React.createElement('div',{
+            style:{marginTop:2,width:18,height:18,borderRadius:5,border:`1.5px solid ${consent?'#c25700':'rgba(255,255,255,0.2)'}`,background:consent?'#c25700':'transparent',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center',transition:'all 0.15s',cursor:'pointer'},
+            onClick:()=>setConsent(!consent)
+          },consent&&React.createElement('svg',{width:10,height:10,viewBox:'0 0 10 10',fill:'none'},React.createElement('polyline',{points:'1.5 5 4 7.5 8.5 2.5',stroke:'white',strokeWidth:1.8}))),
+          React.createElement('span',{style:{color:'rgba(240,237,232,0.45)',fontSize:13,lineHeight:1.5}},
+            'Ich stimme der ',React.createElement('a',{href:'#',style:{color:'#c6ab7f'}},'Datenschutzerklärung'),' zu. Keine Beratung gem. WpHG. Daten werden nach 14 Tagen gelöscht.'
+          )
+        ),
+        error&&React.createElement('div',{style:{color:'#ef4444',fontSize:13,marginBottom:12}},error),
+        React.createElement('button',{type:'submit',className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:16,padding:'15px'},disabled:loading},
+          loading?React.createElement('span',{className:'pulse-soft'},'Wird verarbeitet…'):'Ergebnis anzeigen'
+        ),
+        React.createElement('div',{style:{textAlign:'center',marginTop:14,color:'rgba(240,237,232,0.25)',fontSize:12,display:'flex',alignItems:'center',justifyContent:'center',gap:6}},
+          React.createElement('span',{style:{color:'#22c55e'}},React.createElement(Ic.Shield)),'SSL-verschlüsselt · DSGVO-konform · Kein Spam'
+        )
+      )
+    )
+  );
+}
+
+// ─── ERGEBNIS + HANDLUNGSEMPFEHLUNG ───────────────────────────────────────────
+function Ergebnis({answers,lead,onDeepCheck,onExpert,onRestart}) {
+  const ampel=berechneAmpel(answers);
+  const score=berechneScore(answers);
+  const empfehlung=getHandlungsempfehlung(answers,ampel);
+  const [scoreAnim,setScoreAnim]=useState(0);
+
+  useEffect(()=>{
+    emitEvent('result_viewed',{email:lead.email,ampel,score,empfehlung:empfehlung.action});
+    const t=setTimeout(()=>setScoreAnim(score),400);
+    return()=>clearTimeout(t);
+  },[]);
+
+  const ampelCfg={
+    green:{color:'#22c55e',label:'Gute Ausgangslage',text:'Ihr Vertrag hat eine solide Basis.'},
+    yellow:{color:'#eab308',label:'Optimierungspotenzial',text:'Konkrete Stellschrauben vorhanden.'},
+    red:{color:'#ef4444',label:'Handlungsbedarf',text:'Mehrere kritische Faktoren erkannt.'},
+  }[ampel];
+
+  const recClass={behalten_optimieren:'rec-behalten',optimieren:'rec-optimieren',beitragsfrei:'rec-beitragsfrei',wechsel_pruefen:'rec-wechsel'}[empfehlung.action];
+
+  const checkItems=[
+    {label:'Vertragsbeginn',val:{vor2005:'Vor 2005',  '2005_2010':'2005–2010','2010_2015':'2010–2015',nach2015:'Ab 2015'}[answers.vertragsbeginn]},
+    {label:'Monatsbeitrag',val:{'0_25':'<25 €','25_100':'25–100 €','100_200':'100–200 €','200plus':'>200 €'}[answers.beitrag]},
+    {label:'Kinder',val:{0:'Keine',1:'1 Kind','2plus':'2+'}[answers.kinder]},
+    {label:'Zulagen',val:{ja:'✓ Genutzt','nein_unklar':'⚠ Unklar'}[answers.zulagen]},
+    {label:'Vertragsstatus',val:{aktiv:'Aktiv',ruhend:'⚠ Ruhend'}[answers.vertrag_status]},
+    {label:'Garantiewunsch',val:{wichtig:'Hoch',egal:'Niedrig'}[answers.garantiewunsch]},
+  ];
+
+  return React.createElement('div',{style:{minHeight:'100vh',padding:'80px 24px 60px',maxWidth:660,margin:'0 auto'},className:'fade-up'},
+
+    // ── Ampel + Score
+    React.createElement('div',{style:{borderRadius:20,padding:'32px',marginBottom:20,border:`1.5px solid ${ampelCfg.color}28`,background:`${ampelCfg.color}08`,textAlign:'center'}},
+      React.createElement('div',{style:{display:'flex',justifyContent:'center',gap:10,marginBottom:16}},
+        ['green','yellow','red'].map(c=>
+          React.createElement('div',{key:c,style:{width:28,height:28,borderRadius:'50%',background:{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c],opacity:ampel===c?1:0.18,boxShadow:ampel===c?`0 0 14px ${{green:'#22c55e',yellow:'#eab308',red:'#ef4444'}[c]}`:'none'}})
+        )
+      ),
+      React.createElement('div',{style:{fontWeight:700,color:ampelCfg.color,fontSize:13,marginBottom:6}},ampelCfg.label),
+      React.createElement('div',{style:{fontSize:'clamp(18px,2.5vw,22px)',fontWeight:800,marginBottom:20}},ampelCfg.text),
+      React.createElement('div',{style:{maxWidth:360,margin:'0 auto'}},
+        React.createElement('div',{style:{display:'flex',justifyContent:'space-between',marginBottom:6}},
+          React.createElement('span',{style:{fontSize:12,color:'rgba(240,237,232,0.4)'}},'Ihr Vertrags-Score'),
+          React.createElement('span',{style:{fontSize:14,fontWeight:700,color:ampelCfg.color}},`${score} / 100`)
+        ),
+        React.createElement('div',{className:'score-bar-outer'},
+          React.createElement('div',{className:'score-bar-inner',style:{width:`${scoreAnim}%`,background:ampelCfg.color,transition:'width 1.2s cubic-bezier(.25,.8,.25,1)'}})
+        )
+      )
+    ),
+
+    // ── Handlungsempfehlung
+    React.createElement('div',{className:`rec-card ${recClass}`,style:{marginBottom:20}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:10,marginBottom:12}},
+        React.createElement('span',{style:{fontSize:24}}),empfehlung.icon,
+        React.createElement('h3',{style:{fontWeight:800,fontSize:18}}),empfehlung.titel
+      ),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.7)',fontSize:14,lineHeight:1.65,marginBottom:16}},empfehlung.begruendung),
+      React.createElement('div',{style:{display:'flex',gap:8,alignItems:'center',marginBottom:14}},
+        React.createElement('span',{style:{fontSize:12,color:'rgba(240,237,232,0.45)'}},'Risiko:'),
+        React.createElement('span',{style:{fontWeight:600,fontSize:13,color:empfehlung.risikoColor}},empfehlung.risiko)
+      ),
+      React.createElement('div',null,
+        React.createElement('div',{style:{fontSize:12,color:'rgba(240,237,232,0.45)',marginBottom:8,fontWeight:600,textTransform:'uppercase',letterSpacing:'0.05em'}},'Nächste Schritte'),
+        empfehlung.naechste_schritte.map((s,i)=>
+          React.createElement('div',{key:i,style:{display:'flex',gap:10,marginBottom:8}},
+            React.createElement('div',{style:{width:22,height:22,borderRadius:'50%',background:'rgba(194,87,0,0.18)',color:'#c25700',fontSize:11,fontWeight:700,display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0}},i+1),
+            React.createElement('span',{style:{fontSize:14,color:'rgba(240,237,232,0.75)',lineHeight:1.45}},s)
+          )
+        )
+      )
+    ),
+
+    // ── Empfohlene Entscheidung
+    React.createElement('div',{style:{borderRadius:14,padding:'18px 22px',marginBottom:12,background:'rgba(194,87,0,0.07)',border:'1.5px solid rgba(194,87,0,0.22)',borderLeft:'3px solid #c25700'}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+        React.createElement('span',{style:{fontSize:15}},'🎯'),
+        React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#c25700',textTransform:'uppercase',letterSpacing:'0.08em'}},'Empfohlene Entscheidung')
+      ),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.9)',fontSize:15,fontWeight:600,lineHeight:1.5,margin:0}},empfehlung.empfohlene_entscheidung)
+    ),
+
+    // ── Was passiert, wenn du nichts machst
+    React.createElement('div',{style:{borderRadius:14,padding:'18px 22px',marginBottom:20,background:'rgba(239,68,68,0.05)',border:'1.5px solid rgba(239,68,68,0.18)'}},
+      React.createElement('div',{style:{display:'flex',alignItems:'center',gap:8,marginBottom:8}},
+        React.createElement('span',{style:{fontSize:15}},'⏰'),
+        React.createElement('span',{style:{fontWeight:700,fontSize:11,color:'#ef4444',textTransform:'uppercase',letterSpacing:'0.08em'}},'Was passiert, wenn du nichts machst')
+      ),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.65)',fontSize:14,lineHeight:1.65,margin:0}},empfehlung.nichts_machen)
+    ),
+
+    // ── App CTA – myinsure.de
+    React.createElement('a',{
+      href:APP_LOGIN_URL,target:'_blank',rel:'noopener noreferrer',
+      style:{display:'block',marginBottom:20,textDecoration:'none'},
+      onClick:()=>emitEvent('app_cta_clicked',{source:'result_page',ampel,score})
+    },
+      React.createElement('div',{style:{borderRadius:14,padding:'20px 24px',background:'linear-gradient(135deg,rgba(194,87,0,0.14),rgba(127,46,0,0.09))',border:'1.5px solid rgba(194,87,0,0.38)',display:'flex',justifyContent:'space-between',alignItems:'center',gap:16,cursor:'pointer',transition:'all 0.2s'}},
+        React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:800,fontSize:16,marginBottom:3,color:'#f0ede8'}},'Jetzt Kunde werden & Zugang sichern'),
+          React.createElement('div',{style:{color:'rgba(240,237,232,0.45)',fontSize:13}},'myinsure.de · Ihr persönlicher Versicherungsbereich')
+        ),
+        React.createElement('div',{style:{width:42,height:42,borderRadius:11,background:'#c25700',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,boxShadow:'0 4px 14px rgba(194,87,0,0.4)'}},
+          React.createElement(Ic.Arrow)
+        )
+      )
+    ),
+
+    // ── Ihre Angaben
+    React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px 22px',marginBottom:20}},
+      React.createElement('h3',{style:{fontWeight:600,fontSize:13,marginBottom:14,color:'rgba(240,237,232,0.45)',textTransform:'uppercase',letterSpacing:'0.07em'}},'Ihre Angaben'),
+      React.createElement('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(140px,1fr))',gap:10}},
+        checkItems.map(d=>
+          React.createElement('div',{key:d.label,style:{padding:'10px 12px',background:'rgba(255,255,255,0.03)',borderRadius:8}},
+            React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:11,marginBottom:3}},d.label),
+            React.createElement('div',{style:{fontWeight:600,fontSize:13}},d.val)
+          )
+        )
+      )
+    ),
+
+    // ── Upgrade CTAs
+    React.createElement('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12,marginBottom:16}},
+      React.createElement('div',{className:'glass',style:{borderRadius:14,padding:'20px'}},
+        React.createElement('div',{className:'badge badge-fox',style:{marginBottom:10}},'DEEP CHECK'),
+        React.createElement('div',{style:{fontWeight:800,fontSize:20,marginBottom:4}},'19 €'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'KI-Analyse Ihrer Standmitteilung. Vollständiger Bericht in 24h.'),
+        React.createElement('button',{className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:14,padding:'12px'},onClick:()=>{emitEvent('upgrade_clicked',{tier:'deep_check'});onDeepCheck();}},
+          React.createElement(Ic.Upload),'Deep Check'
+        )
+      ),
+      React.createElement('div',{style:{borderRadius:14,padding:'20px',border:'1.5px solid rgba(198,171,127,0.25)',background:'rgba(198,171,127,0.04)'}},
+        React.createElement('div',{className:'badge badge-gold',style:{marginBottom:10}},'EXPERT-VERIFIED'),
+        React.createElement('div',{style:{fontWeight:800,fontSize:20,marginBottom:4}},'39 €'),
+        React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,marginBottom:14,lineHeight:1.5}},'+ Manuelle Experten-Prüfung. Siegel: „Von Experten geprüft".'),
+        React.createElement('button',{className:'btn-ghost',style:{width:'100%',justifyContent:'center',fontSize:14,padding:'12px',display:'flex',alignItems:'center',gap:6},onClick:()=>{emitEvent('upgrade_clicked',{tier:'expert'});onExpert();}},
+          '✓ Expert-Check'
+        )
+      )
+    ),
+
+    // ── Expert CTA / Zweitmeinung
+    React.createElement('div',{className:'expert-cta',style:{borderRadius:16,padding:'24px',marginBottom:16}},
+      React.createElement('div',{style:{display:'flex',gap:14,alignItems:'flex-start'}},
+        React.createElement('div',{style:{width:44,height:44,borderRadius:12,background:'rgba(194,87,0,0.15)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:22,flexShrink:0}},'🎯'),
+        React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:700,fontSize:16,marginBottom:5}},'Kostenlose Zweitmeinung mit einem Experten'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.55,marginBottom:14}},'Besprechen Sie Ihr Ergebnis 15 Minuten kostenlos mit einem Fachmann. Kein Verkaufsgespräch – nur Klarheit.'),
+          BOOKING_URL
+            ? React.createElement('a',{href:BOOKING_URL,target:'_blank',rel:'noopener noreferrer',style:{textDecoration:'none'}},
+                React.createElement('button',{className:'btn-secondary',style:{fontSize:14,display:'inline-flex',alignItems:'center',gap:7},onClick:()=>emitEvent('booking_clicked',{source:'result_page'})},
+                  React.createElement(Ic.Calendar),'Termin kostenlos buchen'
+                )
+              )
+            : React.createElement('div',null,
+                React.createElement('button',{className:'btn-secondary',disabled:true,style:{fontSize:14,display:'inline-flex',alignItems:'center',gap:7,opacity:0.38,cursor:'not-allowed'}},
+                  React.createElement(Ic.Calendar),'Terminbuchung in Kürze verfügbar'
+                ),
+                React.createElement('p',{style:{color:'rgba(240,237,232,0.3)',fontSize:12,marginTop:6,marginBottom:0}},'⚙ Kalender wird noch eingerichtet')
+              ),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.25)',fontSize:11,marginTop:8}},'Kein Beratungsvertrag. Keine automatische Buchung. Nur ein kurzes Gespräch.')
+        )
+      )
+    ),
+
+    React.createElement('div',{style:{display:'flex',gap:10}},
+      React.createElement('button',{className:'btn-ghost',style:{flex:1,justifyContent:'center'},onClick:onRestart},'Neu starten')
+    ),
+    React.createElement('p',{style:{textAlign:'center',marginTop:20,color:'rgba(240,237,232,0.2)',fontSize:11,lineHeight:1.6}},'Kein Ersatz für individuelle Beratung gem. WpHG. Keine Empfehlung zur Kündigung. Keine rechtliche Bindung.')
+  );
+}
+
+// ─── DEEP CHECK / PAYMENT ─────────────────────────────────────────────────────
+function DeepCheckGate({lead,answers,tier,onBack}) {
+  const [step,setStep]=useState('payment');
+  const [file,setFile]=useState(null);
+  const [uploading,setUploading]=useState(false);
+  const [caseId,setCaseId]=useState(null);
+  const [status,setStatus]=useState('uploaded');
+  const price={deep_check:'19 €',expert:'39 €'}[tier]||'19 €';
+  const statusOrder=['uploaded','extracted','parsed','llm_light_done','needs_human_review','approved','sent'];
+  const statusLabels={uploaded:'Datei hochgeladen',extracted:'Text extrahiert',parsed:'Snippets analysiert',llm_light_done:'KI-Analyse abgeschlossen',needs_human_review:tier==='expert'?'Experten-Prüfung läuft':'Review ausstehend',approved:'Bericht wird erstellt',sent:'Bericht zugestellt ✓'};
+  const currentIdx=statusOrder.indexOf(status);
+
+  const handleUpload=async()=>{
+    if(!file) return;
+    setUploading(true);
+    const formData=new FormData();
+    formData.append('file',file);
+    formData.append('lead_id',lead.email);
+    formData.append('payment_id','pi_demo_'+Date.now());
+    formData.append('tier',tier);
+    fetch(`${API_URL}/api/riester/upload`,{method:'POST',body:formData})
+      .then(r=>r.json()).then(d=>{setCaseId(d.id);}).catch(()=>setCaseId('ric_'+Date.now()));
+    emitEvent('payment_success',{email:lead.email,tier,price});
+    setTimeout(()=>{setUploading(false);setStep('status');const s=statusOrder.slice(1);s.forEach((st,i)=>setTimeout(()=>setStatus(st),(i+1)*2000));},1000);
+  };
+
+  if(step==='payment') return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:460}},
+      React.createElement('button',{onClick:onBack,style:{background:'none',border:'none',color:'rgba(240,237,232,0.45)',cursor:'pointer',fontSize:14,marginBottom:24}},'← Zurück'),
+      React.createElement('div',{className:tier==='expert'?'badge badge-gold':'badge badge-fox',style:{marginBottom:14}},tier==='expert'?'EXPERT-VERIFIED':'DEEP CHECK'),
+      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:6}}),`${tier==='expert'?'Expert-Check':'Deep Check'} freischalten`,
+      React.createElement('div',{style:{fontSize:38,fontWeight:800,color:'#c25700',marginBottom:4}},price),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.45)',fontSize:14,marginBottom:28}},'Einmalig · Vollständige Erstattung bei Wechsel'),
+      tier==='expert'&&React.createElement('div',{className:'glass',style:{borderRadius:12,padding:'14px 18px',marginBottom:20,display:'flex',gap:10}},
+        React.createElement('span',{style:{fontSize:20}},'✅'),
+        React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:600,fontSize:14,marginBottom:3}},'Von Experten geprüft – was das bedeutet:'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.55)',fontSize:13,lineHeight:1.5}},'Ein qualifizierter Fachmann prüft Ihren Fall zusätzlich manuell. Keine Beratung gem. WpHG. Unabhängige Vorprüfung.')
+        )
+      ),
+      // Stripe Placeholder
+      React.createElement('div',{className:'glass',style:{borderRadius:14,padding:24,marginBottom:16}},
+        React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:11,marginBottom:12,textTransform:'uppercase',letterSpacing:'0.08em'}},'Zahlung'),
+        React.createElement('div',{style:{background:'rgba(255,255,255,0.04)',borderRadius:9,padding:'13px 15px',border:'1px solid rgba(255,255,255,0.09)',color:'rgba(240,237,232,0.35)',fontSize:13,marginBottom:10}},'🔒 Stripe Elements · Kreditkarte / SEPA / PayPal'),
+        React.createElement('div',{style:{fontSize:11,color:'rgba(240,237,232,0.25)'}}),'Powered by Stripe · 256-bit SSL'
+      ),
+      React.createElement('button',{className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:16,padding:'15px'},onClick:()=>setStep('upload')},
+        `${price} zahlen & weiter`,React.createElement(Ic.Arrow)
+      ),
+      React.createElement('p',{style:{textAlign:'center',marginTop:12,color:'rgba(240,237,232,0.25)',fontSize:12}},'Erstattungsgarantie bei Vertragswechsel')
+    )
+  );
+
+  if(step==='upload') return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:480}},
+      React.createElement('h2',{style:{fontSize:26,fontWeight:800,marginBottom:8}},'Standmitteilung hochladen'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:14,marginBottom:24,lineHeight:1.55}},'Bitte laden Sie Ihre aktuelle Standmitteilung oder Vertragsübersicht als textfähiges PDF hoch. Keine Scans – der Text muss kopierbar sein.'),
+      React.createElement('div',{
+        className:'glass',style:{borderRadius:16,padding:'44px 28px',textAlign:'center',border:'2px dashed rgba(194,87,0,0.25)',marginBottom:16,cursor:'pointer'},
+        onClick:()=>document.getElementById('pdf-input').click(),
+        onDragOver:e=>e.preventDefault(),
+        onDrop:e=>{e.preventDefault();const f=e.dataTransfer.files[0];if(f&&f.type==='application/pdf')setFile(f);}
+      },
+        React.createElement('div',{style:{color:'#c25700',marginBottom:14,display:'flex',justifyContent:'center'}},React.createElement(Ic.Upload)),
+        file?React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:600,fontSize:15,marginBottom:4}},file.name),
+          React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:12}}),`${(file.size/1024).toFixed(0)} KB · PDF bereit`
+        ):React.createElement('div',null,
+          React.createElement('div',{style:{fontWeight:600,fontSize:15,marginBottom:4}},'PDF hier ablegen'),
+          React.createElement('div',{style:{color:'rgba(240,237,232,0.35)',fontSize:13}},'oder klicken · max. 10 MB')
+        ),
+        React.createElement('input',{id:'pdf-input',type:'file',accept:'.pdf',style:{display:'none'},onChange:e=>{const f=e.target.files[0];if(f)setFile(f);}})
+      ),
+      React.createElement('div',{className:'glass',style:{borderRadius:10,padding:'12px 16px',marginBottom:20,display:'flex',gap:8}},
+        React.createElement('span',{style:{color:'#c6ab7f'}},'💡'),
+        React.createElement('span',{style:{color:'rgba(240,237,232,0.5)',fontSize:13,lineHeight:1.5}},'Tipp: Nutzen Sie die offizielle Standmitteilung Ihres Anbieters (nicht einen Scan). Dateien werden nach 14 Tagen automatisch gelöscht (DSGVO).')
+      ),
+      React.createElement('button',{className:'btn-primary',style:{width:'100%',justifyContent:'center',fontSize:15,padding:'14px',opacity:file?1:0.4,cursor:file?'pointer':'not-allowed'},disabled:!file||uploading,onClick:handleUpload},
+        uploading?React.createElement('span',{className:'pulse-soft'},'Wird hochgeladen…'):React.createElement(React.Fragment,null,React.createElement(Ic.Upload),'Analyse starten')
+      )
+    )
+  );
+
+  return React.createElement('div',{style:{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',padding:'80px 24px 40px'}},
+    React.createElement('div',{style:{width:'100%',maxWidth:480,textAlign:'center'}},
+      React.createElement('div',{style:{fontSize:48,marginBottom:20}},status==='sent'?'🎉':status==='needs_human_review'?'👤':'🔄'),
+      React.createElement('h2',{style:{fontSize:24,fontWeight:800,marginBottom:8}},status==='sent'?'Analyse abgeschlossen!':'Analyse läuft…'),
+      React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:14,marginBottom:32}},status==='sent'?`Ihr Bericht wurde an ${lead.email} gesendet.`:'Wir verarbeiten Ihre Unterlagen – Sie erhalten eine E-Mail bei Fertigstellung.'),
+      React.createElement('div',{className:'glass',style:{borderRadius:16,padding:'24px',textAlign:'left'}},
+        statusOrder.map((s,i)=>
+          React.createElement('div',{key:s,style:{display:'flex',alignItems:'center',gap:12,marginBottom:i<statusOrder.length-1?14:0}},
+            React.createElement('div',{style:{width:28,height:28,borderRadius:'50%',flexShrink:0,display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,background:i<currentIdx?'#22c55e':i===currentIdx?'#c25700':'rgba(255,255,255,0.05)',color:i<=currentIdx?'#fff':'rgba(240,237,232,0.25)',border:i===currentIdx?'2px solid #c25700':i<currentIdx?'2px solid #22c55e':'1px solid rgba(255,255,255,0.08)',transition:'all 0.5s'}},
+              i<currentIdx?React.createElement(Ic.Check):i+1
+            ),
+            React.createElement('span',{style:{fontSize:13,fontWeight:i===currentIdx?600:400,color:i<=currentIdx?'rgba(240,237,232,0.85)':'rgba(240,237,232,0.3)'}},
+              statusLabels[s],
+              i===currentIdx&&i<statusOrder.length-1&&React.createElement('span',{className:'pulse-soft',style:{color:'#c25700',marginLeft:8}}),'●'
+            )
+          )
+        )
+      ),
+      status==='sent'&&React.createElement('div',null,
+        React.createElement('div',{className:'expert-cta',style:{borderRadius:14,padding:'20px',marginTop:20,textAlign:'left'}},
+          React.createElement('div',{style:{fontWeight:700,fontSize:15,marginBottom:6}},'🎯 Jetzt kostenlose Zweitmeinung buchen'),
+          React.createElement('p',{style:{color:'rgba(240,237,232,0.5)',fontSize:13,marginBottom:12}},'Besprechen Sie Ihren Bericht 15 Minuten kostenlos mit einem Fachmann.'),
+          React.createElement('a',{href:BOOKING_URL,target:'_blank'},React.createElement('button',{className:'btn-secondary',style:{fontSize:13,display:'inline-flex',alignItems:'center',gap:7},onClick:()=>emitEvent('booking_clicked',{source:'after_report'})},React.createElement(Ic.Calendar),'Termin buchen'))
+        ),
+        React.createElement('button',{className:'btn-ghost',style:{marginTop:14,width:'100%',justifyContent:'center'},onClick:()=>window.location.reload()},'Neuen Check starten')
+      ),
+      caseId&&React.createElement('div',{style:{marginTop:14,color:'rgba(240,237,232,0.2)',fontSize:11}},`Ref: ${caseId}`)
+    )
+  );
+}
+
+// ─── APP ──────────────────────────────────────────────────────────────────────
+function App() {
+  const [view,setView]=useState('landing');
+  const [answers,setAnswers]=useState({});
+  const [lead,setLead]=useState(null);
+  const [tier,setTier]=useState('deep_check');
+
+  const goCheck=()=>{window.scrollTo(0,0);setView('check');};
+  const goDeep=(t='deep_check')=>{setTier(t);setView('deepcheck');};
+
+  return React.createElement(React.Fragment,null,
+    view==='landing'&&React.createElement(LandingPage,{onStartCheck:goCheck}),
+    view==='check'&&React.createElement(SchnellCheck,{onComplete:a=>{setAnswers(a);setView('pregate');},onBack:()=>setView('landing')}),
+    view==='pregate'&&React.createElement(PreLeadGate,{answers,onUnlock:()=>setView('lead')}),
+    view==='lead'&&React.createElement(LeadCapture,{onSubmit:l=>{setLead(l);setView('result');},answers}),
+    view==='result'&&lead&&React.createElement(Ergebnis,{answers,lead,onDeepCheck:()=>goDeep('deep_check'),onExpert:()=>goDeep('expert'),onRestart:()=>{setAnswers({});setLead(null);setView('landing');}}),
+    view==='deepcheck'&&React.createElement(DeepCheckGate,{lead:lead||{email:''},answers,tier,onBack:()=>setView(lead?'result':'landing')})
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
 </body>
 </html>
