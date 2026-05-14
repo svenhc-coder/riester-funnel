@@ -102,14 +102,14 @@ var SHIELD = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
       + '<div class="lead-preview-dot" style="background:' + cfg.color + '"></div>'
       + '<span>' + cfg.label + '</span></div>'
       + '<h2 class="funnel-question" style="margin-bottom:8px">Wo sollen wir das Ergebnis hinschicken?</h2>'
-      + '<p class="funnel-hint" style="margin-bottom:28px">Ihr Ergebnis wird auch direkt angezeigt. Die E-Mail dient als Backup – kein Newsletter, keine Weitergabe.</p>'
+      + '<p class="funnel-hint" style="margin-bottom:28px">Ihr Ergebnis wird direkt angezeigt und per E-Mail zugeschickt. Mit Ihrer Adresse halten wir Sie über aktuelle Versicherungsthemen informiert – Abmeldung jederzeit per Klick.</p>'
       + '<form id="lead-form" class="lead-form">'
       + '<div class="lead-field"><label class="lead-label">Ihr Name</label>'
       + '<input class="lead-input" type="text" id="inp-name" placeholder="Max Mustermann" required></div>'
       + '<div class="lead-field"><label class="lead-label">E-Mail-Adresse</label>'
       + '<input class="lead-input" type="email" id="inp-email" placeholder="ihre@email.de" required></div>'
-      + '<label class="lead-consent"><input type="checkbox" id="inp-consent"> '
-      + '<span>Ich stimme der Verarbeitung meiner Daten zur Analyse zu. Löschung nach 14 Tagen. Keine Weitergabe.</span></label>'
+      + '<label class="lead-consent"><input type="checkbox" id="inp-consent" required> '
+      + '<span>Ich stimme der Verarbeitung meiner Daten zu. Daten werden nach 14 Tagen gelöscht, nicht an Dritte weitergegeben. Newsletter-Abmeldung jederzeit möglich.</span></label>'
       + '<div id="lead-err" class="lead-error" style="display:none"></div>'
       + '<button type="submit" class="btn-primary btn-lg" id="btn-submit">'
       + '<span>Ergebnis anzeigen</span>' + A + '</button>'
@@ -146,8 +146,8 @@ var SHIELD = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
     }).join('');
 
     var dcgCards = [
-      {price:'49 &euro;', name:'Deep-Check Standard', features:['Upload Standmitteilung/Police','Kosten- &amp; Förderanalyse','Depot-Option 2027 Vergleich','PDF Handlungsempfehlung'], featured:true},
-      {price:'149 &euro;', name:'Deep-Check + Beratung', features:['Alles aus Standard','30 min Video-Call','Individuelle Zweitmeinung','Priorisiert (48h)'], featured:false},
+      {price:'12,90 &euro;', name:'KI-Check', features:['Upload Standmitteilung, Police oder Foto','KI-Analyse Ihrer tatsächlichen Vertragsdaten','Depot-Option 2027 im Vergleich','Ergebnis-PDF per E-Mail · Datei danach gelöscht'], featured:true},
+      {price:'49 &euro;', name:'Deep-Check + Berater', features:['Alles aus KI-Check','30 min Videocall mit Analyst','Schriftliche Handlungsempfehlung','Priorisiert (48h)'], featured:false},
     ].map(function(c) {
       return '<div class="dcg-card' + (c.featured?' dcg-card-featured':'') + '">'
         + '<div class="dcg-card-price">' + c.price + '</div>'
@@ -192,20 +192,8 @@ var SHIELD = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
       + '<p class="dcg-sub">Mit Ihren Vertragsunterlagen analysieren wir konkret: Kosten, Förderhistorie, Struktur, Depot-Option 2027 – und liefern eine schriftliche Handlungsempfehlung.</p></div>'
       + '<div class="dcg-cards">' + dcgCards + '</div>'
       + '<p class="dcg-guarantee">' + SHIELD + ' Wenn unser Deep-Check keinen Mehrwert liefert, erstatten wir den Betrag vollständig zurück.</p>'
-      + '</div>';
-
-    // Animate score circle and ampel pulse after render
-    setTimeout(function() {
-      if (window.VF && window.VF.animateScore) {
-        VF.animateScore(score, 'score-circle');
-      }
-      if (window.VF && window.VF.pulseAmpel) {
-        VF.pulseAmpel(document.getElementById('ampel-dot-el'));
-      }
-    }, 200);
-  }
-
-})();
-</script>
-</body>
-</html>
+      + '</div>'
+      + '<div class="app-cta-result">'
+      + '<div class="app-cta-result-inner">'
+      + '<div class="app-cta-result-fox">&#x1F98A;</div>'
+      + '<div class=
