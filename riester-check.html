@@ -23,7 +23,7 @@
   </script>
 </head>
 <body>
-  <nav class="nav"><div class="nav-inner"><a href="/index.html" class="nav-logo"><img id="nav-logo" height="38" alt="VersicherungsFuchs"></a><div class="nav-links"><a href="/index.html" class="nav-link">Übersicht</a><a href="/riester-check.html" class="nav-link nav-link-active">Riester-Check</a></div><a href="/riester-check-start.html" class="nav-cta">Check starten</a></div></nav>
+  <nav class="nav"><div class="nav-inner"><a href="/index.html" class="nav-logo"><img id="nav-logo" height="38" alt="VersicherungsFuchs"></a><div class="nav-links"><a href="/index.html" class="nav-link">Übersicht</a><a href="/riester-check.html" class="nav-link nav-link-active">Riester-Check</a><a href="/news.html" class="nav-link">Aktuelles</a></div><a href="/riester-check-start.html" class="nav-cta">Check starten</a><button class="nav-toggle" id="nav-toggle" aria-label="Menü" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div></nav>
 <main class="page-wrap">
   <section class="check-hero">
     <div class="container"><div class="check-hero-inner">
@@ -67,59 +67,55 @@
     </div></div>
   </section>
 
-  <section class="pricing-section">
+  <section class="pricing-section" id="deep-check">
     <div class="container">
       <div class="modules-header">
         <div class="tb-label">Preise</div>
         <h2 class="section-h2">Transparent &amp; fair</h2>
+        <p class="section-sub">Jede Stufe ist für sich vollständig. Keine versteckten Kosten.</p>
       </div>
       <div class="pricing-grid" data-stagger="120">
         <div class="pricing-card">
-          <div class="pricing-badge">Start</div>
+          <div class="pricing-badge">Einstieg</div>
           <div class="pricing-name">Quick-Check</div>
           <div class="pricing-price">Kostenlos</div>
           <div class="pricing-note">Keine Kreditkarte nötig</div>
           <ul class="pricing-features">
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>12 strukturierte Fragen</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>12 strukturierte Fragen, ~3 Min.</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Ampel-Ergebnis (Grün / Gelb / Rot)</span></li>
             <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Erste Einschätzung zu Förder- &amp; Kostenstatus</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Hinweise auf mögliche Handlungsfelder</span></li>
             <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Depot-Option 2027 berücksichtigt</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Keine Unterlagen erforderlich</span></li>
           </ul>
-          <a href="/riester-check-start.html" class="btn-secondary"><span>Jetzt starten</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="/riester-check-start.html" class="btn-secondary"><span>Kostenlos starten</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
         <div class="pricing-card pricing-card-featured">
           <div class="pricing-featured-badge">Empfohlen</div>
-          <div class="pricing-name">Deep-Check Standard</div>
-          <div class="pricing-price">49 &#8364;</div>
+          <div class="pricing-name">KI-Check</div>
+          <div class="pricing-price">12,90 &#8364;</div>
           <div class="pricing-note">Einmalzahlung, inkl. MwSt.</div>
           <ul class="pricing-features">
             <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Alles aus Quick-Check</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Upload Standmitteilung oder Police</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Kosten- &amp; Förderhistorie-Analyse</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Depot-Option 2027 Vergleich</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Schriftliche Handlungsempfehlung (PDF)</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Upload: Standmitteilung, Police oder Foto</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>KI-Analyse Ihrer tatsächlichen Vertragsdaten</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Depot-Option 2027 im direkten Vergleich</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Ergebnis-PDF per E-Mail – Datei danach gelöscht</span></li>
           </ul>
-          <a href="/riester-check-start.html" class="btn-primary"><span>Deep-Check buchen</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          <a href="/riester-check-start.html" class="btn-primary"><span>KI-Check buchen</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
         <div class="pricing-card">
-          <div class="pricing-badge">Komplett</div>
-          <div class="pricing-name">Deep-Check + Beratung</div>
-          <div class="pricing-price">149 &#8364;</div>
+          <div class="pricing-badge">Expert</div>
+          <div class="pricing-name">Deep-Check + Berater</div>
+          <div class="pricing-price">49 &#8364;</div>
           <div class="pricing-note">Einmalzahlung, inkl. MwSt.</div>
           <ul class="pricing-features">
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Alles aus Deep-Check Standard</span></li>
-            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>30-min Video-Call mit Analyst</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Alles aus KI-Check</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>30-min Videocall mit Analyst</span></li>
+            <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Schriftliche Handlungsempfehlung</span></li>
             <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Individuelle Zweitmeinung</span></li>
             <li class="pricing-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Priorisierte Bearbeitung (48h)</span></li>
           </ul>
           <a href="/riester-check-start.html" class="btn-secondary"><span>Termin buchen</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
         </div>
       </div>
-    </div>
-  </section>
-</main>
-  <footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-brand"><img id="footer-logo" height="32" class="footer-logo" alt="VersicherungsFuchs"><p class="footer-tagline">Schlau ist, wer nur das Beste nimmt.</p><p class="footer-copy">&#169; 2026 iSurance Group</p></div><div class="footer-links"><a href="/index.html" class="footer-link">Übersicht</a><a href="/riester-check.html" class="footer-link">Riester-Check</a><a href="/impressum.html" class="footer-link">Impressum</a><a href="/datenschutz.html" class="footer-link">Datenschutz</a></div></div><p class="footer-disclaimer">Kein Finanz-, Rechts- oder Steuerberatungsangebot. Dieser Check dient ausschließlich der strukturierten Orientierung. Für verbindliche Entscheidungen ist ein zugelassener Berater hinzuzuziehen.</p></div></footer>
-<script src="/assets/js/animations.js"></script>
-<script src="/assets/js/brand.js"></script><script>document.getElementById("nav-logo").src=VF_LOGO_SRC;var fl=document.getElementById("footer-logo");if(fl)fl.src=VF_LOGO_SRC;</script>
-</body>
-</html>
+    </div
