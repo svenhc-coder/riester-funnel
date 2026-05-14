@@ -373,19 +373,11 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .nav-links-open{display:flex!important;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--border);padding:12px 20px 20px;gap:4px!important;z-index:100;}
 .nav-links-open .nav-link{padding:10px 0;font-size:16px;}
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
-@media(max-width:640px){
-  .nav-links{display:none;}
-  .nav-cta{font-size:13px;padding:8px 14px;}
-  .nav-toggle{display:flex;}
-  .home-hero{padding:80px 0 60px;}
-  .home-hero-actions{flex-direction:column;align-items:flex-start;}
-  .hero-stats{padding:14px 16px;}
-  .hero-stat{padding:8px 12px;}
-  .hero-stat-num{font-size:22px;}
-  .hero-stat-divider{display:none;}
-  .trust-break,.modules-section,.depot-section,.faq-section,.wie-section,.pricing-section{padding:60px 0;}
-  .tb-grid,.modules-grid,.depot-cards,.pricing-grid,.dcg-cards{grid-template-columns:1fr;}
-  .footer-inner{flex-direction:column;}
-  .funnel-body{padding:36px 20px 60px;}
-}
+/* ─── APP CTA SECTION ────────────────────────────────────────────────── */
+.app-cta-section{padding:80px 0;background:linear-gradient(135deg,rgba(234,179,8,0.06) 0%,rgba(234,179,8,0.02) 60%,transparent 100%);border-top:1px solid var(--border);}
+.app-cta-inner{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;}
+.app-cta-text{color:var(--txt2);font-size:16px;line-height:1.7;margin:16px 0 24px;}
+.app-cta-list{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px;}
+.app-cta-list li{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--txt);}
+.app-cta-btn{display:inline-flex;align-items:center;gap:10px;font-size:16px;padding:16px 28px;}
+.app-cta-hint{margin-to
