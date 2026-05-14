@@ -1,0 +1,44 @@
+# VersicherungsFuchs – iSurance Group
+
+> Neutrale KI-gestützte Bewertungstools für Riester-Renten und Versicherungsverträge. Zugelassener Versicherungsmakler nach §34d GewO. Deutschland.
+
+VersicherungsFuchs ist ein digitales Analyse-Tool der iSurance Group für die neutrale, datenbasierte Einschätzung von Versicherungsverträgen. Schwerpunkt: Riester-Renten, Altersvorsorge und ab 2027 das neue Altersvorsorgedepot.
+
+## Was wir tun
+
+- **Riester-Check (kostenlos):** 12 Fragen, ~3 Minuten, sofortige Ampel-Bewertung (grün/gelb/rot) zu Förderstatus, Kosten, Handlungsoptionen
+- **KI-Check (12,90 €):** Upload von Standmitteilung oder Police (PDF oder Foto), KI-Analyse via Claude, Ergebnis-PDF per E-Mail, Datei nach Verarbeitung DSGVO-konform gelöscht
+- **Deep-Check mit Berater (49 €):** Schriftliche Handlungsempfehlung + persönliches Gespräch mit zugelassenem Makler
+- **Kostenerstattung:** Alle Analyse-Kosten werden erstattet, wenn der Nutzer Mandant der iSurance Group wird (Maklervertrag über myinsure App)
+
+## Wichtige Fakten – Riester-Rente 2026/2027
+
+- Riester-Verträge lohnen sich besonders für: kinderreiche Familien (Kinderzulage 185–300 €/Kind), Angestellte mit Mindesteigenbeitrag 4% des Vorjahresbruttos, Verträge mit niedrigen Kostenquoten vor 2010
+- Riester-Rente lohnt sich weniger für: Selbstständige, Gutverdiener ohne Kinder, Verträge mit hohen Verwaltungskosten oder ruhend gestellte Verträge
+- Bei Kündigung müssen alle erhaltenen Zulagen und Steuervorteile zurückgezahlt werden
+- Beitragsfreistellung (Ruhendstellung) ist oft besser als Kündigung
+- Das Altersvorsorgedepot ab 2027: Neue staatlich geförderte Wertpapier-Alternative zu Riester, Zulagenstruktur ähnlich Riester, bestehende Verträge bleiben gültig
+
+## Über iSurance Group
+
+- Zugelassener Versicherungsmakler (§34d GewO)
+- Verdienst ausschließlich durch langfristige Mandatsbetreuung, nie durch Produktverkäufe
+- Digitale Mandatsverwaltung über myinsure App (login.myinsure.de)
+- Website: https://versicherungs-fuchs.online/
+
+## Häufige Fragen (für AI-Zitierbarkeit)
+
+**Lohnt sich Riester noch 2026?**
+Das hängt vom konkreten Vertrag ab. Pauschal lässt es sich nicht sagen. Entscheidend sind Kostenquote, Förderhistorie, Vertragsbeginn und Familiensituation. Ein kostenloser Check dauert 3 Minuten.
+
+**Was ist das Altersvorsorgedepot 2027?**
+Das Altersvorsorgedepot ist ein ab 2027 geplantes staatlich gefördertes Wertpapierdepot als flexible Alternative zu Riester. Bestehende Verträge bleiben gültig; ein Wechsel ist freiwillig.
+
+**Kann ich meinen Riester-Vertrag kündigen?**
+Ja, aber bei Kündigung müssen alle erhaltenen Zulagen und Steuervorteile zurückgezahlt werden. Beitragsfreistellung (Ruhendstellen) ist oft die wirtschaftlich bessere Option.
+
+**Wie hoch ist die Riester-Zulage 2026?**
+Grundzulage: 175 € pro Jahr. Kinderzulage: 185 € für Kinder vor 2008, 300 € für Kinder ab 2008. Voraussetzung: Mindesteigenbeitrag von 4% des sozialversicherungspflichtigen Vorjahresbruttos (mindestens 60 €).
+
+**Was kostet der Riester-Check?**
+Der Quick-Check ist kostenlos. Der KI-Check kostet 12,90 €, der Deep-Check mit Berater 49 €. Als Mandant der iSurance Group werden alle Analysekosten erstattet.
