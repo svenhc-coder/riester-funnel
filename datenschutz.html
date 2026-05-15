@@ -2,95 +2,233 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <title>Datenschutz – VersicherungsFuchs</title>
-  <meta name="description" content="Datenschutzerklaerung der iSurance Group / VersicherungsFuchs.">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="canonical" href="https://versicherungs-fuchs.online/datenschutz.html">
-  <meta property="og:image" content="https://versicherungs-fuchs.online/assets/img/og-image.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datenschutzerklärung – Versicherungsfuchs</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --bg: #0a0a0a; --surface: #111; --border: rgba(255,255,255,0.08);
+      --text: #f1f1f1; --muted: #888; --primary: #f97316;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.75; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo img { display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--primary); color: #fff !important; padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: #ea6c0a !important; }
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .last-updated { color: var(--muted); font-size: 0.85rem; margin-bottom: 48px; }
+    h2 { font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 44px 0 12px; padding-top: 4px; }
+    h3 { font-size: 1rem; font-weight: 600; color: #ccc; margin: 24px 0 8px; }
+    p { color: #ccc; margin-bottom: 12px; font-size: 0.95rem; }
+    ul { color: #ccc; font-size: 0.95rem; padding-left: 20px; margin-bottom: 12px; }
+    ul li { margin-bottom: 6px; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 44px 0; }
+    .box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 20px 0; }
+    .box p { margin: 0; font-size: 0.9rem; color: var(--muted); }
+    .rights-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+    .right-item { background: rgba(249,115,22,0.06); border: 1px solid rgba(249,115,22,0.2); border-radius: 8px; padding: 12px 16px; }
+    .right-item strong { display: block; font-size: 0.85rem; color: var(--primary); margin-bottom: 4px; }
+    .right-item span { font-size: 0.8rem; color: var(--muted); }
+    @media(max-width:600px) { .rights-grid { grid-template-columns: 1fr; } }
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; }
+    .footer-bottom-simple { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom-simple p { color: var(--muted); font-size: 0.8rem; margin: 0; }
+    .footer-bottom-simple nav { background: none; border: none; position: static; }
+    .footer-bottom-simple nav a { color: var(--muted); font-size: 0.8rem; text-decoration: none; margin-left: 20px; }
+    .footer-bottom-simple nav a:hover { color: var(--text); }
+  
+    /* ── Cookie Banner ── */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(17,17,17,0.97); backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 24px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      transform: translateY(100%); transition: transform 0.4s ease;
+    }
+    #cookie-banner.visible { transform: translateY(0); }
+    #cookie-banner p { color: #aaa; font-size: 0.85rem; margin: 0; max-width: 620px; line-height: 1.5; }
+    #cookie-banner a { color: #f97316; text-decoration: none; }
+    #cookie-banner a:hover { text-decoration: underline; }
+    .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .cookie-btn-accept {
+      background: #f97316; color: #fff; border: none; padding: 10px 20px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-accept:hover { background: #ea6c0a; }
+    .cookie-btn-decline {
+      background: rgba(255,255,255,0.07); color: #aaa; border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-decline:hover { background: rgba(255,255,255,0.12); }
+
+  </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo"><img id="nav-logo" src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
-      <div class="nav-links">
-        <a href="/index.html" class="nav-link">Uebersicht</a>
-        <a href="/riester-check.html" class="nav-link">Riester-Check</a>
-      </div>
-      <a href="/riester-check-start.html" class="nav-cta">Check starten</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menü" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
+    <div class="nav-links">
+      <a href="/riester-check/">Riester-Check</a>
+      <a href="/news/">Wissen</a>
+      <a href="/#app-download" class="nav-cta">App jetzt holen</a>
     </div>
-  </nav>
-<main class="page-wrap">
-  <div class="legal-wrap">
-    <a href="/index.html" class="legal-back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Startseite</a>
-    <h1 class="legal-h1">Datenschutzerkl&auml;rung</h1>
-    <section class="legal-section">
-      <h2 class="legal-h2">1. Verantwortlicher</h2>
-      <p class="legal-p">iSurance Group, Sven Cramer, Bogenstrasse 42, 22926 Ahrensburg<br>E-Mail: <a href="mailto:sven@isurance-group.de" class="legal-link">sven@isurance-group.de</a></p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">2. Erhobene Daten</h2>
-      <p class="legal-p">Beim Durchf&uuml;hren des Riester-Checks werden folgende Daten verarbeitet:</p>
-      <ul class="legal-ul">
-        <li class="legal-li"><strong>Fragebogen-Antworten</strong> – werden nur w&auml;hrend der Sitzung im Browser (sessionStorage) gespeichert und nach dem Schlie&szlig;en des Tabs automatisch gel&ouml;scht.</li>
-        <li class="legal-li"><strong>Name und E-Mail-Adresse</strong> – werden beim Abrufen des Ergebnisses freiwillig angegeben und an unsere Server &uuml;bermittelt.</li>
-        <li class="legal-li"><strong>Technische Zugriffsdaten</strong> – IP-Adresse, Zeitstempel, Browsertyp (Server-Logs, max. 7 Tage).</li>
-      </ul>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">3. Zweck der Verarbeitung</h2>
-      <p class="legal-p">Die Daten werden ausschlie&szlig;lich zur Erbringung und Verbesserung unseres Analyse-Dienstes verwendet. Es findet keine Weitergabe an Dritte zu Werbezwecken statt.</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">4. Rechtsgrundlage</h2>
-      <p class="legal-p">Art. 6 Abs. 1 lit. b DSGVO (Vertragserf&uuml;llung) sowie Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren Betrieb).</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">5. Speicherdauer</h2>
-      <p class="legal-p">Lead-Daten (Name, E-Mail) werden nach sp&auml;testens 14 Tagen automatisch gel&ouml;scht, sofern kein weiteres Vertragsverh&auml;ltnis entstanden ist.</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">6. Ihre Rechte</h2>
-      <p class="legal-p">Sie haben das Recht auf Auskunft, Berichtigung, L&ouml;schung und Einschr&auml;nkung der Verarbeitung Ihrer Daten. Anfragen richten Sie bitte an: <a href="mailto:sven@isurance-group.de" class="legal-link">sven@isurance-group.de</a>.</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">7. Cookies &amp; Tracking</h2>
-      <p class="legal-p">Diese Website verwendet keine Tracking-Cookies und keine Analyse-Dienste von Drittanbietern. sessionStorage wird ausschlie&szlig;lich f&uuml;r die Funktion des Checks genutzt.</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">8. Hosting</h2>
-      <p class="legal-p">Das Hosting erfolgt &uuml;ber Sevalla (Kinsta Inc.) mit Servern in der EU sowie &uuml;ber Hetzner Online GmbH f&uuml;r Backend-Dienste.</p>
-    </section>
   </div>
-</main>
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/img/logo.png" id="footer-logo" height="32" alt="VersicherungsFuchs">
-        <p class="footer-tagline">Klare Entscheidungen statt Finanzchaos.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/impressum.html" class="footer-link">Impressum</a>
-        <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
-      </div>
-    </div>
+</nav>
+
+<div class="page-wrap">
+  <h1>Datenschutzerklärung</h1>
+  <p class="last-updated">Stand: Mai 2026</p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    <strong>iSurance Finanz- und Versicherungsvermittlungs UG (haftungsbeschränkt)</strong><br>
+    Fritz-Hecker-Straße 94, 50968 Köln<br>
+    E-Mail: <a href="mailto:info@isurance-group.de">info@isurance-group.de</a>
+  </p>
+
+  <h2>2. Erhobene Daten und Zwecke</h2>
+
+  <h3>2.1 Riester-Check (Analyse-Tool)</h3>
+  <p>Bei der Nutzung des Riester-Checks erheben wir folgende Daten:</p>
+  <ul>
+    <li>Name und E-Mail-Adresse (für die Übermittlung des Ergebnisses)</li>
+    <li>Ihre Antworten zu Ihrem Riester-Vertrag (Vertragsart, Laufzeit, Kosten, Förderung etc.)</li>
+    <li>Gerätedaten (Browser, Betriebssystem) für technische Fehleranalyse</li>
+  </ul>
+  <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung / vorvertragliche Maßnahmen) sowie Art. 6 Abs. 1 lit. a DSGVO (Einwilligung) für die E-Mail-Zusendung des Ergebnisses.</p>
+  <p><strong>Speicherdauer:</strong> Ihre Daten werden gespeichert, solange dies für die Bearbeitung Ihrer Anfrage erforderlich ist. Eine Löschung erfolgt auf Anfrage jederzeit (siehe Abschnitt 8). Gesetzliche Aufbewahrungsfristen bleiben unberührt.</p>
+
+  <h3>2.2 Deep-Check (kostenpflichtiger Dienst)</h3>
+  <p>Bei Beauftragung des Deep-Checks erheben wir zusätzlich:</p>
+  <ul>
+    <li>Zahlungsdaten (werden über Stripe verarbeitet, wir erhalten nur eine Transaktions-ID)</li>
+    <li>Hochgeladene Dokumente (Vertragsunterlagen) zur manuellen Analyse</li>
+  </ul>
+  <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. b DSGVO (Vertragserfüllung).</p>
+  <p><strong>Speicherdauer:</strong> Zahlungs- und Vertragsdaten werden gemäß gesetzlicher Aufbewahrungsfristen (i.d.R. 10 Jahre) gespeichert. Hochgeladene Dokumente werden nach Abschluss der Analyse auf Wunsch gelöscht.</p>
+
+  <h3>2.3 Newsletter / E-Mail-Kommunikation</h3>
+  <p>Falls Sie den Newsletter abonnieren, verarbeiten wir Ihre E-Mail-Adresse auf Basis Ihrer Einwilligung (Art. 6 Abs. 1 lit. a DSGVO). Sie können sich jederzeit abmelden.</p>
+
+  <h3>2.4 Technische Daten / Server-Logs</h3>
+  <p>Bei jedem Seitenaufruf werden automatisch folgende Daten in Server-Logs erfasst: IP-Adresse (anonymisiert nach 7 Tagen), Browser-Typ, aufgerufene URL, Datum und Uhrzeit. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Betrieb und Sicherheit).</p>
+
+  <hr class="divider">
+
+  <h2>3. Cookies und Tracking</h2>
+  <p>Diese Website verwendet ausschließlich technisch notwendige Cookies sowie Session-Storage für die Funktionalität des Riester-Checks (Speicherung Ihrer Antworten während der Nutzung). Tracking-Cookies oder Werbe-Cookies werden nicht eingesetzt.</p>
+
+  <div class="box">
+    <p><strong>Technisch notwendige Cookies:</strong> Diese Cookies sind für den Betrieb der Website erforderlich und können nicht deaktiviert werden. Sie speichern keine personenbezogenen Daten dauerhaft und werden nach Beendigung der Browsersitzung gelöscht.</p>
+  </div>
+
+  <hr class="divider">
+
+  <h2>4. Weitergabe an Dritte</h2>
+  <p>Eine Weitergabe Ihrer personenbezogenen Daten an Dritte erfolgt nur, soweit dies zur Vertragserfüllung erforderlich ist oder gesetzliche Verpflichtungen bestehen. Folgende Auftragsverarbeiter sind eingebunden:</p>
+  <ul>
+    <li><strong>Stripe Inc.</strong> (Zahlungsabwicklung) – San Francisco, CA, USA. Stripe ist nach EU-US Data Privacy Framework zertifiziert. Datenschutz: <a href="https://stripe.com/de/privacy" target="_blank">stripe.com/de/privacy</a></li>
+    <li><strong>Hetzner Online GmbH</strong> (Server-Hosting Backend) – 91710 Gunzenhausen, Deutschland. Serverstandort: Deutschland (DSGVO-konform).</li>
+    <li><strong>Kinsta Inc. / Sevalla</strong> (Frontend-Hosting) – Los Angeles, CA, USA. Kinsta ist nach EU-US Data Privacy Framework zertifiziert.</li>
+    <li><strong>Anthropic PBC</strong> (KI-Analyse) – San Francisco, CA, USA. Für die KI-gestützte Analyse können anonymisierte Eingabedaten verarbeitet werden. Datenschutz: <a href="https://www.anthropic.com/privacy" target="_blank">anthropic.com/privacy</a></li>
+  </ul>
+  <p>Eine Weitergabe zu Werbezwecken oder an weitere Dritte findet nicht statt.</p>
+
+  <hr class="divider">
+
+  <h2>5. Drittlandübermittlung</h2>
+  <p>Einzelne Dienstleister (Stripe, Kinsta/Sevalla, Anthropic) haben ihren Sitz in den USA. Die Übermittlung erfolgt auf Basis des EU-US Data Privacy Frameworks bzw. Standardvertragsklauseln gemäß Art. 46 DSGVO. Bei Anthropic werden nur anonymisierte/pseudonymisierte Analyse-Anfragen übermittelt – keine Klarnamen oder Kontaktdaten.</p>
+
+  <hr class="divider">
+
+  <h2>6. Sicherheit</h2>
+  <p>Wir setzen technische und organisatorische Maßnahmen ein, um Ihre Daten vor unbefugtem Zugriff zu schützen. Die Übertragung erfolgt verschlüsselt über HTTPS/TLS. Zahlungsdaten werden ausschließlich über die PCI-DSS-konforme Infrastruktur von Stripe verarbeitet und nie auf unseren Servern gespeichert.</p>
+
+  <hr class="divider">
+
+  <h2>7. Automatisierte Entscheidungsfindung</h2>
+  <p>Der Riester-Check verwendet eine automatisierte Bewertung Ihrer Angaben (Ampel-System: grün/gelb/rot). Diese Einschätzung hat keinen rechtlich verbindlichen Charakter und ersetzt keine individuelle Beratung. Eine abschließende Beurteilung erfolgt stets durch einen Menschen (Deep-Check).</p>
+
+  <hr class="divider">
+
+  <h2>8. Ihre Rechte</h2>
+  <p>Sie haben nach DSGVO folgende Rechte gegenüber dem Verantwortlichen:</p>
+  <div class="rights-grid">
+    <div class="right-item"><strong>Auskunft</strong><span>Art. 15 DSGVO – Welche Daten wir über Sie gespeichert haben</span></div>
+    <div class="right-item"><strong>Berichtigung</strong><span>Art. 16 DSGVO – Korrektur unrichtiger Daten</span></div>
+    <div class="right-item"><strong>Löschung</strong><span>Art. 17 DSGVO – „Recht auf Vergessenwerden"</span></div>
+    <div class="right-item"><strong>Einschränkung</strong><span>Art. 18 DSGVO – Verarbeitungsbeschränkung</span></div>
+    <div class="right-item"><strong>Datenübertragbarkeit</strong><span>Art. 20 DSGVO – Export Ihrer Daten</span></div>
+    <div class="right-item"><strong>Widerspruch</strong><span>Art. 21 DSGVO – Widerspruch gegen Verarbeitung</span></div>
+  </div>
+  <p>Zur Ausübung Ihrer Rechte wenden Sie sich an: <a href="mailto:info@isurance-group.de">info@isurance-group.de</a></p>
+  <p>Sie haben zudem das Recht, sich bei der zuständigen Datenschutz-Aufsichtsbehörde zu beschweren. Zuständig ist die Landesbeauftragte für Datenschutz und Informationsfreiheit Nordrhein-Westfalen: <a href="https://www.ldi.nrw.de" target="_blank">ldi.nrw.de</a></p>
+
+  <hr class="divider">
+
+  <h2>9. Widerruf von Einwilligungen</h2>
+  <p>Soweit die Verarbeitung auf einer Einwilligung basiert (Art. 6 Abs. 1 lit. a DSGVO), können Sie diese jederzeit mit Wirkung für die Zukunft widerrufen. Schreiben Sie uns dazu an <a href="mailto:info@isurance-group.de">info@isurance-group.de</a>.</p>
+
+  <hr class="divider">
+
+  <h2>10. Änderungen dieser Datenschutzerklärung</h2>
+  <p>Wir behalten uns vor, diese Datenschutzerklärung anzupassen, um sie an geänderte Rechtslagen oder Änderungen unserer Leistungen anzupassen. Die aktuelle Version ist stets unter <a href="/datenschutz.html">/datenschutz.html</a> abrufbar. Bei wesentlichen Änderungen informieren wir Sie per E-Mail.</p>
+</div>
+
+<footer>
+  <div class="footer-bottom-simple">
+    <p>© 2026 Versicherungsfuchs · iSurance Finanz- und Versicherungsvermittlungs UG</p>
+    <nav>
+      <a href="/">Start</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+      <a href="/impressum.html">Impressum</a>
+    </nav>
   </div>
 </footer>
+
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
+    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
+  </div>
+</div>
 <script>
-var fl=document.getElementById("footer-logo");
-if(fl&&typeof VF_LOGO_SRC!=="undefined")fl.src=VF_LOGO_SRC;
+(function() {
+  function setCookieConsent(val) {
+    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
+    var b = document.getElementById('cookie-banner');
+    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
+  }
+  window.setCookieConsent = setCookieConsent;
+  document.addEventListener('DOMContentLoaded', function() {
+    var consent = null;
+    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
+    if (!consent) {
+      var b = document.getElementById('cookie-banner');
+      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
+    }
+  });
+})();
 </script>
-<script src="/assets/js/animations.js"></script>
-<script src="/assets/js/brand.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded",function(){
-  var fi=document.querySelector("link[rel=icon]");
-  if(fi)fi.href=VF_FAVICON_SRC;
-});
-</script>
+
 </body>
 </html>
