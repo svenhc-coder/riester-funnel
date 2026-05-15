@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <title>Riester-Check – VersicherungsFuchs</title>
+  <meta name="robots" content="noindex">
+</head>
+<body>
+<div id="root">
+  <div class="funnel-wrap" id="funnel">
+    <div class="funnel-header">
+      <button class="funnel-back" id="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Zurück</span>
+      </button>
+      <div class="funnel-progress-wrap">
+        <div class="funnel-progress-bar"><div class="funnel-progress-fill" id="prog-fill"></div></div>
+        <span class="funnel-progress-label" id="prog-label"></span>
+      </div>
+      <a href="/riester-check/" class="funnel-exit">&larr; Übersicht</a>
+    </div>
+    <div class="funnel-body" id="funnel-body"></div>
+  </div>
+</div>
+<script src="/assets/js/animations.js"></script>
+<script src="/assets/js/brand.js"></script>
+<script src="/assets/js/state.js"></script>
+<script>
+var QUESTIONS=[
+  {id:'vertragstyp',question:'Um welche Art von Riester-Vertrag handelt es sich?',hint:'Steht meist auf dem Deckblatt der Police oder der Standmitteilung.',options:[{label:'Klassische Rentenversicherung (mit Garantiezins)',value:'klassisch'},{label:'Fondsgebundene Rentenversicherung',value:'fondsgebunden'},{label:'Banksparplan oder Bausparvertrag',value:'banksparplan'},{label:'Wohn-Riester (Eigenheimrente)',value:'wohn_riester'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'abschlussjahr',question:'In welchem Zeitraum wurde der Vertrag abgeschlossen?',hint:'Das Abschlussjahr steht auf der Police oder im Eröffnungsschreiben des Anbieters.',options:[{label:'Vor 2005',value:'vor2005'},{label:'2005 – 2012',value:'2005_2012'},{label:'2013 – 2017',value:'2013_2017'},{label:'Ab 2018',value:'ab2018'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'vertrag_status',question:'Wie ist Ihr Vertrag aktuell aufgestellt?',hint:'',options:[{label:'Aktiv – ich zahle regelmäßig',value:'aktiv'},{label:'Beitragsfrei gestellt',value:'beitragsfrei'},{label:'Pausiert / vorübergehend ausgesetzt',value:'pausiert'},{label:'Gekündigt / aufgelöst',value:'gekuendigt'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'beitrag',question:'Wie hoch ist Ihr monatlicher Beitrag (inkl. Zulage)?',hint:'Der Gesamtbetrag, der monatlich vom Konto abgebucht wird – inkl. staatlicher Zulage.',options:[{label:'Unter 50 \u20ac',value:'unter50'},{label:'50 – 100 \u20ac',value:'50_100'},{label:'100 – 200 \u20ac',value:'100_200'},{label:'Über 200 \u20ac',value:'ueber200'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'kinder',question:'Wie viele kindergeldberechtigte Kinder haben Sie?',hint:'Jedes Kind kann eine Kinderzulage begründen – sofern diese auch beantragt wird.',options:[{label:'Keine Kinder',value:'0'},{label:'1 Kind',value:'1'},{label:'2 Kinder',value:'2'},{label:'3 oder mehr Kinder',value:'3plus'}]},
+  {id:'zulagen',question:'Wie werden Ihre Zulagen (Grund- + Kinderzulage) beantragt?',hint:'Zulagen müssen aktiv beantragt werden – viele Anbieter übernehmen das automatisch.',options:[{label:'Automatisch – mein Anbieter beantragt jährlich',value:'automatisch'},{label:'Ich muss es selbst beantragen',value:'selbst'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'anlage_av',question:'Tragen Sie den Riester-Vertrag in der Steuererklärung ein (Anlage AV)?',hint:'Damit können Sie bis zu 2.100 \u20ac jährlich als Sonderausgaben geltend machen.',options:[{label:'Ja, jährlich',value:'jaehrlich'},{label:'Manchmal / unregelmäßig',value:'manchmal'},{label:'Nein',value:'nie'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'einkommen',question:'Wie hoch ist Ihr ungefähres Jahreseinkommen (brutto)?',hint:'Hilft einzuschätzen, wie groß der steuerliche Vorteil durch die Anlage AV sein kann.',options:[{label:'Unter 25.000 \u20ac',value:'unter25k'},{label:'25.000 – 50.000 \u20ac',value:'25_50k'},{label:'50.000 – 90.000 \u20ac',value:'50_90k'},{label:'Über 90.000 \u20ac',value:'ueber90k'},{label:'Selbstständig / variabel',value:'selbststaendig'}]},
+  {id:'beschaeftigung',question:'Was beschreibt Ihre aktuelle Beschäftigungssituation am besten?',hint:'Entscheidet über die grundsätzliche Förderberechtigung für Riester-Produkte.',options:[{label:'Angestellt (sozialversicherungspflichtig)',value:'angestellt'},{label:'Verbeamtet',value:'beamter'},{label:'Selbstständig',value:'selbststaendig'},{label:'In Elternzeit',value:'elternzeit'},{label:'Derzeit nicht beschäftigt / arbeitslos',value:'nicht'}]},
+  {id:'transparenz',question:'Wie gut kennen Sie die Kosten und Konditionen Ihres Vertrags?',hint:'Effektivkosten (z. B. in %) stehen in der Regel auf Ihrer jährlichen Standmitteilung.',options:[{label:'Klar – ich kenne Kosten und Konditionen',value:'klar'},{label:'Eher unklar',value:'unklar'},{label:'Wirkt hoch / fühlt sich teuer an',value:'hoch'},{label:'Weiß ich nicht',value:'unbekannt'}]},
+  {id:'risikoprofil',question:'Was ist Ihnen bei der Altersvorsorge am wichtigsten?',hint:'Keine richtige oder falsche Antwort – es geht um Ihre persönliche Präferenz.',options:[{label:'Sicherheit – möglichst keine Verluste',value:'sicherheit'},{label:'Balance – Rendite und Absicherung',value:'balance'},{label:'Rendite – maximales Wachstum',value:'rendite'}]},
+  {id:'zielbild',question:'Was möchten Sie mit Ihrer Altersvorsorge als nächstes tun?',hint:'Ab 2027 gibt es das neue staatlich geförderte Altersvorsorgedepot (ETF-basiert) als Alternative zu Riester.',options:[{label:'Vertrag behalten und ggf. optimieren',value:'behalten'},{label:'Wechsel ins Altersvorsorgedepot ab 2027 prüfen',value:'wechsel_pruefen'},{label:'Erst prüfen lassen, dann entscheiden',value:'erst_pruefen'},{label:'Weiß ich noch nicht',value:'unbekannt'}]},
+];
+(function(){
+  var params  = new URLSearchParams(window.location.search);
+  var qIndex  = parseInt(params.get('n') || '0', 10);
+  var total   = QUESTIONS.length;
+  if(isNaN(qIndex)||qIndex<0) qIndex=0;
+  if(qIndex>=total){ window.location.replace('/riester-check/result/'); return; }
+  if(qIndex>0&&Object.keys(vfGetAnswers()).length===0){ window.location.replace('/riester-check/'); return; }
+
+  var q        = QUESTIONS[qIndex];
+  var answers  = vfGetAnswers();
+  var selected = answers[q.id]||null;
+  var pct      = Math.round((qIndex/total)*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = 'Frage '+(qIndex+1)+' von '+total;
+  document.title = 'Frage '+(qIndex+1)+' von '+total+' – Riester-Check';
+
+  document.getElementById('btn-back').addEventListener('click',function(){
+    if(qIndex===0){ window.location.href='/riester-check/'; }
+    else{ sessionStorage.setItem('vf_dir','left'); window.location.href='/riester-check/q/?n='+(qIndex-1); }
+  });
+
+  var hint = q.hint?'<p class="funnel-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> '+q.hint+'</p>':'';
+  var opts = q.options.map(function(opt){
+    var isSel=selected===opt.value;
+    return '<button class="funnel-option'+(isSel?' funnel-option-selected':'')+'" data-value="'+opt.value+'">'
+      +'<span class="funnel-option-radio">'+(isSel?'<span class="funnel-option-radio-inner"></span>':'')+'</span>'
+      +'<span class="funnel-option-label">'+opt.label+'</span></button>';
+  }).join('');
+
+  var body = document.getElementById('funnel-body');
+  body.innerHTML='<div class="funnel-question-num">Frage '+(qIndex+1)+' von '+total+'</div>'
+    +'<h2 class="funnel-question">'+q.question+'</h2>'
+    +hint
+    +'<div class="funnel-options" id="options">'+opts+'</div>'
+    +'<button class="btn-primary btn-lg funnel-next'+(selected?'':' funnel-next-disabled')+'" id="btn-next"'+(selected?'':' disabled')+'>'
+    +'<span>'+(qIndex===total-1?'Ergebnis anzeigen':'Weiter')+'</span>'
+    +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>'
+    +'</button>';
+
+  var dir=sessionStorage.getItem('vf_dir')||'right';
+  sessionStorage.removeItem('vf_dir');
+  if(window.VF&&window.VF.slideIn){ VF.slideIn(body,dir); }
+
+  document.getElementById('options').addEventListener('click',function(e){
+    var btn=e.target.closest('.funnel-option'); if(!btn)return;
+    selected=btn.dataset.value;
+    document.querySelectorAll('.funnel-option').forEach(function(b){
+      b.classList.toggle('funnel-option-selected',b.dataset.value===selected);
+      b.querySelector('.funnel-option-radio').innerHTML=b.dataset.value===selected?'<span class="funnel-option-radio-inner"></span>':'';
+    });
+    var nxt=document.getElementById('btn-next');
+    nxt.disabled=false; nxt.classList.remove('funnel-next-disabled');
+  });
+
+  document.getElementById('btn-next').addEventListener('click',function(){
+    if(!selected)return;
+    var ans=vfGetAnswers(); ans[q.id]=selected; vfSaveAnswers(ans);
+    if(qIndex===total-1){ window.location.href='/riester-check/result/'; }
+    else{ sessionStorage.setItem('vf_dir','right'); window.location.href='/riester-check/q/?n='+(qIndex+1); }
+  });
+})();
+</script>
+</body>
+</html>
