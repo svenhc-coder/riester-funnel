@@ -33,6 +33,39 @@
     #upload-status.err{color:#ef4444}
   
     .nav-logo img { height: 38px; width: auto; display: block; }
+  
+    /* App Download CTA */
+    .app-download-cta {
+      background: linear-gradient(135deg, rgba(249,115,22,0.08) 0%, rgba(99,102,241,0.06) 100%);
+      border: 1px solid rgba(249,115,22,0.25); border-radius: 16px;
+      padding: 36px 32px; margin-top: 32px; text-align: center;
+    }
+    .app-download-badge {
+      display: inline-block; background: rgba(249,115,22,0.15);
+      border: 1px solid rgba(249,115,22,0.3); color: var(--orange);
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; padding: 5px 14px; border-radius: 20px; margin-bottom: 16px;
+    }
+    .app-download-title {
+      font-size: 1.3rem; font-weight: 800; margin-bottom: 10px; line-height: 1.3;
+    }
+    .app-download-sub {
+      font-size: 0.9rem; color: var(--txt2); max-width: 480px; margin: 0 auto 28px; line-height: 1.6;
+    }
+    .app-store-btns {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--txt1); color: var(--bg0);
+      padding: 12px 22px; border-radius: 12px; text-decoration: none;
+      transition: transform .15s, box-shadow .2s; font-family: var(--font);
+    }
+    .store-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .app-download-disclaimer { font-size: 0.75rem; color: var(--txt3); }
+
+  
+    .footer-logo { height: 48px !important; width: auto !important; max-width: 200px !important; display: block; }
   </style>
 </head>
 <body>
@@ -43,7 +76,7 @@
     <div class="nav-links">
       <a href="/riester-check/">Riester-Check</a>
       <a href="/news/">Wissen</a>
-      <a href="/riester-check/start/" class="nav-cta">Neu starten</a>
+      <a href="#app-download" class="nav-cta" onclick="document.querySelector('.app-download-cta')?.scrollIntoView({behavior:'smooth'});return false;">App holen</a>
     </div>
   </div>
 </nav>
@@ -58,7 +91,7 @@
       <footer class="footer"><div class="container">
         <div class="footer-inner">
           <div class="footer-brand">
-            <img src="/assets/img/logo.png" id="footer-logo" height="32" class="footer-logo" alt="VersicherungsFuchs">
+            <img src="/assets/img/logo.png" id="footer-logo" class="footer-logo" alt="VersicherungsFuchs">
             <p class="footer-tagline">Schlau ist, wer nur das Beste nimmt.</p>
             <p class="footer-copy">&#169; 2026 iSurance Group</p>
           </div>
@@ -124,7 +157,7 @@ var stripeInst = null, stripeEls = null;
       +'<form id="lead-form" class="lead-form">'
       +'<div class="lead-field"><label class="lead-label">Ihr Name</label><input class="lead-input" type="text" id="inp-name" placeholder="Max Mustermann" required></div>'
       +'<div class="lead-field"><label class="lead-label">E-Mail-Adresse</label><input class="lead-input" type="email" id="inp-email" placeholder="ihre@email.de" required></div>'
-      +'<label class="lead-consent"><input type="checkbox" id="inp-consent" required> <span>Ich stimme der Verarbeitung meiner Daten zu. Daten werden nach 14 Tagen gelöscht, nicht an Dritte weitergegeben.</span></label>'
+      +'<label class="lead-consent"><input type="checkbox" id="inp-consent" required> <span>Ich bin einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage und Zusendung des Ergebnisses gespeichert und genutzt werden. Eine Weitergabe an Dritte erfolgt nicht. <a href="/datenschutz.html" target="_blank" style="color:var(--muted);text-decoration:underline">Datenschutz</a></span></label>'
       +'<div id="lead-err" class="lead-error" style="display:none"></div>'
       +'<button type="submit" class="btn-primary btn-lg" id="btn-submit"><span>Ergebnis anzeigen</span>'+A_SVG+'</button>'
       +'</form>'
@@ -199,10 +232,23 @@ var stripeInst = null, stripeEls = null;
       +'<h2 class="dcg-title">Mehr als eine Orientierung: Der Strategische Deep-Check</h2>'
       +'<p class="dcg-sub">Mit Ihren Vertragsunterlagen analysieren wir konkret: Kosten, Förderhistorie, Struktur, Depot-Option 2027 – und liefern eine schriftliche Handlungsempfehlung.</p></div>'
       +'<div class="dcg-cards">'+dcgCards+'</div>'
-      +'<p class="dcg-guarantee">'+SHIELD+' Wenn unser Deep-Check keinen Mehrwert liefert, erstatten wir den Betrag vollständig zurück.</p></div>'
-      +'<div class="app-cta-result"><div class="app-cta-result-inner"><div class="app-cta-result-fox">&#x1F98A;</div>'
-      +'<div class="app-cta-result-text"><div class="app-cta-result-title">Haben Sie Fragen?</div><div class="app-cta-result-sub">Wir antworten werktags innerhalb von 24h.</div></div>'
-      +'<a href="mailto:info@isurance-group.de" class="btn-secondary"><span>Kontakt aufnehmen</span>'+A_SVG+'</a></div></div>';
+      +'</div>'
+      +'<div class="app-download-cta">'
+      +'<div class="app-download-badge">&#128241; Die App</div>'
+      +'<h3 class="app-download-title">Deep-Check kostenlos mit der iSurance App</h3>'
+      +'<p class="app-download-sub">Laden Sie alle Vertragsdaten hoch, erhalten Sie Ihren persönlichen Deep-Check kostenlos – und behalten Sie alle Versicherungen dauerhaft im Blick.</p>'
+      +'<div class="app-store-btns">'
+      +'<a href="https://apps.apple.com/de/app/isurance/id1438875800" target="_blank" rel="noopener" class="store-btn">'
+      +'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>'
+      +'<div><div style="font-size:10px;opacity:.8">Laden im</div><div style="font-size:15px;font-weight:700">App Store</div></div>'
+      +'</a>'
+      +'<a href="https://play.google.com/store/apps/details?id=de.isurance.app" target="_blank" rel="noopener" class="store-btn">'
+      +'<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.36-.19l.06-.05 11.44-6.57-2.52-2.5-11.34 9.31zM20.87 10.59 18.1 9l-2.83 2.83 2.8 2.8 2.8-1.61a1.63 1.63 0 0 0 0-2.43zM1.08.49A1.67 1.67 0 0 0 .5 1.74v20.5a1.67 1.67 0 0 0 .58 1.25l.07.06 11.5-11.5v-.27L1.15.43zM5.54.43l11.44 6.57-2.52 2.52L5.54.43z"/></svg>'
+      +'<div><div style="font-size:10px;opacity:.8">Jetzt bei</div><div style="font-size:15px;font-weight:700">Google Play</div></div>'
+      +'</a>'
+      +'</div>'
+      +'<p class="app-download-disclaimer">Kostenlos · iOS & Android · Keine Kreditkarte</p>'
+      +'</div>';
 
     if(typeof animateScoreRing==='function'){setTimeout(function(){animateScoreRing(score);},200);}
     if(window.location.search.indexOf('payment=success')!==-1){setTimeout(_showUpload,400);}
