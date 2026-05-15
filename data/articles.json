@@ -1,26 +1,64 @@
-[
-  {
-    "id": "altersvorsorgedepot-2027",
-    "tag": "Reform",
-    "date": "Mai 2026",
-    "title": "Altersvorsorgedepot 2026/2027: Was kommt, was aendert sich?",
-    "excerpt": "Das neue Altersvorsorgedepot soll Riester ersetzen – oder ergaenzen? Wir erklaeren, was die Reform bedeutet und was das fuer bestehende Vertraege heisst.",
-    "body": "<p class=\"legal-p\">Die Bundesregierung plant mit dem Altersvorsorgedepot eine grundlegende Reform der geförderten Altersvorsorge. Ab 2027 soll ein flexibles Depotmodell neben den bestehenden Riester-Vertraegen treten – mit weniger Restriktionen und höherer Renditeerwartung.</p><h2 class=\"legal-h2\">Was ist das Altersvorsorgedepot?</h2><p class=\"legal-p\">Vereinfacht: Ein staatlich gefördertes Wertpapierdepot. Statt Garantieprodukten können Anleger breit gestreut in ETFs und Fonds investieren. Die steuerliche Förderung bleibt erhalten, die Produktbeschränkungen fallen weg.</p><h2 class=\"legal-h2\">Was passiert mit bestehenden Riester-Vertraegen?</h2><p class=\"legal-p\">Bestehende Vertraege bleiben gültig. Ein Wechsel ist optional – aber ob er sich lohnt, hängt von Ihrem konkreten Vertrag, Ihrer Förderhistorie und Ihrer Restlaufzeit ab. Pauschale Empfehlungen sind hier fehl am Platz.</p><h2 class=\"legal-h2\">Was sollten Sie jetzt tun?</h2><p class=\"legal-p\">Bevor die Reform in Kraft tritt, lohnt es sich, Ihren bestehenden Vertrag zu verstehen: Kosten, Förderansprüche, Bestandsschutz. Genau dafür ist unser Quick-Check da.</p>"
-  },
-  {
-    "id": "riester-foerderung-checken",
-    "tag": "Grundlagen",
-    "date": "April 2026",
-    "title": "Riester-Förderung: Bekommen Sie wirklich, was Ihnen zusteht?",
-    "excerpt": "Viele Riester-Sparer erhalten nicht die maximale staatliche Förderung – weil der Eigenbeitrag zu niedrig ist. Wir erklären, wie die Zulagenberechnung wirklich funktioniert.",
-    "body": "<p class=\"legal-p\">Riester-Förderung klingt einfach: Grundzulage, Kinderzulagen, Steuervorteil. In der Praxis scheitern viele an einer entscheidenden Bedingung: dem Mindestbeitrag.</p><h2 class=\"legal-h2\">Der Mindestbeitrag-Fehler</h2><p class=\"legal-p\">Um die volle Zulage zu erhalten, müssen mindestens 4% des rentenversicherungspflichtigen Vorjahresbruttoeinkommens eingezahlt werden – abzüglich der staatlichen Zulage. Wer diesen Wert nicht erreicht, bekommt die Zulage nur anteilig.</p><h2 class=\"legal-h2\">Häufige Fehler</h2><p class=\"legal-p\">Einkommenserhöhungen werden nicht gemeldet, der Beitrag bleibt gleich – und plötzlich ist der Mindestbeitrag nicht mehr erreicht. Das passiert öfter als gedacht, besonders nach Gehaltserhöhungen oder Rückkehr aus Elternzeit.</p><h2 class=\"legal-h2\">Wie prüfen Sie das?</h2><p class=\"legal-p\">Unser Quick-Check fragt gezielt nach Ihrem Beitragsverhältnis und zeigt Ihnen, ob Sie möglicherweise Förderung verschenken.</p>"
-  },
-  {
-    "id": "riester-kuendigen-oder-beitragsfreistellung",
-    "tag": "Entscheidungshilfe",
-    "date": "Maerz 2026",
-    "title": "Riester kündigen oder beitragsfrei stellen – was ist besser?",
-    "excerpt": "Kündigung klingt radikal, ist aber manchmal sinnvoller als eine schlecht laufende Police jahrzehntelang fortzuführen. Wir erklären die Unterschiede und wann welche Option passt.",
-    "body": "<p class=\"legal-p\">Der Riester-Vertrag läuft, aber Sie zweifeln. Zu hohe Kosten, zu niedrige Rendite, veränderte Lebenssituation – die Gründe sind vielfältig. Die zwei häufigsten Optionen: kündigen oder beitragsfrei stellen.</p><h2 class=\"legal-h2\">Beitragsfreistellung</h2><p class=\"legal-p\">Sie zahlen nichts mehr ein, der Vertrag läuft weiter. Das angesparte Kapital bleibt erhalten und wird bis zur Rente weiterentwickelt – allerdings oft mit weiter laufenden Kosten. Und: Sie erhalten keine weiteren Zulagen mehr.</p><h2 class=\"legal-h2\">Kündigung</h2><p class=\"legal-p\">Sie bekommen Ihr eingezahltes Kapital zurück – aber müssen alle erhaltenen Zulagen und Steuervorteile zurückzahlen. Das kann die Rendite stark belasten. Außerdem fallen oft Stornogebühren an.</p><h2 class=\"legal-h2\">Was ist besser?</h2><p class=\"legal-p\">Das hängt komplett von Ihrem Vertrag ab: Restlaufzeit, Kosten, erhaltene Förderung, alternatives Anlageprodukt. Ohne diese Analyse ist eine pauschale Empfehlung unverantwortlich.</p>"
-  }
-]
+{
+  "articles": [
+    {
+      "id": "depot2027-reform",
+      "tag": "Reform & Politik",
+      "category": "reform",
+      "title": "Depot 2027: Was sich für Riester-Sparer tatsächlich ändert",
+      "excerpt": "Die geplante Reform soll Riester modernisieren – was ist gesichert, was ist noch offen? Neutrale Einordnung ohne Spekulationen.",
+      "date": "2026-05-10",
+      "readtime": "5 min",
+      "featured": true
+    },
+    {
+      "id": "riester-kostenstruktur",
+      "tag": "Vertragsanalyse",
+      "category": "vertragsanalyse",
+      "title": "Kostenstruktur in Riester-Verträgen verstehen",
+      "excerpt": "Effektivkosten, Abschlusskosten, Verwaltungsgebühren – was zählt wirklich und wo lauern versteckte Kostenfallen?",
+      "date": "2026-04-28",
+      "readtime": "7 min",
+      "featured": false
+    },
+    {
+      "id": "riester-vs-etf",
+      "tag": "Altersvorsorge",
+      "category": "altersvorsorge",
+      "title": "Rürup vs. Riester vs. ETF-Depot: Strukturierter Vergleich",
+      "excerpt": "Welche Sparform passt zu welcher Lebenssituation? Steuerliche Aspekte, Flexibilität und Renditeerwartungen im Überblick.",
+      "date": "2026-04-15",
+      "readtime": "9 min",
+      "featured": false
+    },
+    {
+      "id": "riester-foerderung",
+      "tag": "Riester",
+      "category": "riester",
+      "title": "Riester-Förderung 2026: Wer bekommt wie viel?",
+      "excerpt": "Grundzulage, Kinderzulage, Sonderausgabenabzug – eine aktuelle Übersicht ohne Werbung.",
+      "date": "2026-03-20",
+      "readtime": "4 min",
+      "featured": false
+    },
+    {
+      "id": "riester-kuendigung",
+      "tag": "Vertragsanalyse",
+      "category": "vertragsanalyse",
+      "title": "Riester-Vertrag kündigen: Was passiert mit den Zulagen?",
+      "excerpt": "Schädliche vs. unschädliche Verwendung, Rückforderungsrisiken und was beim Wechsel zu beachten ist.",
+      "date": "2026-03-05",
+      "readtime": "6 min",
+      "featured": false
+    },
+    {
+      "id": "basisrente-riester-vergleich",
+      "tag": "Altersvorsorge",
+      "category": "altersvorsorge",
+      "title": "Basisrente für Selbstständige: Alternative zu Riester?",
+      "excerpt": "Selbstständige sind von Riester ausgeschlossen – was die Basisrente leistet und wo die Grenzen liegen.",
+      "date": "2026-02-18",
+      "readtime": "6 min",
+      "featured": false
+    }
+  ]
+}
