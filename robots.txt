@@ -1,21 +1,27 @@
 User-agent: *
 Allow: /
-Disallow: /assets/js/
-Disallow: /data/
-Disallow: /deep-check-review.html
+Allow: /riester-check/
+Allow: /news/
+Allow: /news/article/
 
-# AI Crawlers – allow for indexing
-User-agent: GPTBot
-Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: PerplexityBot
-Allow: /
-User-agent: anthropic-ai
-Allow: /
-User-agent: Google-Extended
-Allow: /
-User-agent: CCBot
-Allow: /
+# Funnel internals – no index needed
+Disallow: /riester-check/start/
+Disallow: /riester-check/q/
+Disallow: /riester-check/result/
+
+# Old flat files – redirect stubs, no content
+Disallow: /riester-check-start.html
+Disallow: /riester-check-question.html
+Disallow: /riester-check-result.html
 
 Sitemap: https://versicherungs-fuchs.online/sitemap.xml
+
+# AI crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
