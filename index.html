@@ -797,4 +797,58 @@
       <div class="footer-links">
         <h5>Rechtliches</h5>
         <ul>
-   
+          <li><a href="/impressum.html">Impressum</a></li>
+          <li><a href="/datenschutz.html">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Versicherungsfuchs · iSurance Group · sven@isurance-group.de</p>
+      <p style="font-size:0.75rem;color:var(--muted);">Kein Finanzberater · Kein Beratungsersatz · Keine Anlageberatung nach §34h GewO</p>
+    </div>
+    <p class="footer-disclaimer">
+      Alle Angaben ohne Gewähr. Die Inhalte dienen der allgemeinen Information und stellen keine Anlage-, Rechts- oder Steuerberatung dar. 
+      Für individuelle Beratung wenden Sie sich an einen zugelassenen Finanzberater oder Versicherungsmakler.
+    </p>
+  </div>
+</footer>
+
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
+    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
+  </div>
+</div>
+<script>
+(function() {
+  function setCookieConsent(val) {
+    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
+    var b = document.getElementById('cookie-banner');
+    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
+  }
+  window.setCookieConsent = setCookieConsent;
+  document.addEventListener('DOMContentLoaded', function() {
+    var consent = null;
+    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
+    if (!consent) {
+      var b = document.getElementById('cookie-banner');
+      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
+    }
+  });
+})();
+</script>
+
+<!-- Hero Animation — only on homepage, non-render-blocking -->
+<script src="/config.js"></script>
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js" defer></script>
+<script src="/assets/js/hero-network.js" defer></script>
+
+</body>
+</html>
