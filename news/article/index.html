@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Artikel – Versicherungsfuchs</title>
+  <meta name="description" id="page-desc" content="Neutrale Analyse von Versicherungs- und Vorsorgethemen.">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" id="page-canonical" href="https://versicherungs-fuchs.online/news/article/">
+  <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+
+  <meta property="og:title" id="og-title" content="Artikel – Versicherungsfuchs">
+  <meta property="og:description" id="og-desc" content="Neutrale Analyse">
+  <meta property="og:image" content="https://versicherungs-fuchs.online/assets/img/og-image.png">
+  <meta property="og:type" content="article">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#0a0a0f; --bg2:#111118; --bg3:#1a1a26;
+      --border:rgba(255,255,255,0.08); --text:#e8e8f0; --muted:#8888aa;
+      --primary:#f97316; --primary2:#fb923c; --accent:#6366f1;
+      --radius:12px; --font:'Inter',system-ui,-apple-system,sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:var(--font); line-height:1.6; min-height:100vh; }
+    a { color:inherit; text-decoration:none; }
+
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:rgba(10,10,15,0.85); backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border); padding:0 24px;
+    }
+    .nav-inner {
+      max-width:1100px; margin:0 auto;
+      display:flex; align-items:center; justify-content:space-between; height:60px;
+    }
+    .nav-logo { display:flex; align-items:center; gap:10px; font-weight:700; font-size:1rem; }
+    .nav-logo svg { width:28px; height:28px; }
+    .nav-links { display:flex; align-items:center; gap:8px; }
+    .nav-links a {
+      padding:6px 14px; border-radius:8px; font-size:0.875rem; color:var(--muted);
+      transition:color .2s,background .2s;
+    }
+    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,0.06); }
+    .nav-cta { background:var(--primary)!important; color:#fff!important; font-weight:600; }
+
+    .article-layout {
+      max-width:1100px; margin:0 auto;
+      display:grid; grid-template-columns:1fr 320px;
+      gap:40px; padding:60px 24px 80px;
+    }
+
+    .article-main {}
+
+    .article-breadcrumb {
+      font-size:0.8rem; color:var(--muted); margin-bottom:32px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .article-breadcrumb a:hover { color:var(--text); }
+    .article-breadcrumb span { color:var(--muted); }
+
+    .article-tag {
+      font-size:0.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--primary2); margin-bottom:16px; display:block;
+    }
+    .article-title {
+      font-size:clamp(1.6rem,3.5vw,2.4rem); font-weight:800;
+      letter-spacing:-0.03em; line-height:1.2; margin-bottom:20px;
+    }
+    .article-meta {
+      display:flex; align-items:center; gap:16px;
+      font-size:0.8rem; color:var(--muted);
+      padding:16px 0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); margin-bottom:40px;
+    }
+    .meta-pill {
+      display:inline-flex; align-items:center; gap:5px;
+    }
+    .meta-pill svg { width:13px; height:13px; stroke:var(--muted); }
+
+    /* Article body typography */
+    .article-body h2 {
+      font-size:1.4rem; font-weight:800; letter-spacing:-0.02em;
+      margin:40px 0 16px; color:var(--text);
+    }
+    .article-body h3 {
+      font-size:1.1rem; font-weight:700;
+      margin:28px 0 12px; color:var(--text);
+    }
+    .article-body p {
+      font-size:1rem; color:rgba(232,232,240,0.85);
+      line-height:1.8; margin-bottom:20px;
+    }
+    .article-body strong { color:var(--text); font-weight:700; }
+    .article-body em { color:var(--primary2); font-style:normal; }
+
+    .article-body .info-box {
+      background:var(--bg2); border:1px solid var(--border);
+      border-left:3px solid var(--primary);
+      border-radius:var(--radius); padding:20px 24px; margin:28px 0;
+    }
+    .article-body .info-box strong {
+      display:block; font-size:0.8rem; text-transform:uppercase;
+      letter-spacing:.06em; color:var(--primary2); margin-bottom:8px;
+    }
+    .article-body .info-box p { margin:0; font-size:0.9rem; }
+
+    .article-body .warn-box {
+      background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2);
+      border-radius:var(--radius); padding:20px 24px; margin:28px 0;
+    }
+    .article-body .warn-box strong {
+      display:block; font-size:0.8rem; text-transform:uppercase;
+      letter-spacing:.06em; color:#ef4444; margin-bottom:8px;
+    }
+    .article-body .warn-box p { margin:0; font-size:0.9rem; color:rgba(232,232,240,0.8); }
+
+    .article-body ul, .article-body ol {
+      padding-left:20px; margin-bottom:20px;
+    }
+    .article-body li { font-size:1rem; color:rgba(232,232,240,0.85); line-height:1.7; margin-bottom:6px; }
+
+    /* Table */
+    .article-body table {
+      width:100%; border-collapse:collapse; margin:28px 0;
+      font-size:0.875rem;
+    }
+    .article-body th {
+      background:var(--bg2); border:1px solid var(--border);
+      padding:10px 14px; text-align:left; font-weight:700;
+      font-size:0.75rem; text-transform:uppercase; letter-spacing:.05em;
+      color:var(--muted);
+    }
+    .article-body td {
+      border:1px solid var(--border); padding:10px 14px;
+      color:rgba(232,232,240,0.85);
+    }
+    .article-body tr:nth-child(even) td { background:rgba(255,255,255,0.02); }
+
+    /* Key takeaways */
+    .takeaways {
+      background:linear-gradient(135deg,rgba(249,115,22,0.06),var(--bg2));
+      border:1px solid rgba(249,115,22,0.2); border-radius:var(--radius);
+      padding:28px 32px; margin:40px 0;
+    }
+    .takeaways h4 {
+      font-size:0.8rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; color:var(--primary2); margin-bottom:16px;
+    }
+    .takeaways ul { list-style:none; padding:0; }
+    .takeaways li {
+      font-size:0.9rem; color:var(--text);
+      padding:8px 0 8px 24px; position:relative; border-bottom:1px solid var(--border);
+    }
+    .takeaways li:last-child { border-bottom:none; }
+    .takeaways li::before {
+      content:"→"; position:absolute; left:0; color:var(--primary);
+      font-weight:700;
+    }
+
+    /* Disclaimer */
+    .article-disclaimer {
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:var(--radius); padding:16px 20px;
+      font-size:0.8rem; color:var(--muted); margin-top:40px;
+      line-height:1.6;
+    }
+
+    /* CTA in article */
+    .article-cta {
+      background:linear-gradient(135deg,rgba(249,115,22,0.08),var(--bg2));
+      border:1px solid rgba(249,115,22,0.25); border-radius:var(--radius);
+      padding:32px; margin:40px 0; text-align:center;
+    }
+    .article-cta h3 { font-size:1.1rem; font-weight:800; margin-bottom:8px; }
+    .article-cta p { color:var(--muted); font-size:0.875rem; margin-bottom:20px; }
+    .btn-primary {
+      background:var(--primary); color:#fff; font-weight:700;
+      padding:12px 28px; border-radius:10px; display:inline-block;
+      transition:background .2s,transform .15s;
+    }
+    .btn-primary:hover { background:var(--primary2); transform:translateY(-1px); }
+
+    /* Sidebar */
+    .article-sidebar {}
+    .sidebar-widget {
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:var(--radius); padding:24px; margin-bottom:20px;
+    }
+    .sidebar-widget h5 {
+      font-size:0.75rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; color:var(--muted); margin-bottom:16px;
+    }
+    .sidebar-link {
+      display:block; padding:10px 0;
+      border-bottom:1px solid var(--border);
+      font-size:0.85rem; transition:color .2s;
+    }
+    .sidebar-link:last-child { border-bottom:none; }
+    .sidebar-link:hover { color:var(--primary2); }
+    .sidebar-link .stag {
+      display:block; font-size:0.7rem; color:var(--muted);
+      margin-top:2px;
+    }
+    .sidebar-cta-box {
+      background:linear-gradient(135deg,rgba(249,115,22,0.1),var(--bg2));
+      border:1px solid rgba(249,115,22,0.25); border-radius:var(--radius);
+      padding:24px; text-align:center;
+    }
+    .sidebar-cta-box h5 { color:var(--text); font-size:1rem; margin-bottom:8px; }
+    .sidebar-cta-box p { font-size:0.8rem; color:var(--muted); margin-bottom:16px; }
+    .sidebar-cta-box a {
+      background:var(--primary); color:#fff; font-weight:700;
+      padding:10px 20px; border-radius:8px; display:block;
+      transition:background .2s; font-size:0.875rem;
+    }
+    .sidebar-cta-box a:hover { background:var(--primary2); }
+
+    /* Loading state */
+    .loading-art {
+      text-align:center; padding:80px 24px; color:var(--muted);
+    }
+    .spinner {
+      width:32px; height:32px; border:3px solid var(--border);
+      border-top-color:var(--primary); border-radius:50%;
+      animation:spin .8s linear infinite; margin:0 auto 16px;
+    }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    footer {
+      background:var(--bg); border-top:1px solid var(--border);
+      padding:32px 24px;
+    }
+    .footer-bottom-simple {
+      max-width:1100px; margin:0 auto;
+      display:flex; justify-content:space-between; align-items:center;
+      flex-wrap:wrap; gap:12px;
+    }
+    .footer-bottom-simple p { font-size:0.8rem; color:var(--muted); }
+    .footer-bottom-simple nav a {
+      font-size:0.8rem; color:var(--muted); margin-left:16px; transition:color .2s;
+    }
+    .footer-bottom-simple nav a:hover { color:var(--text); }
+
+    @media (max-width:800px) {
+      .article-layout { grid-template-columns:1fr; }
+      .article-sidebar { display:none; }
+      .nav-links a:not(.nav-cta) { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none">
+        <path d="M14 3C8.48 3 4 7.48 4 13c0 3.18 1.49 6.01 3.82 7.85L7 22l1.5-.5C9.9 22.45 11.87 23 14 23c5.52 0 10-4.48 10-10S19.52 3 14 3z" stroke="#f97316" stroke-width="1.5"/>
+        <circle cx="11.5" cy="12.5" r="1.5" fill="#f97316"/>
+        <circle cx="16.5" cy="12.5" r="1.5" fill="#f97316"/>
+        <path d="M10.5 16.5s1 1.5 3.5 1.5 3.5-1.5 3.5-1.5" stroke="#f97316" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+      Versicherungsfuchs
+    </a>
+    <div class="nav-links">
+      <a href="/riester-check/">Riester-Check</a>
+      <a href="/news/">Wissen</a>
+      <a href="/riester-check/start/" class="nav-cta">Check starten</a>
+    </div>
+  </div>
+</nav>
+
+<div class="article-layout">
+  <main class="article-main" id="article-main">
+    <div class="loading-art">
+      <div class="spinner"></div>
+      <p>Artikel wird geladen…</p>
+    </div>
+  </main>
+
+  <aside class="article-sidebar">
+    <div class="sidebar-cta-box">
+      <h5>Ihren Vertrag prüfen</h5>
+      <p>Kostenloser Riester-Check in 5 Minuten. Keine Anmeldung.</p>
+      <a href="/riester-check/start/">Jetzt starten</a>
+    </div>
+
+    <div class="sidebar-widget">
+      <h5>Weitere Artikel</h5>
+      <a href="/news/article/?id=riester-kostenstruktur" class="sidebar-link">
+        Kostenstruktur in Riester-Verträgen
+        <span class="stag">Vertragsanalyse · 7 min</span>
+      </a>
+      <a href="/news/article/?id=riester-foerderung" class="sidebar-link">
+        Riester-Förderung 2026: Wer bekommt wie viel?
+        <span class="stag">Riester · 4 min</span>
+      </a>
+      <a href="/news/article/?id=riester-vs-etf" class="sidebar-link">
+        Rürup vs. Riester vs. ETF-Depot
+        <span class="stag">Altersvorsorge · 9 min</span>
+      </a>
+      <a href="/news/article/?id=riester-kuendigung" class="sidebar-link">
+        Riester kündigen: Was passiert mit den Zulagen?
+        <span class="stag">Vertragsanalyse · 6 min</span>
+      </a>
+    </div>
+
+    <div class="sidebar-widget">
+      <h5>Info</h5>
+      <p style="font-size:0.8rem;color:var(--muted);line-height:1.6;">
+        Alle Artikel dienen der allgemeinen Information und stellen keine Beratung dar. 
+        Kein Ersatz für individuelle Fachberatung.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<footer>
+  <div class="footer-bottom-simple">
+    <p>© 2026 Versicherungsfuchs · Kein Beratungsersatz</p>
+    <nav>
+      <a href="/">Start</a>
+      <a href="/news/">Wissen</a>
+      <a href="/riester-check/">Riester-Check</a>
+      <a href="/impressum.html">Impressum</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+const ARTICLES = {
+  'depot2027-reform': {
+    tag: 'Reform & Politik',
+    category: 'reform',
+    title: 'Depot 2027: Was sich für Riester-Sparer tatsächlich ändert',
+    date: '2026-05-10',
+    readtime: '5 min',
+    body: `
+      <p>Die Bundesregierung plant mit dem sogenannten "Depot 2027" eine Reform der staatlich geförderten Altersvorsorge. Für bestehende Riester-Sparer stellen sich dabei konkrete Fragen: Was ändert sich? Was bleibt? Und was ist Stand heute noch offen?</p>
+
+      <div class="info-box">
+        <strong>Stand der Informationen</strong>
+        <p>Dieser Artikel basiert auf dem Referentenentwurf vom Frühjahr 2026. Gesetzliche Änderungen können abweichen. Letzte Aktualisierung: Mai 2026.</p>
+      </div>
+
+      <h2>Was ist das Depot 2027?</h2>
+      <p>Das Depot 2027 ist das geplante Nachfolgeprodukt für die Riester-Rente. Es soll ab 2027 als staatlich gefördertes Altersvorsorgedepot eingeführt werden – mit dem Ziel, die bisherige Riester-Förderung attraktiver und einfacher zu gestalten.</p>
+      <p>Im Kern geht es um eine Vereinfachung der Produktstruktur: Weg von komplexen Versicherungsmänteln, hin zu transparenten Wertpapierdepots mit staatlicher Zulage.</p>
+
+      <h2>Was ändert sich konkret?</h2>
+      <table>
+        <thead>
+          <tr><th>Aspekt</th><th>Riester (aktuell)</th><th>Depot 2027 (geplant)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Produktform</td><td>Versicherung, Banksparplan, Fonds</td><td>Wertpapierdepot</td></tr>
+          <tr><td>Kapitalgarantie</td><td>100% Beitragserhalt Pflicht</td><td>Entfällt (im Entwurf)</td></tr>
+          <tr><td>Grundzulage</td><td>175 €/Jahr</td><td>Erhöhung geplant (Betrag offen)</td></tr>
+          <tr><td>Auszahlungsform</td><td>Leibrente verpflichtend</td><td>Flexiblere Teilentnahme diskutiert</td></tr>
+          <tr><td>Besteuerung</td><td>Nachgelagert</td><td>Nachgelagert (unverändert)</td></tr>
+        </tbody>
+      </table>
+
+      <div class="warn-box">
+        <strong>Wichtig: Noch kein Gesetz</strong>
+        <p>Die Pläne sind Stand Mai 2026 noch nicht verabschiedet. Wesentliche Details – insbesondere zur Zulagenhöhe, Übergangsregeln und Behandlung von Bestandsverträgen – sind noch offen.</p>
+      </div>
+
+      <h2>Was passiert mit bestehenden Riester-Verträgen?</h2>
+      <p>Das ist die wichtigste Frage für die rund 16 Millionen Riester-Sparer in Deutschland. Aus dem bisherigen Entwurf geht hervor, dass bestehende Verträge <strong>weitergeführt werden können</strong> – eine Zwangsumstellung ist nicht vorgesehen.</p>
+      <p>Ob und wie ein freiwilliger Wechsel in das neue Depot-Produkt möglich sein wird, ist noch nicht final geregelt. Insbesondere die Behandlung bereits erhaltener Zulagen bei einem Wechsel ist eine offene Frage.</p>
+
+      <h2>Wegfall der Beitragsgarantie: Was bedeutet das?</h2>
+      <p>Einer der kontroversesten Punkte: Im aktuellen Entwurf soll die Pflicht zum 100%-igen Beitragserhalt entfallen. Aktuell müssen Riester-Produkte garantieren, dass zum Rentenbeginn mindestens alle eingezahlten Beiträge plus Zulagen vorhanden sind.</p>
+      <p>Diese Garantie war der Hauptgrund dafür, dass fondsgebundene Riester-Produkte oft stark in Anleihen investieren mussten – mit entsprechend gedämpften Renditechancen. Ohne Garantiepflicht könnten Anbieter höhere Aktienquoten ermöglichen.</p>
+
+      <div class="info-box">
+        <strong>Einordnung</strong>
+        <p>Für jüngere Sparer mit langem Anlagehorizont könnte der Wegfall der Garantiepflicht renditetechnisch vorteilhaft sein. Für Sparer kurz vor dem Renteneintritt ändert sich strukturell wenig.</p>
+      </div>
+
+      <h2>Was sollten Riester-Sparer jetzt tun?</h2>
+      <p>Konkret: Abwarten und beobachten. Aktionismus – wie das überstürzte Kündigen eines bestehenden Vertrags – ist nicht ratsam, bevor die gesetzliche Grundlage feststeht.</p>
+      <p>Sinnvoll ist es hingegen, den aktuellen Vertrag zu analysieren: Wie hoch sind die Kosten? Wie ist der Vertrag performt? Gibt es Handlungsbedarf unabhängig von der Reform?</p>
+
+      <div class="takeaways">
+        <h4>Das Wichtigste zusammengefasst</h4>
+        <ul>
+          <li>Depot 2027 ist noch kein Gesetz – wesentliche Details offen</li>
+          <li>Bestehende Riester-Verträge können weitergeführt werden</li>
+          <li>Kapitalgarantie soll wegfallen – Aktienquoten könnten steigen</li>
+          <li>Übergangsregeln und Wechseloptionen noch nicht final geregelt</li>
+          <li>Keine voreiligen Kündigungen vor gesetzlicher Klarheit</li>
+        </ul>
+      </div>
+
+      <div class="article-cta">
+        <h3>Wie steht Ihr Riester-Vertrag da?</h3>
+        <p>Unabhängig von der Reform: Wissen Sie, was Ihr Vertrag tatsächlich kostet und leistet?</p>
+        <a href="/riester-check/start/" class="btn-primary">Jetzt kostenlos prüfen</a>
+      </div>
+    `
+  },
+  'riester-kostenstruktur': {
+    tag: 'Vertragsanalyse',
+    category: 'vertragsanalyse',
+    title: 'Kostenstruktur in Riester-Verträgen verstehen',
+    date: '2026-04-28',
+    readtime: '7 min',
+    body: `
+      <p>Kosten sind einer der wichtigsten, aber am häufigsten unterschätzten Faktoren bei der Riester-Rente. Während die staatliche Förderung attraktiv klingt, können hohe Kostenstrukturen einen erheblichen Teil der Rendite aufzehren.</p>
+
+      <h2>Die Effektivkostenquote</h2>
+      <p>Die wichtigste Kennzahl ist die <strong>Effektivkostenquote</strong> (EKQ). Sie gibt an, um wie viele Prozentpunkte die jährliche Rendite durch alle Kosten des Produkts gemindert wird. Seit 2015 sind Versicherer verpflichtet, diese Zahl im Produktinformationsblatt auszuweisen.</p>
+
+      <div class="info-box">
+        <strong>Richtwert</strong>
+        <p>Eine EKQ unter 1,0% gilt als gut. Über 1,5% ist kritisch zu hinterfragen. Viele ältere Riester-Versicherungen liegen bei 1,5–2,5% – was über 30 Jahre erhebliche Renditeverluste bedeutet.</p>
+      </div>
+
+      <h2>Kostenarten im Überblick</h2>
+      <table>
+        <thead>
+          <tr><th>Kostenart</th><th>Wann fällt sie an</th><th>Auswirkung</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Abschlusskosten</td><td>Einmalig zu Beginn</td><td>Hoch, oft 5 Jahre verteilt</td></tr>
+          <tr><td>Verwaltungskosten</td><td>Laufend (% des Beitrags)</td><td>Dauerhaft, oft 5–15%</td></tr>
+          <tr><td>Fondskosten (TER)</td><td>Jährlich auf Fondsvermögen</td><td>0,1–2,5% je nach Fonds</td></tr>
+          <tr><td>Stückkosten</td><td>Fester Betrag pro Jahr</td><td>Nachteilig bei kleinen Beiträgen</td></tr>
+          <tr><td>Wechselkosten</td><td>Bei Anbieterwechsel</td><td>Einmalig, variabel</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Wo verstecken sich Kosten?</h2>
+      <p>Bei fondsgebundenen Produkten addieren sich Versicherungskosten und Fondskosten. Ein Produkt mit "nur 1% Verwaltungsgebühr" kann durch teure Fonds (TER 2%) auf eine EKQ von 2,5%+ kommen.</p>
+      <p>Bei klassischen Rentenversicherungen werden Kosten oft in der Überschussbeteiligung versteckt: Die Garantierente ist sehr niedrig, die "realistische" Prognose aber hoch – und diese Prognose ist nicht garantiert.</p>
+
+      <div class="article-cta">
+        <h3>Wissen Sie, was Ihr Vertrag kostet?</h3>
+        <p>Unser Check hilft Ihnen, die Kostenstruktur Ihres Vertrags einzuordnen.</p>
+        <a href="/riester-check/start/" class="btn-primary">Kostenlos prüfen</a>
+      </div>
+    `
+  }
+};
+
+// Default article for IDs not in our local ARTICLES object
+const DEFAULT_ARTICLE = {
+  tag: 'Wissen',
+  title: 'Artikel wird geladen',
+  date: '',
+  readtime: '',
+  body: '<p>Dieser Artikel ist in Kürze verfügbar.</p>'
+};
+
+function formatDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('de-DE', {day:'2-digit', month:'long', year:'numeric'});
+}
+
+function renderArticle(art, id) {
+  const main = document.getElementById('article-main');
+  document.title = art.title + ' – Versicherungsfuchs';
+  document.getElementById('page-desc').content = art.title;
+  document.getElementById('og-title').content = art.title;
+  document.getElementById('og-desc').content = art.title;
+  const canon = 'https://versicherungs-fuchs.online/news/article/?id=' + id;
+  document.getElementById('page-canonical').href = canon;
+
+  // Schema.org Article
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": art.title,
+    "datePublished": art.date,
+    "publisher": {"@type":"Organization","name":"Versicherungsfuchs"},
+    "url": canon
+  };
+  const s = document.createElement('script');
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify(schema);
+  document.head.appendChild(s);
+
+  main.innerHTML = `
+    <div class="article-breadcrumb">
+      <a href="/">Start</a> <span>›</span>
+      <a href="/news/">Wissen</a> <span>›</span>
+      <span style="color:var(--text)">${art.tag}</span>
+    </div>
+    <span class="article-tag">${art.tag}</span>
+    <h1 class="article-title">${art.title}</h1>
+    <div class="article-meta">
+      <span class="meta-pill">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="5.5"/><path d="M6.5 3.5v3l1.5 1.5"/></svg>
+        ${art.readtime} Lesezeit
+      </span>
+      <span class="meta-pill">
+        <svg viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="10" height="9" rx="1.5"/><path d="M4.5 1v3M8.5 1v3M1.5 6h10"/></svg>
+        ${formatDate(art.date)}
+      </span>
+      <span style="margin-left:auto;font-size:0.75rem;color:var(--muted);">Kein Beratungsersatz</span>
+    </div>
+    <div class="article-body">${art.body}</div>
+    <div class="article-disclaimer">
+      <strong>Hinweis:</strong> Dieser Artikel dient der allgemeinen Information und stellt keine Anlage-, Rechts- oder Steuerberatung dar. 
+      Alle Angaben ohne Gewähr. Für individuelle Beratung wenden Sie sich an einen zugelassenen Finanzberater.
+    </div>`;
+}
+
+function init() {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id') || '';
+
+  if (!id) {
+    window.location.replace('/news/');
+    return;
+  }
+
+  if (ARTICLES[id]) {
+    renderArticle(ARTICLES[id], id);
+    return;
+  }
+
+  // Try loading from data/articles.json
+  fetch('/data/articles.json')
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(data => {
+      const articles = data.articles || data;
+      const art = articles.find(a => a.id === id);
+      if (art) {
+        renderArticle(art, id);
+      } else {
+        renderArticle({...DEFAULT_ARTICLE, title:'Artikel nicht gefunden'}, id);
+      }
+    })
+    .catch(() => {
+      renderArticle({...DEFAULT_ARTICLE, title:'Artikel nicht gefunden'}, id);
+    });
+}
+
+init();
+</script>
+</body>
+</html>
