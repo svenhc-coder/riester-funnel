@@ -594,82 +594,12 @@
     </div>
 
     <!-- Right: Fox-to-Logo Animation (free-floating, no box) -->
-    <div class="hero__stage" aria-hidden="true">
-
-      <!-- Ambient glow -->
-      <div class="ha-glow"></div>
-
-      <!-- Phase 1: Running fox silhouette -->
-      <div class="ha-runner">
-        <span class="ha-trail"></span>
-        <svg viewBox="0 0 90 48" width="90" height="48" xmlns="http://www.w3.org/2000/svg">
-          <!-- body -->
-          <ellipse cx="46" cy="28" rx="32" ry="16" fill="#C75A1F"/>
-          <!-- head -->
-          <circle cx="76" cy="20" r="13" fill="#C75A1F"/>
-          <!-- ear -->
-          <polygon points="70,10 76,0 84,10" fill="#C9B189"/>
-          <!-- eye -->
-          <circle cx="80" cy="19" r="2.5" fill="#1a0800"/>
-          <!-- muzzle -->
-          <ellipse cx="86" cy="24" rx="5" ry="3.5" fill="#C9B189" opacity=".7"/>
-          <!-- tail -->
-          <path d="M 16 24 Q -6 14 0 2" stroke="#C9B189" stroke-width="6"
-                fill="none" stroke-linecap="round"/>
-          <!-- legs -->
-          <line x1="32" y1="42" x2="26" y2="58" stroke="#C75A1F" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="44" y1="44" x2="42" y2="60" stroke="#C75A1F" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="58" y1="44" x2="60" y2="60" stroke="#C75A1F" stroke-width="3.5" stroke-linecap="round"/>
-          <line x1="68" y1="41" x2="74" y2="56" stroke="#C75A1F" stroke-width="3.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-
-      <!-- Phase 2+: Logo symbol assembles -->
-      <div class="ha-logo">
-        <svg class="ha-vmark" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
-
-          <!-- V base shape (beige) -->
-          <path class="ha-el ha-v-fill"
-            d="M 100 208 L 18 18 L 48 18 L 100 175 L 152 18 L 182 18 Z"
-            fill="#C9B189"/>
-
-          <!-- Fox face (orange organic oval) -->
-          <path class="ha-el ha-fox-face"
-            d="M 62 98 Q 60 26 100 18 Q 140 26 138 98 Q 138 150 100 160 Q 62 150 62 98 Z"
-            fill="#C75A1F"/>
-
-          <!-- Left ear (flame spike) -->
-          <path class="ha-el ha-ear-l"
-            d="M 65 92 L 44 18 L 88 74 Z"
-            fill="#C75A1F"/>
-
-          <!-- Right ear (flame spike) -->
-          <path class="ha-el ha-ear-r"
-            d="M 135 92 L 156 18 L 112 74 Z"
-            fill="#C75A1F"/>
-
-          <!-- Muzzle -->
-          <ellipse class="ha-el ha-detail" cx="100" cy="120" rx="21" ry="14"
-            fill="#7B2D0F" opacity=".45"/>
-
-          <!-- Eyes -->
-          <circle class="ha-el ha-detail ha-eye" cx="81"  cy="91" r="5.5" fill="#1a0800"/>
-          <circle class="ha-el ha-detail ha-eye" cx="119" cy="91" r="5.5" fill="#1a0800"/>
-          <!-- Shine -->
-          <circle class="ha-el ha-detail" cx="83"  cy="89" r="2"   fill="rgba(255,255,255,.65)"/>
-          <circle class="ha-el ha-detail" cx="121" cy="89" r="2"   fill="rgba(255,255,255,.65)"/>
-
-          <!-- V outline strokes (draw in last) -->
-          <path class="ha-stroke-l"
-            d="M 100 208 L 18 18"
-            stroke="#C9B189" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path class="ha-stroke-r"
-            d="M 100 208 L 182 18"
-            stroke="#C9B189" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        </svg>
-      </div>
-
-    </div>
+            <div class="hero__stage" aria-hidden="true">
+          <div class="ha-glow"></div>
+          <img src="assets/img/favicon.png" class="ha-runner" width="52" height="52" alt="">
+          <img src="assets/img/favicon.png" class="ha-mark"   width="162" height="162" alt="">
+        </div>
+</div>
 
   </div>
 </section>
@@ -977,19 +907,7 @@
 })();
 </script>
 
-<!-- Hero: idle eye blink -->
-<script>
-(function(){
-  var eyes = document.querySelectorAll('.ha-eye');
-  if(!eyes.length) return;
-  function blink(){
-    eyes.forEach(function(e){ e.style.transform='scaleY(0.08)'; });
-    setTimeout(function(){ eyes.forEach(function(e){ e.style.transform=''; }); }, 180);
-    setTimeout(blink, 7000 + Math.random()*4000);
-  }
-  setTimeout(blink, 3200);
-}());
-</script>
+
 
 </body>
 </html>
