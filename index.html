@@ -370,6 +370,80 @@
     }
   
     .nav-logo img { height: 38px; width: auto; display: block; }
+  
+    /* ── App Section ── */
+    .app-section {
+      padding: 80px 24px;
+      background: linear-gradient(135deg, rgba(249,115,22,0.1) 0%, rgba(10,10,15,0) 60%);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    }
+    .app-section-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .app-badge {
+      display: inline-block; background: rgba(249,115,22,0.12);
+      border: 1px solid rgba(249,115,22,0.3); color: #fb923c;
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .app-title {
+      font-size: clamp(1.5rem,3.5vw,2.2rem); font-weight: 800;
+      letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 14px;
+    }
+    .app-sub { color: var(--muted,#8888aa); font-size: 1rem; line-height: 1.7; margin-bottom: 28px; }
+    .app-benefits {
+      display: flex; flex-wrap: wrap; gap: 10px 20px;
+      justify-content: center; margin-bottom: 32px;
+    }
+    .app-benefit { display: flex; align-items: center; gap: 6px; font-size: 0.875rem; font-weight: 600; }
+    .app-benefit-icon { color: #f97316; font-weight: 800; }
+    .app-store-row {
+      display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .store-btn-lg {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      color: var(--text,#e8e8f0); padding: 14px 26px; border-radius: 14px;
+      text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s;
+      min-width: 160px;
+    }
+    .store-btn-lg:hover {
+      background: rgba(255,255,255,0.14); transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .store-label { font-size: 10px; opacity: .7; }
+    .store-name { font-size: 16px; font-weight: 700; }
+    .app-fine { font-size: 0.75rem; color: var(--muted,#8888aa); }
+    /* Footer logo fix */
+    .footer-logo, img.footer-logo { height: 48px !important; width: auto !important; max-width: 200px; display: block; }
+    .nav-logo img { height: 42px !important; width: auto; }
+
+  
+    /* ── Cookie Banner ── */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(17,17,17,0.97); backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 24px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      transform: translateY(100%); transition: transform 0.4s ease;
+    }
+    #cookie-banner.visible { transform: translateY(0); }
+    #cookie-banner p { color: #aaa; font-size: 0.85rem; margin: 0; max-width: 620px; line-height: 1.5; }
+    #cookie-banner a { color: #f97316; text-decoration: none; }
+    #cookie-banner a:hover { text-decoration: underline; }
+    .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .cookie-btn-accept {
+      background: #f97316; color: #fff; border: none; padding: 10px 20px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-accept:hover { background: #ea6c0a; }
+    .cookie-btn-decline {
+      background: rgba(255,255,255,0.07); color: #aaa; border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-decline:hover { background: rgba(255,255,255,0.12); }
+
   </style>
 </head>
 <body>
@@ -377,11 +451,11 @@
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
+    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
     <div class="nav-links">
       <a href="/riester-check/">Riester-Check</a>
       <a href="/news/">Wissen</a>
-      <a href="/riester-check/start/" class="nav-cta">Check starten</a>
+      <a href="#app-download" class="nav-cta" onclick="document.getElementById('app-download')?.scrollIntoView({{behavior:'smooth'}});return false;">App jetzt holen</a>
     </div>
   </div>
 </nav>
@@ -607,6 +681,19 @@
 </section>
 
 <!-- ── CTA ── -->
+
+<section class="app-section" id="app-download">
+  <div class="app-section-inner">
+    <div class="app-badge">📱 Die App – kostenlos</div>
+    <h2 class="app-title">Deep-Check kostenlos.<br>Alle Verträge immer im Blick.</h2>
+    <p class="app-sub">Laden Sie Ihre Vertragsdaten hoch und erhalten Sie Ihren persönlichen Deep-Check kostenfrei – exklusiv für App-Nutzer.</p>
+    <div class="app-store-row">
+      <a href="https://apps.apple.com/de/app/isurance/id1438875800" target="_blank" class="store-btn-lg">App Store</a>
+      <a href="https://play.google.com/store/apps/details?id=de.isurance.app" target="_blank" class="store-btn-lg">Google Play</a>
+    </div>
+  </div>
+</section>
+
 <section class="cta-section">
   <h2>Ihren Riester-Vertrag jetzt einordnen lassen.</h2>
   <p>Kostenloser Quick-Check in 5 Minuten. Keine Anmeldung erforderlich.</p>
@@ -658,6 +745,37 @@
     </p>
   </div>
 </footer>
+
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
+    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
+  </div>
+</div>
+<script>
+(function() {
+  function setCookieConsent(val) {
+    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
+    var b = document.getElementById('cookie-banner');
+    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
+  }
+  window.setCookieConsent = setCookieConsent;
+  document.addEventListener('DOMContentLoaded', function() {
+    var consent = null;
+    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
+    if (!consent) {
+      var b = document.getElementById('cookie-banner');
+      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
+    }
+  });
+})();
+</script>
 
 </body>
 </html>
