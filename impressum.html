@@ -2,78 +2,192 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <title>Impressum – VersicherungsFuchs</title>
-  <meta name="description" content="Impressum der iSurance Group / VersicherungsFuchs.">
-  <meta name="robots" content="noindex,nofollow">
-  <link rel="canonical" href="https://versicherungs-fuchs.online/impressum.html">
-  <meta property="og:image" content="https://versicherungs-fuchs.online/assets/img/og-image.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum – Versicherungsfuchs</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/assets/img/favicon.ico" type="image/x-icon">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111;
+      --border: rgba(255,255,255,0.08);
+      --text: #f1f1f1;
+      --muted: #888;
+      --primary: #f97316;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.7; }
+
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1100px; margin: 0 auto; padding: 0 24px; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo img { display: block; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta { background: var(--primary); color: #fff !important; padding: 8px 18px; border-radius: 8px; font-weight: 600; font-size: 0.85rem !important; }
+    .nav-cta:hover { background: #ea6c0a !important; }
+
+    .page-wrap { max-width: 720px; margin: 0 auto; padding: 80px 24px 120px; }
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 48px; }
+    h2 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 40px 0 12px; }
+    p { color: #ccc; margin-bottom: 8px; font-size: 0.95rem; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .chip { display: inline-block; background: rgba(249,115,22,0.12); color: var(--primary); font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; margin-bottom: 16px; letter-spacing: 0.05em; }
+    .note { background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 10px; padding: 16px 20px; margin: 24px 0; }
+    .note p { margin: 0; font-size: 0.88rem; color: var(--muted); }
+
+    footer { border-top: 1px solid var(--border); padding: 40px 24px; }
+    .footer-bottom-simple { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-bottom-simple p { color: var(--muted); font-size: 0.8rem; margin: 0; }
+    .footer-bottom-simple nav { background: none; border: none; position: static; }
+    .footer-bottom-simple nav a { color: var(--muted); font-size: 0.8rem; text-decoration: none; margin-left: 20px; }
+    .footer-bottom-simple nav a:hover { color: var(--text); }
+  
+    /* ── Cookie Banner ── */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999;
+      background: rgba(17,17,17,0.97); backdrop-filter: blur(16px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 24px; display: flex; align-items: center;
+      justify-content: space-between; gap: 20px; flex-wrap: wrap;
+      transform: translateY(100%); transition: transform 0.4s ease;
+    }
+    #cookie-banner.visible { transform: translateY(0); }
+    #cookie-banner p { color: #aaa; font-size: 0.85rem; margin: 0; max-width: 620px; line-height: 1.5; }
+    #cookie-banner a { color: #f97316; text-decoration: none; }
+    #cookie-banner a:hover { text-decoration: underline; }
+    .cookie-btns { display: flex; gap: 10px; flex-shrink: 0; }
+    .cookie-btn-accept {
+      background: #f97316; color: #fff; border: none; padding: 10px 20px;
+      border-radius: 8px; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-accept:hover { background: #ea6c0a; }
+    .cookie-btn-decline {
+      background: rgba(255,255,255,0.07); color: #aaa; border: 1px solid rgba(255,255,255,0.12);
+      padding: 10px 16px; border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+      white-space: nowrap;
+    }
+    .cookie-btn-decline:hover { background: rgba(255,255,255,0.12); }
+
+  </style>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo"><img id="nav-logo" src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
-      <div class="nav-links">
-        <a href="/index.html" class="nav-link">Uebersicht</a>
-        <a href="/riester-check.html" class="nav-link">Riester-Check</a>
-      </div>
-      <a href="/riester-check-start.html" class="nav-cta">Check starten</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menü" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
+    <div class="nav-links">
+      <a href="/riester-check/">Riester-Check</a>
+      <a href="/news/">Wissen</a>
+      <a href="/#app-download" class="nav-cta">App jetzt holen</a>
     </div>
-  </nav>
-<main class="page-wrap">
-  <div class="legal-wrap">
-    <a href="/index.html" class="legal-back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Startseite</a>
-    <h1 class="legal-h1">Impressum</h1>
-    <section class="legal-section">
-      <h2 class="legal-h2">Angaben gem. &sect; 5 TMG</h2>
-      <p class="legal-p">iSurance Group | Sven Cramer<br>Bogenstrasse 42<br>22926 Ahrensburg</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">Kontakt</h2>
-      <p class="legal-p">E-Mail: <a href="mailto:sven@isurance-group.de" class="legal-link">sven@isurance-group.de</a></p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">Verantwortlich f&uuml;r den Inhalt</h2>
-      <p class="legal-p">Sven Cramer (Anschrift wie oben)</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">Haftungsausschluss</h2>
-      <p class="legal-p">Die Inhalte dieser Website wurden mit gr&ouml;&szlig;tm&ouml;glicher Sorgfalt erstellt. F&uuml;r die Richtigkeit, Vollst&auml;ndigkeit und Aktualit&auml;t der Inhalte k&ouml;nnen wir jedoch keine Gew&auml;hr &uuml;bernehmen. Die Nutzung der Inhalte dieser Website erfolgt auf eigene Gefahr des Nutzers. Die auf dieser Website zur Verf&uuml;gung gestellten Informationen stellen keine Rechts-, Steuer- oder Finanzberatung dar.</p>
-    </section>
-    <section class="legal-section">
-      <h2 class="legal-h2">Streitschlichtung</h2>
-      <p class="legal-p">Die Europ&auml;ische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit: <a href="https://ec.europa.eu/consumers/odr" class="legal-link" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>. Wir sind weder verpflichtet noch bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
-    </section>
   </div>
-</main>
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/img/logo.png" id="footer-logo" height="32" alt="VersicherungsFuchs">
-        <p class="footer-tagline">Klare Entscheidungen statt Finanzchaos.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/impressum.html" class="footer-link">Impressum</a>
-        <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
-      </div>
-    </div>
+</nav>
+
+<div class="page-wrap">
+  <h1>Impressum</h1>
+
+  <h2>Anbieter</h2>
+  <p><strong>iSurance Finanz- und Versicherungsvermittlungs UG (haftungsbeschränkt)</strong></p>
+  <p>Fritz-Hecker-Straße 94</p>
+  <p>50968 Köln</p>
+  <p>Deutschland</p>
+
+  <h2>Kontakt</h2>
+  <p>E-Mail: <a href="mailto:info@isurance-group.de">info@isurance-group.de</a></p>
+  <p>Web: <a href="https://isurance-group.de" target="_blank">isurance-group.de</a></p>
+
+  <h2>Handelsregister</h2>
+  <p>Registergericht: Amtsgericht Köln</p>
+  <p>Registernummer: HRB 92537</p>
+
+  <h2>Versicherungsvermittlung</h2>
+  <p>Registrierungsnummer gemäß § 34d GewO:</p>
+  <p><strong>D-FRY2-GTB6R-98</strong></p>
+  <p>Registrierungsbehörde: Industrie- und Handelskammer zu Köln</p>
+  <p>Das Vermittlerregister kann eingesehen werden unter: <a href="https://www.vermittlerregister.info" target="_blank">vermittlerregister.info</a></p>
+
+  <hr class="divider">
+
+  <h2>Verantwortlich für den Inhalt (§ 55 RStV)</h2>
+  <p>Sven Cramer</p>
+  <p>Fritz-Hecker-Straße 94, 50968 Köln</p>
+
+  <hr class="divider">
+
+  <div class="chip">Technik &amp; Infrastruktur</div>
+  <h2>KI-gestützte Analyse</h2>
+  <div class="note">
+    <p>Teile dieses Dienstes nutzen Technologien der <strong>Anthropic PBC</strong>, 548 Market St, PMB 90375, San Francisco, CA 94104-5401, USA (<a href="https://www.anthropic.com" target="_blank">anthropic.com</a>). Die KI-Analysen ersetzen keine Beratung durch einen zugelassenen Versicherungsvermittler oder Finanzberater.</p>
+  </div>
+
+  <h2>Server-Hosting (Backend)</h2>
+  <p><strong>Hetzner Online GmbH</strong></p>
+  <p>Industriestr. 25, 91710 Gunzenhausen</p>
+  <p><a href="https://www.hetzner.com" target="_blank">hetzner.com</a></p>
+
+  <h2>Frontend-Hosting</h2>
+  <p><strong>Kinsta Inc. / Sevalla</strong></p>
+  <p>8939 S Sepulveda Blvd #102, Los Angeles, CA 90045, USA</p>
+  <p><a href="https://kinsta.com" target="_blank">kinsta.com</a></p>
+
+  <hr class="divider">
+
+  <h2>Haftungshinweis</h2>
+  <p>Die Inhalte dieser Website dienen ausschließlich der allgemeinen Information und stellen keine Anlage-, Steuer- oder Versicherungsberatung dar. Der Riester-Check liefert eine automatisierte Einschätzung auf Basis Ihrer Angaben – er ersetzt keine individuelle Beratung.</p>
+  <p>Trotz sorgfältiger Prüfung übernehmen wir keine Haftung für die Richtigkeit, Vollständigkeit oder Aktualität der bereitgestellten Informationen.</p>
+
+  <h2>Externe Links</h2>
+  <p>Für Inhalte verlinkter externer Seiten sind ausschließlich deren Betreiber verantwortlich. Zum Zeitpunkt der Verlinkung waren keine Rechtsverstöße erkennbar.</p>
+
+  <h2>Urheberrecht</h2>
+  <p>Die durch die Betreiber erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung.</p>
+</div>
+
+<footer>
+  <div class="footer-bottom-simple">
+    <p>© 2026 Versicherungsfuchs · iSurance Finanz- und Versicherungsvermittlungs UG</p>
+    <nav>
+      <a href="/">Start</a>
+      <a href="/datenschutz.html">Datenschutz</a>
+      <a href="/impressum.html">Impressum</a>
+    </nav>
   </div>
 </footer>
+
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
+    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
+  </div>
+</div>
 <script>
-var fl=document.getElementById("footer-logo");
-if(fl&&typeof VF_LOGO_SRC!=="undefined")fl.src=VF_LOGO_SRC;
+(function() {
+  function setCookieConsent(val) {
+    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
+    var b = document.getElementById('cookie-banner');
+    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
+  }
+  window.setCookieConsent = setCookieConsent;
+  document.addEventListener('DOMContentLoaded', function() {
+    var consent = null;
+    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
+    if (!consent) {
+      var b = document.getElementById('cookie-banner');
+      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
+    }
+  });
+})();
 </script>
-<script src="/assets/js/animations.js"></script>
-<script src="/assets/js/brand.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded",function(){
-  var fi=document.querySelector("link[rel=icon]");
-  if(fi)fi.href=VF_FAVICON_SRC;
-});
-</script>
+
 </body>
 </html>
