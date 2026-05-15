@@ -21,11 +21,11 @@
 <body>
 <nav>
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
+    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
     <div class="nav-links">
-      <a href="/riester-check/" style="color:var(--text)">Riester-Check</a>
+      <a href="/riester-check/" style="color:var(--text,#e8e8f0)">Riester-Check</a>
       <a href="/news/">Wissen</a>
-      <a href="/riester-check/start/" class="nav-cta">Check starten</a>
+      <a href="#app-download" class="nav-cta" onclick="document.getElementById('app-download')?.scrollIntoView({{behavior:'smooth'}});return false;">App jetzt holen</a>
     </div>
   </div>
 </nav>
@@ -211,6 +211,33 @@
 
 </main>
 
+
+<!-- App Download -->
+<section class="app-section" id="app-download">
+  <div class="app-section-inner">
+    <div class="app-badge">📱 Die App – kostenlos</div>
+    <h2 class="app-title">Deep-Check kostenlos.<br>Alle Verträge immer im Blick.</h2>
+    <p class="app-sub">Laden Sie Ihre Vertragsdaten hoch und erhalten Sie Ihren persönlichen Deep-Check kostenfrei – exklusiv für App-Nutzer. Plus: Alle Versicherungen dauerhaft organisiert an einem Ort.</p>
+    <div class="app-benefits">
+      <div class="app-benefit"><span class="app-benefit-icon">✓</span> Deep-Check kostenlos</div>
+      <div class="app-benefit"><span class="app-benefit-icon">✓</span> Alle Verträge auf einen Blick</div>
+      <div class="app-benefit"><span class="app-benefit-icon">✓</span> Erinnerungen & Fristen</div>
+      <div class="app-benefit"><span class="app-benefit-icon">✓</span> iOS & Android</div>
+    </div>
+    <div class="app-store-row">
+      <a href="https://apps.apple.com/de/app/isurance/id1438875800" target="_blank" rel="noopener" class="store-btn-lg">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div><div class="store-label">Laden im</div><div class="store-name">App Store</div></div>
+      </a>
+      <a href="https://play.google.com/store/apps/details?id=de.isurance.app" target="_blank" rel="noopener" class="store-btn-lg">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76a2 2 0 0 0 2.36-.19l.06-.05 11.44-6.57-2.52-2.5-11.34 9.31zM20.87 10.59 18.1 9l-2.83 2.83 2.8 2.8 2.8-1.61a1.63 1.63 0 0 0 0-2.43zM1.08.49A1.67 1.67 0 0 0 .5 1.74v20.5a1.67 1.67 0 0 0 .58 1.25l.07.06 11.5-11.5v-.27L1.15.43zM5.54.43l11.44 6.57-2.52 2.52L5.54.43z"/></svg>
+        <div><div class="store-label">Jetzt bei</div><div class="store-name">Google Play</div></div>
+      </a>
+    </div>
+    <p class="app-fine">Kostenlos · Keine Kreditkarte · Keine Werbung</p>
+  </div>
+</section>
+
 <footer class="footer"><div class="container">
   <div class="footer-inner">
     <div class="footer-brand">
@@ -246,5 +273,36 @@ if(nt)nt.addEventListener('click',function(){
   document.querySelector('.nav-links').classList.toggle('nav-open',!exp);
 });
 </script>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
+  <p>
+    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
+    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
+  </p>
+  <div class="cookie-btns">
+    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
+    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
+  </div>
+</div>
+<script>
+(function() {
+  function setCookieConsent(val) {
+    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
+    var b = document.getElementById('cookie-banner');
+    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
+  }
+  window.setCookieConsent = setCookieConsent;
+  document.addEventListener('DOMContentLoaded', function() {
+    var consent = null;
+    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
+    if (!consent) {
+      var b = document.getElementById('cookie-banner');
+      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
