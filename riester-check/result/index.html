@@ -126,7 +126,7 @@
 <script src="/assets/js/animations.js"></script>
 <script>
 var API_URL   = 'https://api.versicherungs-fuchs.online';
-var STRIPE_PK = 'pk_live_REPLACE_ME'; // Sven: echten pk_live_ Key aus Stripe Dashboard eintragen
+var STRIPE_PK = 'pk_live_51TU1f4J0pSFWANEk4tmiVp8arNKegqCLPXiP0HoZ1Vcg5BR55YL3lF3gFtiVcV9zAezkcvOqlRPD5kT6AbVWJryE00Z1gvXQco';
 
 var A_SVG   = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
 var CHK_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--acc)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
@@ -363,7 +363,4 @@ var stripeInst = null, stripeEls = null;
       statusEl.textContent='Fehler beim Upload: '+((err&&err.detail)||'Bitte erneut versuchen.');
     });
   };
-})();
-</script>
-</body>
-</html>
+})
