@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <title>Riester-Check starten – VersicherungsFuchs</title>
+  <meta name="robots" content="noindex">
+</head>
+<body>
+<script>
+  sessionStorage.removeItem('vf_answers');
+  sessionStorage.removeItem('vf_lead');
+  sessionStorage.removeItem('vf_lead_id');
+  sessionStorage.removeItem('vf_cs');
+  sessionStorage.removeItem('vf_payment_id');
+  window.location.replace('/riester-check/q/?n=0');
+</script>
+<noscript><meta http-equiv="refresh" content="0;url=/riester-check/q/?n=0"></noscript>
+</body>
+</html>
