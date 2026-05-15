@@ -2,94 +2,12 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <title>Aktuelles zu Riester &amp; Altersvorsorge – VersicherungsFuchs</title>
-  <meta name="description" content="Aktuelle Entwicklungen zu Riester-Rente, Altersvorsorgedepot 2027 und Versicherungsthemen. Faktenbasiert, neutral eingeordnet von zugelassenen Maklern.">
-  <link rel="canonical" href="https://versicherungs-fuchs.online/news.html">
-  <meta property="og:image" content="https://versicherungs-fuchs.online/assets/img/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Riester & Altersvorsorge aktuell – News & Einordnung | VersicherungsFuchs">
-  <meta name="twitter:description" content="Aktuelle Entwicklungen zu Riester-Rente, Altersvorsorgedepot 2027 und Versicherungsthemen. Faktenbasiert, neutral eingeordnet von zugelassenen Maklern.">
-  <meta name="twitter:image" content="https://versicherungs-fuchs.online/assets/img/og-image.png">
-  <meta name="keywords" content="Riester News 2026, Altersvorsorgedepot 2027 aktuell, Riester Änderungen, Versicherung aktuell">
-  <meta name="author" content="iSurance Group – zugelassener Versicherungsmakler §34d GewO">
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Blog", "name": "Aktuelles – VersicherungsFuchs", "url": "https://versicherungs-fuchs.online/news.html", "publisher": {"@type": "Organization", "name": "iSurance Group", "url": "https://versicherungs-fuchs.online"}, "about": [{"@type": "Thing", "name": "Riester-Rente"}, {"@type": "Thing", "name": "Altersvorsorge"}]}</script>
+  <meta http-equiv="refresh" content="0;url=/news/">
+  <link rel="canonical" href="https://versicherungs-fuchs.online/news/">
+  <title>Weiterleitung…</title>
+  <script>window.location.replace("/news/")</script>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo"><img id="nav-logo" src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
-      <div class="nav-links">
-        <a href="/index.html" class="nav-link">Uebersicht</a>
-        <a href="/riester-check.html" class="nav-link">Riester-Check</a>
-        <a href="/news.html" class="nav-link nav-link-active">Aktuelles</a>
-      </div>
-      <a href="/riester-check-start.html" class="nav-cta">Check starten</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menü" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-    </div>
-  </nav>
-<main class="page-wrap">
-  <section class="news-hero">
-    <div class="container">
-      <div class="tb-label">Wissen &amp; Einordnung</div>
-      <h1 class="section-h2">Aktuelles zu Riester &amp; Altersvorsorge</h1>
-      <p class="section-sub">Faktenbasierte Beitr&auml;ge – ohne Verkaufsabsicht und ohne Pauschalurteile.</p>
-    </div>
-  </section>
-  <section class="news-grid-section">
-    <div class="container">
-      <div id="news-grid" class="news-grid"><!-- JS rendered --></div>
-    </div>
-  </section>
-</main>
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/img/logo.png" id="footer-logo" height="32" alt="VersicherungsFuchs">
-        <p class="footer-tagline">Klare Entscheidungen statt Finanzchaos.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/impressum.html" class="footer-link">Impressum</a>
-        <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="/assets/js/animations.js"></script>
-<script src="/assets/js/brand.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded",function(){
-  var fi=document.querySelector("link[rel=icon]");
-  if(fi)fi.href=VF_FAVICON_SRC;
-});
-</script>
-<script>
-fetch("/data/articles.json")
-  .then(function(r){return r.json();})
-  .then(function(articles){
-    var grid=document.getElementById("news-grid");
-    if(!grid||!articles.length){return;}
-    grid.innerHTML=articles.map(function(a){
-      return '<article class="news-card">'
-        +'<div class="news-card-meta">'
-        +'<span class="news-tag">'+a.tag+'</span>'
-        +'<time class="news-date">'+a.date+'</time>'
-        +'</div>'
-        +'<h2 class="news-card-h2"><a href="/article.html?id='+a.id+'" class="news-card-link">'+a.title+'</a></h2>'
-        +'<p class="news-card-excerpt">'+a.excerpt+'</p>'
-        +'<a href="/article.html?id='+a.id+'" class="news-read-more">Weiterlesen'
-        +'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>'
-        +'</article>';
-    }).join("");
-  })
-  .catch(function(){
-    document.getElementById("news-grid").innerHTML='<p class="legal-p">Beitr&auml;ge werden geladen...</p>';
-  });
-</script>
+  <p>Diese Seite wurde verschoben. <a href="/news/">Hier klicken</a>.</p>
 </body>
 </html>
