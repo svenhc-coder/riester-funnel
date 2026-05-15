@@ -2,79 +2,12 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <link rel="stylesheet" href="/assets/css/main.css">
-  <title id="page-title">Artikel – VersicherungsFuchs</title>
-  <meta name="description" id="page-desc" content="Artikel von VersicherungsFuchs.">
+  <meta http-equiv="refresh" content="0;url=/news/">
+  <link rel="canonical" href="https://versicherungs-fuchs.online/news/">
+  <title>Weiterleitung…</title>
+  <script>window.location.replace("/news/")</script>
 </head>
 <body>
-  <nav class="nav">
-    <div class="nav-inner">
-      <a href="/index.html" class="nav-logo"><img id="nav-logo" src="/assets/img/logo.png" height="38" alt="VersicherungsFuchs"></a>
-      <div class="nav-links">
-        <a href="/index.html" class="nav-link">Uebersicht</a>
-        <a href="/riester-check.html" class="nav-link">Riester-Check</a>
-        <a href="/news.html" class="nav-link">Aktuelles</a>
-      </div>
-      <a href="/riester-check-start.html" class="nav-cta">Check starten</a>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Menü" aria-expanded="false"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
-    </div>
-  </nav>
-<main class="page-wrap">
-  <div class="legal-wrap">
-    <a href="/news.html" class="legal-back"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Alle Beitr&auml;ge</a>
-    <div id="article-meta" class="news-card-meta" style="margin-bottom:1rem;"></div>
-    <h1 id="article-title" class="legal-h1"></h1>
-    <div id="article-body" class="article-body"></div>
-    <div class="article-cta-box">
-      <p class="article-cta-text">Wie steht es um Ihren Riester-Vertrag?</p>
-      <a href="/riester-check-start.html" class="btn-primary"><span>Kostenloser Quick-Check</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-    </div>
-  </div>
-</main>
-<footer class="footer">
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <img src="/assets/img/logo.png" id="footer-logo" height="32" alt="VersicherungsFuchs">
-        <p class="footer-tagline">Klare Entscheidungen statt Finanzchaos.</p>
-      </div>
-      <div class="footer-links">
-        <a href="/impressum.html" class="footer-link">Impressum</a>
-        <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
-      </div>
-    </div>
-  </div>
-</footer>
-<script src="/assets/js/animations.js"></script>
-<script src="/assets/js/brand.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded",function(){
-  var fi=document.querySelector("link[rel=icon]");
-  if(fi)fi.href=VF_FAVICON_SRC;
-});
-</script>
-<script>
-(function(){
-  var params=new URLSearchParams(window.location.search);
-  var id=params.get("id");
-  if(!id){window.location.replace("/news.html");return;}
-  fetch("/data/articles.json")
-    .then(function(r){return r.json();})
-    .then(function(articles){
-      var a=articles.find(function(x){return x.id===id;});
-      if(!a){window.location.replace("/news.html");return;}
-      document.getElementById("page-title").textContent=a.title+" - VersicherungsFuchs";
-      document.getElementById("page-desc").setAttribute("content",a.excerpt);
-      document.getElementById("article-title").textContent=a.title;
-      document.getElementById("article-meta").innerHTML=
-        '<span class="news-tag">'+a.tag+'</span>'
-        +'<time class="news-date">'+a.date+'</time>';
-      document.getElementById("article-body").innerHTML=a.body||("<p>"+a.excerpt+"</p>");
-    })
-    .catch(function(){window.location.replace("/news.html");});
-})();
-</script>
+  <p>Diese Seite wurde verschoben. <a href="/news/">Hier klicken</a>.</p>
 </body>
 </html>
