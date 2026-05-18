@@ -42,3 +42,15 @@ Grundzulage: 175 € pro Jahr. Kinderzulage: 185 € für Kinder vor 2008, 300 �
 
 **Was kostet der Riester-Check?**
 Der Quick-Check ist kostenlos. Der KI-Check kostet 12,90 €, der Deep-Check mit Berater 49 €. Als Mandant der iSurance Group werden alle Analysekosten erstattet.
+
+## PKV-Tarifwechsel-Check
+URL: https://versicherungs-fuchs.online/pkv-check/
+Beschreibung: Kostenloser 3-Schritt-Check, ob ein PKV-Tarifwechsel nach §204 SGB V sinnvoll ist. Bewertet Beitragsersparnis, Alterungsrückstellungen und Gesundheitssituation. Gesundheitsdaten werden ausschließlich browser-seitig verarbeitet (Art. 9 Abs. 2 lit. a DSGVO).
+Zielgruppe: PKV-Versicherte mit Beitragsanpassung oder Optimierungswunsch
+Hauptthema: Privatkrankenversicherung Tarifwechsel §204 SGB V Beitragsersparnis
+
+## Altersvorsorgedepot Förderrechner
+URL: https://versicherungs-fuchs.online/altersvorsorgedepot/
+Beschreibung: Interaktiver Rechner für die staatliche Zulage beim neuen Altersvorsorgedepot (Altersvorsorgestärkungsgesetz 2026). Berechnet Grundzulage (20%), Kinderzulage und Depot-Projektion bis zum Rentenalter.
+Zielgruppe: Arbeitnehmer und Beamte, die das neue Altersvorsorgedepot nutzen wollen
+Hauptthema: Altersvorsorgedepot Förderung Zulage 2026 ETF Rentenvorsorge
