@@ -61,4 +61,10 @@
     <priority>0.2</priority>
   </url>
 
+  <url>
+    <loc>https://versicherungs-fuchs.online/altersvorsorgedepot/</loc>
+    <lastmod>2026-05-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
 </urlset>
