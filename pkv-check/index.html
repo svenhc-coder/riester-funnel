@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <title>PKV Tarifwechsel-Check 2026 – Lohnt sich §204 für Sie? | VersicherungsFuchs</title>
+  <meta name="description" content="PKV-Beiträge zu hoch? Unser kostenloser Tarifwechsel-Check zeigt in 4 Schritten, ob ein Wechsel innerhalb Ihrer PKV nach §204 SGB V für Sie sinnvoll ist. Anonym, DSGVO-konform.">
+  <link rel="canonical" href="https://versicherungs-fuchs.online/pkv-check/">
+  <meta property="og:title" content="PKV Tarifwechsel-Check §204 | VersicherungsFuchs">
+  <meta property="og:description" content="Lohnt sich der Tarifwechsel innerhalb Ihrer PKV? 4 Fragen, sofortiges Ergebnis. Gesundheitsdaten verlassen nie Ihr Gerät.">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Was ist ein PKV-Tarifwechsel nach §204 SGB V?","acceptedAnswer":{"@type":"Answer","text":"§204 SGB V gibt jedem PKV-Versicherten das Recht, innerhalb seiner Versicherungsgesellschaft in einen anderen Tarif zu wechseln – ohne erneute Gesundheitsprüfung. Die aufgebauten Alterungsrückstellungen bleiben dabei vollständig erhalten. Das macht §204 besonders wertvoll für ältere oder vorerkrankte Versicherte."}},{"@type":"Question","name":"Kann die PKV einen Tarifwechsel nach §204 ablehnen?","acceptedAnswer":{"@type":"Answer","text":"Grundsätzlich nein. Das Recht auf Tarifwechsel nach §204 SGB V ist gesetzlich verankert. Die Versicherung kann jedoch verlangen, dass der neue Tarif eine gleichartige oder geringere Leistung aufweist. In der Praxis bieten viele Gesellschaften auch modernere Tarife mit gleichem Leistungsniveau an."}},{"@type":"Question","name":"Wie viel kann ich durch einen PKV-Tarifwechsel sparen?","acceptedAnswer":{"@type":"Answer","text":"Die Ersparnis hängt stark von Ihrer Gesellschaft, Ihrem aktuellen Tarif und Ihrem Alter ab. In der Praxis sind Einsparungen von 50 bis über 300 Euro monatlich möglich – ohne Leistungseinbußen. Besonders bei Verträgen aus den 90er und frühen 2000er Jahren mit veralteten Tarifstrukturen ist das Potenzial oft erheblich."}},{"@type":"Question","name":"Bleiben meine Alterungsrückstellungen beim Tarifwechsel erhalten?","acceptedAnswer":{"@type":"Answer","text":"Ja. Bei einem Tarifwechsel innerhalb derselben Gesellschaft nach §204 SGB V bleiben alle aufgebauten Alterungsrückstellungen vollständig erhalten. Das ist der entscheidende Vorteil gegenüber einem Gesellschaftswechsel, bei dem Rückstellungen verloren gehen."}},{"@type":"Question","name":"Was ist der Unterschied zwischen Tarifwechsel und Gesellschaftswechsel?","acceptedAnswer":{"@type":"Answer","text":"Beim Tarifwechsel nach §204 bleiben Sie bei Ihrer Gesellschaft, wechseln aber den Tarif – ohne Gesundheitsprüfung, mit Erhalt der Rückstellungen. Beim Gesellschaftswechsel zu einer anderen PKV brauchen Sie eine neue Gesundheitsprüfung und verlieren die Rückstellungen. Für die meisten Versicherten ab 40 Jahren ist der Gesellschaftswechsel daher keine realistische Option."}},{"@type":"Question","name":"Lohnt sich der Tarifwechsel trotz Beitragsanpassung?","acceptedAnswer":{"@type":"Answer","text":"Ja, oft sogar besonders dann. Eine Beitragsanpassung ist ein guter Anlass, den aktuellen Tarif kritisch zu hinterfragen. Viele Versicherer bieten modernere Tarife an, die trotz Anpassungen günstiger sind als der Altbestand-Tarif. Der Tarifwechsel ist kein Ersatz für Beitragsanpassungen, kann aber das Einstiegsniveau deutlich senken."}}]}</script>
+  <style>
+    /* ── PKV Check Styles ────────────────────────────────────────────────────── */
+    .pkv-hero { padding: 100px 24px 56px; text-align: center; }
+    .pkv-hero h1 { font-size: clamp(1.9rem, 5vw, 2.9rem); font-weight: 800; margin-bottom: 18px; line-height: 1.1; }
+    .pkv-hero h1 span { color: var(--primary, #f97316); }
+    .pkv-hero p { font-size: 1.1rem; color: var(--muted, #8888a0); max-width: 540px; margin: 0 auto 28px; }
+    .pkv-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .pkv-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 13px;
+      border-radius: 20px; font-size: 0.74rem; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
+    .pkv-pill.green  { background: rgba(34,197,94,.12);  border: 1px solid rgba(34,197,94,.3);  color: #4ade80; }
+    .pkv-pill.orange { background: rgba(249,115,22,.12); border: 1px solid rgba(249,115,22,.3); color: var(--primary,#f97316); }
+    .pkv-pill.shield { background: rgba(99,102,241,.12); border: 1px solid rgba(99,102,241,.3); color: #818cf8; }
+
+    /* ── DSGVO Notice ──────────────────────────────────────────────────────── */
+    .dsgvo-notice {
+      max-width: 700px; margin: 0 auto 12px;
+      background: rgba(99,102,241,0.07);
+      border: 1px solid rgba(99,102,241,0.22);
+      border-radius: 12px; padding: 14px 20px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    .dsgvo-notice svg { flex-shrink: 0; margin-top: 1px; color: #818cf8; }
+    .dsgvo-notice p { font-size: 0.80rem; color: var(--muted,#8888a0); line-height: 1.6; margin: 0; }
+    .dsgvo-notice strong { color: #818cf8; }
+
+    /* ── Stepper ─────────────────────────────────────────────────────────────── */
+    .check-section { padding: 0 24px 80px; }
+    .check-inner { max-width: 680px; margin: 0 auto; }
+    .stepper { display: flex; gap: 0; margin-bottom: 36px; justify-content: center; }
+    .step-dot { display: flex; align-items: center; gap: 0; }
+    .step-dot .dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; font-weight: 700; border: 2px solid rgba(255,255,255,0.12);
+      color: var(--muted,#8888a0); background: rgba(255,255,255,0.03); transition: all .3s; }
+    .step-dot .dot.active  { border-color: var(--primary,#f97316); color: var(--primary,#f97316); background: rgba(249,115,22,.12); }
+    .step-dot .dot.done    { border-color: #4ade80; color: #4ade80; background: rgba(34,197,94,.10); }
+    .step-line { width: 48px; height: 2px; background: rgba(255,255,255,0.08); margin: 0 4px; }
+    .step-line.done { background: rgba(34,197,94,.4); }
+
+    /* ── Step card ───────────────────────────────────────────────────────────── */
+    .step-card { display: none; }
+    .step-card.active { display: block; }
+    .step-card-inner {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 20px; padding: 36px 40px 32px;
+    }
+    .step-label { font-size: 0.75rem; font-weight: 700; color: var(--primary,#f97316);
+      text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .step-title { font-size: 1.3rem; font-weight: 800; color: var(--text,#e8e8f0); margin-bottom: 28px; }
+
+    /* Options grid */
+    .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+    .opt-grid.cols-1 { grid-template-columns: 1fr; }
+    .opt-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .opt-btn {
+      background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.09);
+      border-radius: 12px; padding: 16px 14px; cursor: pointer; text-align: left;
+      color: var(--text,#e8e8f0); transition: all .2s; font-size: 0.9rem; font-weight: 500;
+    }
+    .opt-btn .ob-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
+    .opt-btn .ob-title { font-weight: 700; display: block; margin-bottom: 2px; }
+    .opt-btn .ob-sub { font-size: 0.76rem; color: var(--muted,#8888a0); line-height: 1.4; display: block; }
+    .opt-btn:hover, .opt-btn.sel { border-color: var(--primary,#f97316); background: rgba(249,115,22,.08); }
+    .opt-btn.sel { box-shadow: 0 0 0 1px var(--primary,#f97316); }
+    .opt-btn.sel-green { border-color: #4ade80 !important; background: rgba(34,197,94,.08) !important; box-shadow: 0 0 0 1px #4ade80; }
+    .opt-btn.sel-red   { border-color: #f87171 !important; background: rgba(248,113,113,.07) !important; box-shadow: 0 0 0 1px #f87171; }
+
+    /* Slider field */
+    .sl-field { margin-bottom: 24px; }
+    .sl-field label { font-size: 0.82rem; font-weight: 600; color: var(--muted,#8888a0);
+      text-transform: uppercase; letter-spacing: .06em; display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .sl-field label span { color: var(--text,#e8e8f0); font-size: 1rem; font-weight: 800; }
+    input[type=range] { width: 100%; accent-color: var(--primary,#f97316); }
+
+    /* Health notice */
+    .health-notice {
+      background: rgba(99,102,241,0.06); border: 1px solid rgba(99,102,241,0.20);
+      border-radius: 10px; padding: 12px 16px; margin-bottom: 20px;
+      font-size: 0.78rem; color: var(--muted,#8888a0); line-height: 1.6;
+    }
+    .health-notice strong { color: #818cf8; }
+
+    /* Nav buttons */
+    .step-nav { display: flex; gap: 12px; justify-content: flex-end; margin-top: 8px; }
+    .btn-back { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 10px; padding: 12px 22px; color: var(--muted,#8888a0); cursor: pointer;
+      font-size: 0.9rem; font-weight: 600; }
+    .btn-next { background: var(--primary,#f97316); color: #fff; border: none;
+      border-radius: 10px; padding: 12px 28px; cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+    .btn-next:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ── Result ──────────────────────────────────────────────────────────────── */
+    .result-card {
+      border-radius: 20px; padding: 36px 40px; margin-top: 0;
+    }
+    .result-card.r-high   { background: linear-gradient(135deg,rgba(199,90,31,.14),rgba(249,115,22,.06)); border: 1px solid rgba(249,115,22,.30); }
+    .result-card.r-medium { background: linear-gradient(135deg,rgba(201,177,137,.10),rgba(199,90,31,.05)); border: 1px solid rgba(201,177,137,.25); }
+    .result-card.r-low    { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); }
+
+    .result-emoji { font-size: 2.2rem; margin-bottom: 12px; }
+    .result-verdict { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: var(--text,#e8e8f0); }
+    .result-verdict.orange { color: var(--primary,#f97316); }
+    .result-summary { font-size: 0.93rem; color: var(--muted,#8888a0); line-height: 1.7; margin-bottom: 24px; }
+    .result-points { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
+    .result-point { display: flex; gap: 10px; align-items: flex-start; font-size: 0.87rem;
+      color: var(--muted,#8888a0); line-height: 1.5; }
+    .result-point .rp-icon { flex-shrink:0; font-size:1rem; margin-top:1px; }
+    .result-sep { border: none; border-top: 1px solid rgba(255,255,255,.07); margin: 24px 0; }
+
+    /* Lead form */
+    .r-lead-title { font-size: 0.95rem; font-weight: 700; color: var(--text,#e8e8f0); margin-bottom: 6px; }
+    .r-lead-sub   { font-size: 0.82rem; color: var(--muted,#8888a0); margin-bottom: 16px; }
+    .r-form { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+    .r-form input { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px; padding: 12px 14px; color: var(--text,#e8e8f0); font-size:.9rem; flex: 1; min-width:160px; }
+    .r-form input::placeholder { color: rgba(200,200,220,.38); }
+    .r-form button { background: var(--primary,#f97316); color:#fff; border:none; border-radius:10px;
+      padding:12px 22px; font-weight:700; font-size:.9rem; cursor:pointer; white-space:nowrap; }
+    .consent-row { font-size:.72rem; color:var(--muted,#8888a0); }
+    .consent-row input { accent-color:var(--primary,#f97316); }
+    .submit-ok { display:none; text-align:center; color:#4ade80; font-weight:600; padding:12px 0; font-size:.95rem; }
+
+    /* §204 info box */
+    .para204-box {
+      margin-top: 24px; background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 18px 20px;
+      font-size: .80rem; color: var(--muted,#8888a0); line-height: 1.6;
+    }
+    .para204-box strong { color: var(--text,#e8e8f0); }
+
+    /* FAQ */
+    .pkv-faq { padding: 60px 24px 80px; }
+    .faq-item { border-bottom: 1px solid rgba(255,255,255,.07); padding: 20px 0; }
+    .faq-q { font-size:1rem; font-weight:700; color:var(--text,#e8e8f0); cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    .faq-q .faq-icon { flex-shrink:0; width:20px; height:20px; display:flex; align-items:center; justify-content:center;
+      background:rgba(249,115,22,.12); border-radius:50%; color:var(--primary,#f97316); font-size:14px; }
+    .faq-a { font-size:.88rem; color:var(--muted,#8888a0); line-height:1.7; margin-top:12px; display:none; }
+    .faq-item.open .faq-a  { display:block; }
+    .faq-item.open .faq-icon { background:rgba(249,115,22,.25); }
+
+    @media(max-width:640px){
+      .opt-grid { grid-template-columns: 1fr; }
+      .opt-grid.cols-3 { grid-template-columns: 1fr; }
+      .step-card-inner { padding: 24px 18px; }
+      .result-card { padding: 24px 18px; }
+      .step-line { width: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
+    <div class="nav-links">
+      <a href="/riester-check/">Riester-Check</a>
+      <a href="/pkv-check/" style="color:var(--primary,#f97316)">PKV-Check</a>
+      <a href="/altersvorsorgedepot/">AVD-Rechner</a>
+      <a href="/news/">Wissen</a>
+      <a href="/riester-check/start/" class="nav-cta">Jetzt starten</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────────────── -->
+<section class="pkv-hero">
+  <div class="section-label">§204 SGB V</div>
+  <h1>PKV <span>Tarifwechsel</span>-Check</h1>
+  <p>Beiträge gestiegen? Berechtigte PKV-Versicherte können innerhalb ihrer Gesellschaft wechseln — ohne Gesundheitsprüfung, ohne Verlust der Rückstellungen.</p>
+  <div class="pkv-pills">
+    <span class="pkv-pill orange">Bis zu 300 € Ersparnis/Monat</span>
+    <span class="pkv-pill green">Rückstellungen bleiben erhalten</span>
+    <span class="pkv-pill shield">Keine Gesundheitsprüfung nötig</span>
+  </div>
+</section>
+
+<!-- ── DSGVO NOTICE ───────────────────────────────────────────────────────────── -->
+<div class="check-section" style="padding-bottom:0">
+  <div class="check-inner">
+    <div class="dsgvo-notice">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <p><strong>Ihre Privatsphäre ist geschützt.</strong> Fragen zu Ihrem Gesundheitszustand werden ausschließlich lokal in Ihrem Browser verarbeitet und fließen in die Bewertung ein. Sie werden <strong>niemals übertragen, gespeichert oder weitergegeben</strong>. Nur Name und E-Mail werden auf Ihren Wunsch hin gespeichert, wenn Sie eine Einordnung anfordern. Rechtsgrundlage: Art. 9 Abs. 2 lit. a DSGVO (ausdrückliche Einwilligung) für browser-seitige Verarbeitung.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHECK ─────────────────────────────────────────────────────────────────── -->
+<section class="check-section">
+  <div class="check-inner">
+
+    <!-- Stepper -->
+    <div class="stepper">
+      <div class="step-dot"><div class="dot active" id="dot-1">1</div></div>
+      <div class="step-line" id="line-1"></div>
+      <div class="step-dot"><div class="dot" id="dot-2">2</div></div>
+      <div class="step-line" id="line-2"></div>
+      <div class="step-dot"><div class="dot" id="dot-3">3</div></div>
+      <div class="step-line" id="line-3"></div>
+      <div class="step-dot"><div class="dot" id="dot-4">Ergebnis</div></div>
+    </div>
+
+    <!-- ── STEP 1: Grunddaten ────────────────────────────────────────────── -->
+    <div class="step-card active" id="step-1">
+      <div class="step-card-inner">
+        <div class="step-label">Schritt 1 von 3</div>
+        <div class="step-title">Ihre aktuelle Situation</div>
+
+        <div class="sl-field">
+          <label>Ihr Alter <span id="lbl-alter">42 Jahre</span></label>
+          <input type="range" id="sl-alter" min="25" max="65" value="42" step="1" oninput="document.getElementById('lbl-alter').textContent=this.value+' Jahre'">
+        </div>
+
+        <div class="sl-field">
+          <label>Monatsbeitrag aktuell <span id="lbl-beitrag">520 €/Monat</span></label>
+          <input type="range" id="sl-beitrag" min="100" max="1200" value="520" step="10" oninput="document.getElementById('lbl-beitrag').textContent=this.value+' €/Monat'">
+        </div>
+
+        <div class="sl-field">
+          <label>Jahre in der PKV <span id="lbl-jahre">8 Jahre</span></label>
+          <input type="range" id="sl-jahre" min="1" max="40" value="8" step="1" oninput="document.getElementById('lbl-jahre').textContent=this.value+' Jahre'">
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="goStep(2)">Weiter →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 2: Tarif & Situation ─────────────────────────────────────── -->
+    <div class="step-card" id="step-2">
+      <div class="step-card-inner">
+        <div class="step-label">Schritt 2 von 3</div>
+        <div class="step-title">Ihr Tarif und Ihre Situation</div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Haben Sie in den letzten 2 Jahren eine Beitragsanpassung erhalten?</p>
+        <div class="opt-grid" style="margin-bottom:22px">
+          <button class="opt-btn" id="o-bap-ja"  onclick="sel2('bap','ja')">
+            <span class="ob-icon">📈</span>
+            <span class="ob-title">Ja, Beitrag gestiegen</span>
+            <span class="ob-sub">Mein Beitrag wurde erhöht</span>
+          </button>
+          <button class="opt-btn" id="o-bap-nein" onclick="sel2('bap','nein')">
+            <span class="ob-icon">➖</span>
+            <span class="ob-title">Nein / Weiß nicht</span>
+            <span class="ob-sub">Kein Anlass aus Erhöhung</span>
+          </button>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Sind Sie beihilfeberechtigt (z.B. Beamte, Richter)?</p>
+        <div class="opt-grid" style="margin-bottom:22px">
+          <button class="opt-btn" id="o-bei-ja"  onclick="sel2('bei','ja')">
+            <span class="ob-title">Ja, beihilfeberechtigt</span>
+            <span class="ob-sub">Arbeitgeber übernimmt Anteil</span>
+          </button>
+          <button class="opt-btn" id="o-bei-nein" onclick="sel2('bei','nein')">
+            <span class="ob-title">Nein, Vollversicherung</span>
+            <span class="ob-sub">Trage Beitrag komplett selbst</span>
+          </button>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Was stört Sie an Ihrem aktuellen Tarif am meisten?</p>
+        <div class="opt-grid cols-1" style="margin-bottom:8px">
+          <button class="opt-btn" id="o-grund-preis"    onclick="sel2('grund','preis')">💰 Beitrag ist zu hoch</button>
+          <button class="opt-btn" id="o-grund-leistung" onclick="sel2('grund','leistung')">🏥 Leistungen nicht mehr zeitgemäß</button>
+          <button class="opt-btn" id="o-grund-beide"    onclick="sel2('grund','beide')">⚡ Beides trifft zu</button>
+          <button class="opt-btn" id="o-grund-info"     onclick="sel2('grund','info')">🔍 Möchte einfach wissen, was möglich ist</button>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="goStep(1)">← Zurück</button>
+          <button class="btn-next" id="btn2-next" onclick="goStep(3)" disabled>Weiter →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STEP 3: Gesundheitssituation (client-only) ─────────────────────── -->
+    <div class="step-card" id="step-3">
+      <div class="step-card-inner">
+        <div class="step-label">Schritt 3 von 3</div>
+        <div class="step-title">Ihre Gesundheitssituation</div>
+
+        <div class="health-notice">
+          <strong>🔒 Datenschutz-Hinweis:</strong> Die folgenden Angaben fließen ausschließlich lokal in Ihrem Browser in die Bewertung ein. Sie werden weder übertragen noch gespeichert. Rechtsgrundlage für die browser-seitige Verarbeitung: Ihre ausdrückliche Einwilligung per Klick (Art. 9 Abs. 2 lit. a DSGVO).
+        </div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Bestehen bei Ihnen chronische oder behandlungsbedürftige Erkrankungen?</p>
+        <div class="opt-grid" style="margin-bottom:22px">
+          <button class="opt-btn" id="o-voe-ja"  onclick="sel3('voe','ja')">
+            <span class="ob-title">Ja, Vorerkrankungen vorhanden</span>
+            <span class="ob-sub">Relevant nur für Gesellschaftswechsel</span>
+          </button>
+          <button class="opt-btn" id="o-voe-nein" onclick="sel3('voe','nein')">
+            <span class="ob-title">Nein, keine relevanten</span>
+            <span class="ob-sub">Gesund, keine laufenden Behandlungen</span>
+          </button>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Stationäre Behandlung (Krankenhaus) in den letzten 3 Jahren?</p>
+        <div class="opt-grid" style="margin-bottom:22px">
+          <button class="opt-btn" id="o-kh-ja"  onclick="sel3('kh','ja')">
+            <span class="ob-title">Ja, hatte stationäre Behandlung</span>
+          </button>
+          <button class="opt-btn" id="o-kh-nein" onclick="sel3('kh','nein')">
+            <span class="ob-title">Nein</span>
+          </button>
+        </div>
+
+        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Nehmen Sie regelmäßig verschriebene Medikamente?</p>
+        <div class="opt-grid" style="margin-bottom:8px">
+          <button class="opt-btn" id="o-med-ja"  onclick="sel3('med','ja')">
+            <span class="ob-title">Ja, regelmäßig</span>
+          </button>
+          <button class="opt-btn" id="o-med-nein" onclick="sel3('med','nein')">
+            <span class="ob-title">Nein / Gelegentlich</span>
+          </button>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="goStep(2)">← Zurück</button>
+          <button class="btn-next" id="btn3-next" onclick="showResult()" disabled>Ergebnis anzeigen →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── RESULT ────────────────────────────────────────────────────────── -->
+    <div class="step-card" id="step-result">
+      <div id="result-box"></div>
+
+      <div class="para204-box">
+        <strong>Was bedeutet §204 SGB V für Sie?</strong><br>
+        Unabhängig vom Ergebnis gilt: Sie haben als PKV-Versicherter das gesetzliche Recht, innerhalb Ihrer Versicherungsgesellschaft in einen anderen Tarif zu wechseln — <strong>ohne erneute Gesundheitsprüfung</strong> und <strong>ohne Verlust Ihrer Alterungsrückstellungen</strong>. Dieses Recht verjährt nicht. Ein Wechsel lohnt sich immer dann, wenn der neue Tarif besser zu Ihrer aktuellen Lebenssituation passt.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── FAQ ───────────────────────────────────────────────────────────────────── -->
+<section class="pkv-faq">
+  <div class="check-inner" style="max-width:700px">
+    <div class="section-label">Häufige Fragen</div>
+    <h2 class="section-title" style="font-size:1.8rem;margin-bottom:32px">Alles zum PKV-Tarifwechsel</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Was ist ein PKV-Tarifwechsel nach §204 SGB V?
+        <span class="faq-icon">+</span></div>
+      <div class="faq-a">§204 SGB V gibt jedem PKV-Versicherten das Recht, innerhalb seiner Versicherungsgesellschaft in einen anderen Tarif zu wechseln – ohne erneute Gesundheitsprüfung. Die aufgebauten Alterungsrückstellungen bleiben dabei vollständig erhalten. Das macht §204 besonders wertvoll für ältere oder vorerkrankte Versicherte, für die ein Gesellschaftswechsel nicht mehr möglich ist.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Wie viel kann ich durch einen Tarifwechsel sparen?
+        <span class="faq-icon">+</span></div>
+      <div class="faq-a">Einsparungen von 50 bis über 300 Euro monatlich sind möglich – ohne Leistungseinbußen. Besonders bei Verträgen aus den 90er und frühen 2000er Jahren mit veralteten Tarifstrukturen ist das Potenzial erheblich. Die tatsächliche Ersparnis hängt stark von Ihrer Gesellschaft, Ihrem aktuellen Tarif und Ihrem Alter ab.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Kann die PKV einen Tarifwechsel nach §204 ablehnen?
+        <span class="faq-icon">+</span></div>
+      <div class="faq-a">Grundsätzlich nein. Das Recht auf Tarifwechsel ist gesetzlich verankert. Die Versicherung kann jedoch verlangen, dass der neue Tarif eine gleichartige oder geringere Leistung aufweist. In der Praxis bieten viele Gesellschaften auch modernere Tarife mit gleichem Leistungsniveau an – teilweise sogar kostengünstiger als der Altbestandstarif.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Unterschied: Tarifwechsel vs. Gesellschaftswechsel?
+        <span class="faq-icon">+</span></div>
+      <div class="faq-a">Beim Tarifwechsel nach §204 bleiben Sie bei Ihrer Gesellschaft – kein Gesundheitstest, alle Rückstellungen erhalten. Beim Gesellschaftswechsel brauchen Sie eine neue Gesundheitsprüfung und verlieren die Rückstellungen. Für die meisten Versicherten ab 40 Jahren ist der Gesellschaftswechsel daher keine realistische Option.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Welche Unterlagen brauche ich für den Tarifwechselantrag?
+        <span class="faq-icon">+</span></div>
+      <div class="faq-a">In der Regel: Ihre aktuelle Versicherungspolice, die Mitgliedsnummer und ein schriftlicher Wechselantrag an Ihre Gesellschaft. Viele Versicherer haben hierfür eigene Formulare. Ein unabhängiger Berater kann den Antrag für Sie aufsetzen und sicherstellen, dass keine Nachteile entstehen.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ───────────────────────────────────────────────────────────────────── -->
+<section style="padding:60px 24px 80px;text-align:center;border-top:1px solid rgba(255,255,255,0.07)">
+  <div style="max-width:520px;margin:0 auto">
+    <div class="section-label">Weitere Tools</div>
+    <h2 class="section-title" style="font-size:1.8rem;margin-bottom:16px">Haben Sie auch einen Riester-Vertrag?</h2>
+    <p style="color:var(--muted);margin-bottom:28px">Viele Sparer optimieren PKV und Altersvorsorge parallel. Unser Riester-Check zeigt, ob Ihr Vertrag noch zeitgemäß ist.</p>
+    <a href="/riester-check/" class="btn-primary">Zum Riester-Check</a>
+  </div>
+</section>
+
+<footer class="footer"><div class="container">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/assets/img/logo.png" height="32" class="footer-logo" alt="VersicherungsFuchs">
+      <p class="footer-tagline">Schlau ist, wer nur das Beste nimmt.</p>
+      <p class="footer-copy">&#169; 2026 iSurance Group</p>
+    </div>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Start</a>
+      <a href="/riester-check/" class="footer-link">Riester-Check</a>
+      <a href="/pkv-check/" class="footer-link">PKV-Check</a>
+      <a href="/altersvorsorgedepot/" class="footer-link">AVD-Rechner</a>
+      <a href="/news/" class="footer-link">Wissen</a>
+      <a href="/impressum.html" class="footer-link">Impressum</a>
+      <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
+    </div>
+  </div>
+  <p class="footer-disclaimer">Kein Finanz-, Rechts- oder Steuerberatungsangebot. Die Tools dienen ausschließlich der strukturierten Orientierung. Für verbindliche Entscheidungen ist ein zugelassener Berater hinzuzuziehen. Gesundheitsbezogene Angaben werden ausschließlich browser-seitig verarbeitet und nicht gespeichert (Art. 9 Abs. 2 lit. a DSGVO).</p>
+</div></footer>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+var S = { bap: null, bei: null, grund: null, voe: null, kh: null, med: null };
+
+// ── Navigation ─────────────────────────────────────────────────────────────
+function goStep(n) {
+  [1,2,3,'result'].forEach(function(i){
+    document.getElementById('step-'+(i==='result'?'result':i)).classList.remove('active');
+    if(i!=='result') updateDot(i, n);
+  });
+  document.getElementById('step-'+(n==='result'?'result':n)).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function updateDot(i, current) {
+  var dot  = document.getElementById('dot-'+i);
+  var line = document.getElementById('line-'+i);
+  dot.classList.remove('active','done');
+  if(line) line.classList.remove('done');
+  if(i < current)      { dot.classList.add('done');   if(line) line.classList.add('done'); }
+  else if(i === current){ dot.classList.add('active'); }
+}
+
+// ── Option selection ───────────────────────────────────────────────────────
+function sel2(key, val) {
+  S[key] = val;
+  // update button styles
+  var prefix = 'o-'+key+'-';
+  ['ja','nein','preis','leistung','beide','info'].forEach(function(v){
+    var el = document.getElementById(prefix+v);
+    if(el) { el.classList.remove('sel'); }
+  });
+  var el = document.getElementById(prefix+val);
+  if(el) el.classList.add('sel');
+  // enable next if step2 complete
+  if(S.bap && S.bei && S.grund) document.getElementById('btn2-next').disabled = false;
+}
+function sel3(key, val) {
+  S[key] = val;
+  var prefix = 'o-'+key+'-';
+  ['ja','nein'].forEach(function(v){
+    var el = document.getElementById(prefix+v);
+    if(el) el.classList.remove('sel');
+  });
+  var el = document.getElementById(prefix+val);
+  if(el) el.classList.add('sel');
+  if(S.voe && S.kh && S.med) document.getElementById('btn3-next').disabled = false;
+}
+
+// ── Scoring ────────────────────────────────────────────────────────────────
+function showResult() {
+  var alter    = +document.getElementById('sl-alter').value;
+  var beitrag  = +document.getElementById('sl-beitrag').value;
+  var jahre    = +document.getElementById('sl-jahre').value;
+  var score = 0;
+  var punkte = [];
+
+  if(S.bap === 'ja') {
+    score += 3;
+    punkte.push({icon:'📈', text:'Beitragsanpassung erhalten — klassischer Anlass für Tarifoptimierung'});
+  }
+  if(beitrag >= 500) {
+    score += 2;
+    punkte.push({icon:'💰', text:'Beitrag über 500 €/Monat — erhebliches Einsparpotenzial wahrscheinlich'});
+  } else if(beitrag >= 350) {
+    score += 1;
+    punkte.push({icon:'💰', text:'Beitrag im mittleren Bereich — Wechsel kann sich lohnen'});
+  }
+  if(S.bei === 'nein' && alter >= 45) {
+    score += 2;
+    punkte.push({icon:'⏱️', text:'Vollversicherung ab 45 — Alterungsrückstellungen schützen, §204 ist Ihr Hebel'});
+  }
+  if(jahre >= 5) {
+    score += 1;
+    punkte.push({icon:'📅', text: jahre+' Jahre PKV — Tarif möglicherweise veraltet, neuere Optionen vorhanden'});
+  }
+  if(S.voe === 'ja') {
+    score += 2;
+    punkte.push({icon:'🔒', text:'Vorerkrankungen: Gesellschaftswechsel nicht möglich — §204 Tarifwechsel ist Ihre einzige Optimierungsoption'});
+  }
+  if(S.grund === 'beide' || S.grund === 'preis') {
+    score += 1;
+  }
+  if(alter >= 60) {
+    score -= 1; // complex but not impossible
+    punkte.push({icon:'ℹ️', text:'Ab 60: Wechsel möglich, aber Kalkulation genauer prüfen'});
+  }
+
+  // Determine tier
+  var verdict, summary, tier;
+  if(score >= 6) {
+    tier = 'high';
+    verdict = 'Tarifwechsel dringend prüfen';
+    summary = 'Ihre Kombination aus Beitragshöhe, Vertragslaufzeit und persönlicher Situation deutet auf ein erhebliches Optimierungspotenzial hin. Ein §204-Tarifwechsel ist in Ihrem Fall sehr wahrscheinlich sinnvoll und kann substanzielle monatliche Einsparungen bringen — ohne Risikoverlust.';
+  } else if(score >= 3) {
+    tier = 'medium';
+    verdict = 'Wechsel lohnt sich zu prüfen';
+    summary = 'Einige Signale sprechen für eine Überprüfung Ihres Tarifs. Ob ein Wechsel wirklich Vorteile bringt, hängt von den konkreten Tarifen Ihrer Gesellschaft ab. Eine kostenlose Ersteinordnung durch einen Experten schafft Klarheit.';
+  } else {
+    tier = 'low';
+    verdict = 'Aktuell kein dringender Handlungsbedarf';
+    summary = 'Auf Basis Ihrer Angaben gibt es keine starken Signale für einen sofortigen Tarifwechsel. Das schließt nicht aus, dass ein Wechsel bei genauer Prüfung trotzdem sinnvoll sein kann — das Recht nach §204 haben Sie unabhängig davon immer.';
+  }
+
+  var emoji = tier==='high' ? '⚡' : tier==='medium' ? '🔍' : '✅';
+  var punkteHtml = punkte.map(function(p){
+    return '<div class="result-point"><span class="rp-icon">'+p.icon+'</span><span>'+p.text+'</span></div>';
+  }).join('');
+
+  var html = '<div class="result-card r-'+tier+'">'
+    + '<div class="result-emoji">'+emoji+'</div>'
+    + '<div class="result-verdict'+(tier!=='low'?' orange':'')+'">'+verdict+'</div>'
+    + '<div class="result-summary">'+summary+'</div>'
+    + (punkte.length ? '<div class="result-points">'+punkteHtml+'</div>' : '')
+    + '<hr class="result-sep">'
+    + '<div class="r-lead-title">Kostenlose Experteneinordnung anfordern</div>'
+    + '<div class="r-lead-sub">Kein Verkaufsgespräch. Wir schauen gemeinsam auf Ihren konkreten Tarif und zeigen, was bei Ihrer Gesellschaft möglich ist.</div>'
+    + '<form class="r-form" onsubmit="submitLead(event)">'
+    + '<input type="text" id="f-name" placeholder="Ihr Name" required autocomplete="name">'
+    + '<input type="email" id="f-email" placeholder="E-Mail-Adresse" required autocomplete="email">'
+    + '<button type="submit">Einordnung anfordern</button>'
+    + '</form>'
+    + '<div class="consent-row"><label><input type="checkbox" id="f-consent" required> '
+    + 'Ich stimme der <a href="/datenschutz.html" target="_blank" style="color:var(--primary)">Datenschutzerklärung</a> zu. '
+    + 'Es werden ausschließlich Name und E-Mail gespeichert. Gesundheitsangaben werden nicht übermittelt.</label></div>'
+    + '<div class="submit-ok" id="submit-ok">✓ Anfrage erhalten — wir melden uns innerhalb von 24 Stunden.</div>'
+    + '</div>';
+
+  document.getElementById('result-box').innerHTML = html;
+  goStep('result');
+  // mark result dot
+  var d4 = document.getElementById('dot-4');
+  d4.classList.add('active');
+  document.getElementById('line-3').classList.add('done');
+}
+
+// ── Lead submit ────────────────────────────────────────────────────────────
+function submitLead(e) {
+  e.preventDefault();
+  var consent = document.getElementById('f-consent');
+  if(!consent || !consent.checked) { if(consent) consent.focus(); return; }
+  var beitrag = +document.getElementById('sl-beitrag').value;
+  var alter   = +document.getElementById('sl-alter').value;
+  // NOTE: NO health data (voe/kh/med) is included in the payload — by design
+  fetch('https://api.versicherungs-fuchs.online/api/lead', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({
+      name:   document.getElementById('f-name').value,
+      email:  document.getElementById('f-email').value,
+      tool:   'pkv-tarifwechsel-check',
+      source: 'pkv-check',
+      meta:   JSON.stringify({ alter: alter, beitrag: beitrag, bap: S.bap, bei: S.bei, grund: S.grund })
+      // health fields intentionally omitted
+    })
+  }).catch(function(){});
+  document.querySelector('.r-form').style.display = 'none';
+  document.getElementById('submit-ok').style.display = 'block';
+}
+
+// ── FAQ ─────────────────────────────────────────────────────────────────────
+function toggleFaq(el) {
+  var item = el.parentElement;
+  var was = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); i.querySelector('.faq-icon').textContent='+'; });
+  if(!was) { item.classList.add('open'); el.querySelector('.faq-icon').textContent='−'; }
+}
+</script>
+</body>
+</html>
