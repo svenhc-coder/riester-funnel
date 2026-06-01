@@ -1,0 +1,18 @@
+# Pretty-URLs für VersicherungsFuchs — Sevalla unterstützt Netlify-style _redirects
+# Status 200 = rewrite (URL bleibt), 301 = permanent redirect (URL wechselt)
+
+# Pretty-URLs ohne .html
+/datenschutz       /datenschutz.html        200
+/impressum         /impressum.html          200
+/bu-check          /bu-check.html           200
+/baufi-check       /baufi-check.html        200
+/renten-check      /renten-check.html       200
+
+# Bestehende
+/riester-check     /riester-check.html      200
+/pkv-check         /pkv-check.html          200
+
+# Alte Stubs (refresh-meta) als Redirects
+/riester-check-start.html      /riester-check/start/      301
+/riester-check-question.html   /riester-check/q/          301
+/riester-check-result.html     /riester-check/result/     301
