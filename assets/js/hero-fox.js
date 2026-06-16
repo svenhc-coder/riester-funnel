@@ -11,7 +11,7 @@
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var SPIN_HOP_MS = 1950;   // Dauer Spin+Hüpfen (muss zu @keyframes vfSpinHop passen)
-  var LAND_MS     = 1500;   // Zeitpunkt der Landung -> Ripple startet
+  var LAND_MS     = 1440;   // Zeitpunkt des Aufpralls (74% von 1.95s) -> Bodenwelle startet
   var RIPPLE_MS   = 1500;   // Dauer Ripple
   var playing = false;
 
