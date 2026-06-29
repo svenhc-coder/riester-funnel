@@ -554,9 +554,22 @@
     }
     .cookie-btn-decline:hover { background: rgba(255,255,255,0.12); }
 
-  </style>
+  
+/* ── 3D/Scroll Tier 1+2 — Scroll-Reveal + Parallax + Progress (additiv, GPU-only) ── */
+.vf-reveal{transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);transition-delay:var(--vf-d,0ms);}
+.vf-anim .vf-reveal{opacity:0;transform:translate3d(0,22px,0);will-change:opacity,transform;}
+.vf-anim .vf-reveal.is-in,.vf-anim-done .vf-reveal{opacity:1;transform:none;}
+#vf-scroll-progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:200;background:linear-gradient(90deg,#ff7a00,#c6ab7f);transform:scaleX(0);transform-origin:0 50%;will-change:transform;pointer-events:none;}
+@media (prefers-reduced-motion:reduce){.vf-anim .vf-reveal{opacity:1!important;transform:none!important;transition:none!important;}#vf-scroll-progress{display:none;}}
+/* Tier 3 — Wireframe-Fuchskopf (Three.js), dezentes Signature-Band vor dem CTA */
+.vf-fox3d-band{display:flex;align-items:center;justify-content:center;padding:24px 24px 0;}
+.vf-fox3d{width:min(420px,72vw);aspect-ratio:1;pointer-events:none;}
+@media (prefers-reduced-motion:reduce){.vf-fox3d-band{display:none;}}
+</style>
+  <script>(function(){if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var d=document.documentElement;d.classList.add('vf-anim');setTimeout(function(){d.classList.add('vf-anim-done');},3000);})();</script>
 </head>
 <body>
+<div id="vf-scroll-progress" aria-hidden="true"></div>
 
 <!-- ── NAV ── -->
 <nav>
@@ -855,6 +868,10 @@
   </div>
 </section>
 
+<section class="vf-fox3d-band" aria-hidden="true">
+  <div class="vf-fox3d" id="vf-fox3d"></div>
+</section>
+
 <section class="cta-section">
   <h2>Ihren Riester-Vertrag jetzt einordnen lassen.</h2>
   <p>Kostenloser Quick-Check in 5 Minuten. Keine Anmeldung erforderlich.</p>
@@ -941,6 +958,12 @@
 <!-- Hero Animation — only on homepage, non-render-blocking -->
 <script src="/config.js"></script>
 <script src="/assets/js/hero-fox.js" defer></script>
+<script src="/assets/js/scroll-reveal.js" defer></script>
+<script src="/assets/js/hero-fox3d.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+<script src="/assets/js/journey.js" defer></script>
 
 </body>
 </html>
