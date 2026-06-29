@@ -82,14 +82,23 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    var rafId = null, visible = true;
+    if ('IntersectionObserver' in window) {
+      var vio = new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible && rafId === null) rafId = requestAnimationFrame(animate);
+      }, { rootMargin: '120px 0px' });
+      vio.observe(mount);
+    }
     function animate() {
+      if (!visible) { rafId = null; return; } // off-screen: Render pausieren (kein CPU/GPU-Drain beim Scrollen)
       fox.rotation.y += 0.0035; // ruhiger Idle-Spin
       var targetX = 0.12 - scrollRot * 0.42; // sanfter Scroll-Tilt
       fox.rotation.x += (targetX - fox.rotation.x) * 0.06;
       renderer.render(scene, camera);
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     }
-    requestAnimationFrame(animate);
+    rafId = requestAnimationFrame(animate);
 
     var rtid;
     window.addEventListener('resize', function () {
