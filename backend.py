@@ -13,9 +13,11 @@ from dotenv import load_dotenv
 load_dotenv()  # Lädt .env aus APP_DIR
 
 # pip install fastapi uvicorn PyPDF2 asyncpg stripe python-multipart python-dotenv httpx
-from fastapi import FastAPI, File, UploadFile, HTTPException, Form, BackgroundTasks, Request, Query
+from fastapi import FastAPI, File, UploadFile, HTTPException, Form, BackgroundTasks, Request, Query, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+import hmac, time
+from collections import defaultdict, deque
 from pydantic import BaseModel, EmailStr
 import asyncpg
 import stripe
@@ -60,9 +62,45 @@ app = FastAPI(title="Riester-Check API", version=APP_VERSION)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "X-Admin-Token", "Authorization"],
 )
+
+# ─── SECURITY (2026-06-11) ─────────────────────────────────────────────────────
+
+def require_admin(x_admin_token: Optional[str] = Header(default=None),
+                  authorization: Optional[str] = Header(default=None)) -> bool:
+    """Admin-Auth für Berater-/Verwaltungs-Endpunkte. Token via 'X-Admin-Token'
+    oder 'Authorization: Bearer <token>'. Timing-safe gegen ADMIN_SECRET."""
+    token = (x_admin_token or "").strip()
+    if not token and authorization and authorization.lower().startswith("bearer "):
+        token = authorization[7:].strip()
+    if not ADMIN_SECRET or not token or not hmac.compare_digest(token, ADMIN_SECRET):
+        raise HTTPException(403, "Admin-Auth erforderlich.")
+    return True
+
+# Schlanker In-Memory-Rate-Limiter (Single-Process-uvicorn → wirksam).
+_rl_buckets: dict[str, deque] = defaultdict(deque)
+def rate_limit(request: Request, key: str, max_calls: int, window_s: int) -> None:
+    ip = (request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+          or (request.client.host if request.client else "unknown"))
+    now = time.time()
+    bucket = _rl_buckets[f"{key}:{ip}"]
+    while bucket and bucket[0] < now - window_s:
+        bucket.popleft()
+    if len(bucket) >= max_calls:
+        raise HTTPException(429, "Zu viele Anfragen. Bitte kurz warten.")
+    bucket.append(now)
+
+@app.middleware("http")
+async def security_headers(request: Request, call_next):
+    resp = await call_next(request)
+    resp.headers.setdefault("X-Content-Type-Options", "nosniff")
+    resp.headers.setdefault("X-Frame-Options", "DENY")
+    resp.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+    resp.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+    resp.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+    return resp
 
 # ─── MODELS ───────────────────────────────────────────────────────────────────
 
@@ -333,8 +371,9 @@ async def health():
     return {"status": "ok", "version": APP_VERSION}
 
 @app.post("/api/lead", response_model=LeadOut)
-async def create_lead(data: LeadIn, background_tasks: BackgroundTasks):
+async def create_lead(data: LeadIn, background_tasks: BackgroundTasks, request: Request):
     """Lead speichern + Stripe PaymentIntent erstellen."""
+    rate_limit(request, "lead", max_calls=15, window_s=600)
     lead_id = str(uuid.uuid4())
     ampel = berechne_ampel(data.answers)
 
@@ -368,6 +407,7 @@ async def create_lead(data: LeadIn, background_tasks: BackgroundTasks):
 
 @app.post("/api/riester/upload", response_model=UploadOut)
 async def upload_file(
+    request: Request,
     background_tasks: BackgroundTasks,
     file: UploadFile = File(...),
     lead_id: str = Form(...),
@@ -377,6 +417,19 @@ async def upload_file(
     """PDF oder Foto hochladen, analysieren, LLM-Pipeline starten.
     DSGVO: Datei wird nach Verarbeitung automatisch gelöscht.
     """
+    rate_limit(request, "upload", max_calls=10, window_s=600)
+
+    # Bezahl-Verifikation: NIEMALS allein dem Frontend (?payment=success) trauen.
+    # Serverseitig prüfen, dass der PaymentIntent wirklich 'succeeded' ist.
+    if STRIPE_SECRET:
+        try:
+            pi = stripe.PaymentIntent.retrieve(payment_id)
+        except Exception:
+            raise HTTPException(402, "Zahlung nicht auffindbar.")
+        if getattr(pi, "status", None) != "succeeded":
+            raise HTTPException(402, "Zahlung nicht abgeschlossen.")
+    # (ohne STRIPE_SECRET = Dev/Test → kein Live-Geld, Verifikation entfällt)
+
     # Validierung Dateityp
     ext = Path(file.filename or "").suffix.lower()
     if ext not in ALLOWED_EXTENSIONS:
@@ -471,8 +524,8 @@ async def upload_file(
         await db.close()
 
 @app.post("/api/riester/extract")
-async def manual_extract(case_id: str):
-    """Snippet-Extraktion manuell anstoßen (z.B. nach OCR)."""
+async def manual_extract(case_id: str, _admin: bool = Depends(require_admin)):
+    """Snippet-Extraktion manuell anstoßen (z.B. nach OCR). Admin-only."""
     db = await get_db()
     try:
         row = await db.fetchrow("SELECT * FROM riester_deepcheck WHERE id=$1", case_id)
@@ -489,8 +542,8 @@ async def manual_extract(case_id: str):
         await db.close()
 
 @app.post("/api/riester/approve")
-async def approve_case(data: ApproveIn, background_tasks: BackgroundTasks):
-    """Berater genehmigt Fall → Bericht senden."""
+async def approve_case(data: ApproveIn, background_tasks: BackgroundTasks, _admin: bool = Depends(require_admin)):
+    """Berater genehmigt Fall → Bericht senden. Admin-only."""
     db = await get_db()
     try:
         if data.edited_extract:
@@ -514,7 +567,7 @@ async def approve_case(data: ApproveIn, background_tasks: BackgroundTasks):
         await db.close()
 
 @app.post("/api/riester/reject")
-async def reject_case(case_id: str):
+async def reject_case(case_id: str, _admin: bool = Depends(require_admin)):
     db = await get_db()
     try:
         await db.execute(
@@ -527,7 +580,7 @@ async def reject_case(case_id: str):
         await db.close()
 
 @app.get("/api/riester/case/{case_id}")
-async def get_case(case_id: str):
+async def get_case(case_id: str, _admin: bool = Depends(require_admin)):
     db = await get_db()
     try:
         row = await db.fetchrow("SELECT * FROM riester_deepcheck WHERE id=$1", case_id)
@@ -538,7 +591,7 @@ async def get_case(case_id: str):
         await db.close()
 
 @app.get("/api/riester/cases")
-async def list_cases(status: Optional[str] = None, limit: int = 50):
+async def list_cases(status: Optional[str] = None, limit: int = 50, _admin: bool = Depends(require_admin)):
     db = await get_db()
     try:
         if status:
@@ -556,22 +609,8 @@ async def list_cases(status: Optional[str] = None, limit: int = 50):
 
 # ─── ADMIN: Halbautomatische Erstattung ───────────────────────────────────────
 
-@app.get("/api/admin/confirm-client")
-async def confirm_client_get(
-    email: str = Query(..., description="Kunden-E-Mail"),
-    token: str = Query(..., description="Admin-Secret-Token"),
-    payment_id: Optional[str] = Query(None, description="Stripe PaymentIntent ID (optional, sonst aus DB)"),
-):
-    """
-    Halbautomatische Erstattung per Link-Klick.
-    Sven ruft auf: https://api.versicherungs-fuchs.online/api/admin/confirm-client?email=X&token=SECRET
-    → Stripe Refund wird ausgelöst wenn: App installiert + Maklervertrag + Dokumente hochgeladen.
-
-    Token kommt aus .env ADMIN_SECRET
-    """
-    if not ADMIN_SECRET or token != ADMIN_SECRET:
-        raise HTTPException(403, "Ungültiger Token.")
-
+async def _do_refund(email: str, payment_id: Optional[str] = None):
+    """Führt die echte Stripe-Erstattung aus. NUR aus dem POST-Handler aufrufen (Auth liegt dort)."""
     db = await get_db()
     try:
         # Lead per E-Mail finden
@@ -590,4 +629,336 @@ async def confirm_client_get(
                 "SELECT payment_id FROM riester_deepcheck WHERE lead_id=$1 AND payment_id IS NOT NULL "
                 "ORDER BY created_at DESC LIMIT 1",
                 lead_id
- 
+            )
+            if not case:
+                raise HTTPException(404, "Kein Payment für diesen Lead gefunden.")
+            payment_id = case["payment_id"]
+
+        # Stripe Refund auslösen
+        try:
+            refund = stripe.Refund.create(
+                payment_intent=payment_id,
+                reason="requested_by_customer",
+                metadata={"email": email, "confirmed_by": "admin", "ts": datetime.now(timezone.utc).isoformat()},
+            )
+        except stripe.error.InvalidRequestError as e:
+            if "already been refunded" in str(e).lower():
+                return JSONResponse({"status": "already_refunded", "email": email, "payment_id": payment_id})
+            raise HTTPException(400, f"Stripe Fehler: {str(e)}")
+        except stripe.error.StripeError as e:
+            raise HTTPException(400, f"Stripe Fehler: {str(e)}")
+
+        # DB updaten
+        await db.execute(
+            "UPDATE riester_deepcheck SET refunded_at=$1, status='refunded' WHERE lead_id=$2 AND payment_id=$3",
+            datetime.now(timezone.utc), lead_id, payment_id
+        )
+        await db.execute(
+            "UPDATE riester_leads SET is_client=true WHERE id=$1",
+            lead_id
+        )
+        await log_event(db, lead_id, "refund_issued", {
+            "refund_id": refund["id"],
+            "payment_id": payment_id,
+            "email": email,
+            "confirmed_by": "admin_link",
+        })
+
+        # n8n Event (optional: Pipedrive Update, Slack-Notification)
+        await push_n8n_event("client_confirmed_refund", {
+            "lead_id": lead_id,
+            "email": email,
+            "payment_id": payment_id,
+            "refund_id": refund["id"],
+        })
+
+        # Schöne HTML-Antwort für direkten Link-Klick
+        return JSONResponse({
+            "status": "refunded",
+            "email": email,
+            "refund_id": refund["id"],
+            "payment_id": payment_id,
+            "message": f"Erstattung für {email} erfolgreich ausgelöst. Refund-ID: {refund['id']}"
+        })
+
+    finally:
+        await db.close()
+
+
+@app.get("/api/admin/confirm-client", response_class=HTMLResponse)
+async def confirm_client_page(
+    email: str = Query(...),
+    token: str = Query(...),
+    payment_id: Optional[str] = Query(None),
+):
+    """Zeigt NUR eine Bestätigungsseite — löst KEINEN Refund aus (Prefetch/Crawler-sicher).
+    Die echte Erstattung läuft erst über den POST-Button unten."""
+    if not ADMIN_SECRET or not hmac.compare_digest(token, ADMIN_SECRET):
+        raise HTTPException(403, "Ungültiger Token.")
+    import html as _html
+    e = _html.escape(email); pid = _html.escape(payment_id or ""); tok = _html.escape(token)
+    return HTMLResponse(
+        "<!doctype html><html lang=de><meta charset=utf-8>"
+        "<meta name=viewport content='width=device-width,initial-scale=1'>"
+        "<title>Erstattung bestätigen</title>"
+        "<body style='font-family:system-ui;max-width:480px;margin:60px auto;padding:0 20px'>"
+        "<h2>Erstattung bestätigen</h2>"
+        f"<p>Kunde: <b>{e}</b><br>Payment: <code>{pid or 'aus DB'}</code></p>"
+        "<form method=post action='/api/admin/confirm-client'>"
+        f"<input type=hidden name=email value='{e}'>"
+        f"<input type=hidden name=token value='{tok}'>"
+        f"<input type=hidden name=payment_id value='{pid}'>"
+        "<button style='background:#c0392b;color:#fff;border:0;padding:12px 20px;border-radius:8px;font-size:16px;cursor:pointer'>"
+        "Stripe-Erstattung jetzt auslösen</button></form>"
+        "<p style='color:#888;font-size:13px'>Dieser Schritt löst eine echte Rückzahlung aus.</p>"
+        "</body></html>"
+    )
+
+
+@app.post("/api/admin/confirm-client")
+async def confirm_client_post(
+    email: str = Form(...),
+    token: str = Form(...),
+    payment_id: Optional[str] = Form(None),
+):
+    """Führt die Erstattung aus — state-changing, daher POST + Token-Check."""
+    if not ADMIN_SECRET or not hmac.compare_digest(token, ADMIN_SECRET):
+        raise HTTPException(403, "Ungültiger Token.")
+    return await _do_refund(email, payment_id or None)
+
+# Stripe Webhook
+@app.post("/api/stripe/webhook")
+async def stripe_webhook(request: Request):
+    """Stripe Webhook → Payment-Bestätigung."""
+    payload = await request.body()
+    sig = request.headers.get("stripe-signature", "")
+    try:
+        event = stripe.Webhook.construct_event(payload, sig, STRIPE_WEBHOOK_SEC)
+    except Exception:
+        raise HTTPException(400, "Invalid signature")
+
+    if event["type"] == "payment_intent.succeeded":
+        pi = event["data"]["object"]
+        db = await get_db()
+        try:
+            await db.execute(
+                "UPDATE riester_deepcheck SET status='payment_confirmed' "
+                "WHERE payment_id=$1 AND status IN ('uploaded','image_uploaded')",
+                pi["id"]
+            )
+            await db.close()
+        except Exception:
+            await db.close()
+
+    return {"received": True}
+
+@app.post("/api/stripe/refund")
+async def trigger_refund(payment_id: str, case_id: str, token: str = ""):
+    """Erstattung auslösen – erfordert Admin-Token."""
+    if not ADMIN_SECRET or token != ADMIN_SECRET:
+        raise HTTPException(403, "Admin-Token erforderlich.")
+    try:
+        refund = stripe.Refund.create(payment_intent=payment_id, reason="requested_by_customer")
+        db = await get_db()
+        await db.execute(
+            "UPDATE riester_deepcheck SET refunded_at=$1, status='refunded' WHERE id=$2",
+            datetime.now(timezone.utc), case_id
+        )
+        await log_event(db, case_id, "refund_issued", {"refund_id": refund["id"], "payment_id": payment_id})
+        await db.close()
+        await push_n8n_event("refund_issued", {
+            "case_id": case_id, "payment_id": payment_id, "refund_id": refund["id"]
+        })
+        return {"status": "refunded", "refund_id": refund["id"]}
+    except stripe.error.StripeError as e:
+        raise HTTPException(400, str(e))
+
+# ─── BACKGROUND TASKS ─────────────────────────────────────────────────────────
+
+async def run_llm_pipeline(case_id: str, snippets: list[dict], lead_id: str, answers: dict = {}):
+    """LLM Text-Pipeline: Snippets → Haiku → JSON Extraktion.
+    DSGVO: PDF wird nach Extraktion automatisch gelöscht.
+    """
+    import httpx
+
+    prompt = build_light_prompt(snippets)
+    extract = {}
+
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={
+                    "x-api-key": ANTHROPIC_API_KEY,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
+                },
+                json={
+                    "model": "claude-haiku-4-5-20251001",
+                    "max_tokens": 800,
+                    "system": prompt["system"],
+                    "messages": [{"role": "user", "content": prompt["user"]}],
+                },
+                timeout=30,
+            )
+        raw = resp.json()["content"][0]["text"]
+        extract = json.loads(raw)
+    except Exception as e:
+        extract = {"error": str(e)}
+
+    db = await get_db()
+    try:
+        await db.execute(
+            "UPDATE riester_deepcheck SET extract_json=$1, status='needs_human_review', "
+            "updated_at=$2 WHERE id=$3",
+            json.dumps(extract), datetime.now(timezone.utc), case_id
+        )
+        await log_event(db, lead_id, "llm_text_done", {"extract_keys": list(extract.keys())})
+
+        # DSGVO: Datei löschen nach Extraktion
+        row = await db.fetchrow("SELECT file_url FROM riester_deepcheck WHERE id=$1", case_id)
+        if row and row["file_url"]:
+            _safe_delete(Path(row["file_url"]))
+            await db.execute(
+                "UPDATE riester_deepcheck SET file_url='[deleted]', deleted_at=$1 WHERE id=$2",
+                datetime.now(timezone.utc), case_id
+            )
+
+    finally:
+        await db.close()
+
+    await push_n8n_event("review_ready", {"case_id": case_id, "lead_id": lead_id, "type": "text"})
+
+async def run_vision_pipeline(
+    case_id: str,
+    file_path: Path,
+    content: bytes,
+    filename: str,
+    lead_id: str,
+    answers: dict = {},
+):
+    """Vision-Pipeline: Foto/Scan → Claude Vision → JSON Extraktion.
+    DSGVO: Bild wird nach Extraktion automatisch gelöscht.
+    """
+    import httpx
+
+    media_type = get_image_media_type(filename)
+    image_b64 = base64.b64encode(content).decode()
+    prompt = build_vision_prompt()
+    extract = {}
+
+    try:
+        async with httpx.AsyncClient() as client:
+            resp = await client.post(
+                "https://api.anthropic.com/v1/messages",
+                headers={
+                    "x-api-key": ANTHROPIC_API_KEY,
+                    "anthropic-version": "2023-06-01",
+                    "content-type": "application/json",
+                },
+                json={
+                    "model": "claude-haiku-4-5-20251001",
+                    "max_tokens": 800,
+                    "system": prompt["system"],
+                    "messages": [{
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "image",
+                                "source": {
+                                    "type": "base64",
+                                    "media_type": media_type,
+                                    "data": image_b64,
+                                }
+                            },
+                            {
+                                "type": "text",
+                                "text": prompt["user"],
+                            }
+                        ]
+                    }],
+                },
+                timeout=45,
+            )
+        raw = resp.json()["content"][0]["text"]
+        extract = json.loads(raw)
+    except Exception as e:
+        extract = {"error": str(e)}
+
+    db = await get_db()
+    try:
+        await db.execute(
+            "UPDATE riester_deepcheck SET extract_json=$1, status='needs_human_review', "
+            "updated_at=$2 WHERE id=$3",
+            json.dumps(extract), datetime.now(timezone.utc), case_id
+        )
+        await log_event(db, lead_id, "llm_vision_done", {"extract_keys": list(extract.keys())})
+
+        # DSGVO: Bild sofort nach Extraktion löschen
+        _safe_delete(file_path)
+        await db.execute(
+            "UPDATE riester_deepcheck SET file_url='[deleted]', deleted_at=$1 WHERE id=$2",
+            datetime.now(timezone.utc), case_id
+        )
+
+    finally:
+        await db.close()
+
+    await push_n8n_event("review_ready", {"case_id": case_id, "lead_id": lead_id, "type": "vision"})
+
+async def send_report(case_id: str):
+    """Report an Kunden senden (via n8n / Mail)."""
+    await push_n8n_event("send_report", {"case_id": case_id})
+    db = await get_db()
+    await db.execute(
+        "UPDATE riester_deepcheck SET status='sent', updated_at=$1 WHERE id=$2",
+        datetime.now(timezone.utc), case_id
+    )
+    await db.close()
+
+async def push_to_crm(lead_id: str, data: LeadIn, ampel: str):
+    """Pipedrive: Lead als Deal anlegen."""
+    import httpx
+    if not PIPEDRIVE_TOKEN:
+        return
+    async with httpx.AsyncClient() as client:
+        await client.post(
+            f"https://api.pipedrive.com/v1/persons?api_token={PIPEDRIVE_TOKEN}",
+            json={"name": data.name or data.email, "email": [{"value": data.email}]}
+        )
+        await client.post(
+            f"https://api.pipedrive.com/v1/deals?api_token={PIPEDRIVE_TOKEN}",
+            json={
+                "title": f"Riester-Check – {data.email}",
+                "stage_id": {"green": 1, "yellow": 2, "red": 3}.get(ampel, 2),
+            }
+        )
+
+async def push_n8n_event(event_type: str, payload: dict):
+    """n8n Webhook aufrufen."""
+    import httpx
+    if not N8N_WEBHOOK:
+        return
+    try:
+        async with httpx.AsyncClient() as client:
+            await client.post(
+                f"{N8N_WEBHOOK}/riester-{event_type}",
+                json={"event": event_type, "payload": payload, "ts": datetime.now(timezone.utc).isoformat()},
+                timeout=5,
+            )
+    except Exception:
+        pass  # Non-blocking
+
+# ─── DB MIGRATION HINWEIS ─────────────────────────────────────────────────────
+# Neue Spalten in riester_deepcheck:
+#   ALTER TABLE riester_deepcheck ADD COLUMN IF NOT EXISTS file_type TEXT DEFAULT 'pdf';
+#   ALTER TABLE riester_deepcheck ADD COLUMN IF NOT EXISTS deleted_at TIMESTAMPTZ;
+#   ALTER TABLE riester_deepcheck ADD COLUMN IF NOT EXISTS refunded_at TIMESTAMPTZ;
+# Neue Spalte in riester_leads:
+#   ALTER TABLE riester_leads ADD COLUMN IF NOT EXISTS is_client BOOLEAN DEFAULT FALSE;
+
+# ─── START ────────────────────────────────────────────────────────────────────
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run("backend:app", host="0.0.0.0", port=8000, reload=True)
