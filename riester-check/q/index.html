@@ -29,6 +29,7 @@
 <script src="/assets/js/animations.js"></script>
 <script src="/assets/js/brand.js"></script>
 <script src="/assets/js/state.js"></script>
+<script src="/assets/js/funnel-fox.js"></script>
 <script>
 var QUESTIONS=[
   {id:'vertragstyp',question:'Um welche Art von Riester-Vertrag handelt es sich?',hint:'Steht meist auf dem Deckblatt der Police oder der Standmitteilung.',options:[{label:'Klassische Rentenversicherung (mit Garantiezins)',value:'klassisch'},{label:'Fondsgebundene Rentenversicherung',value:'fondsgebunden'},{label:'Banksparplan oder Bausparvertrag',value:'banksparplan'},{label:'Wohn-Riester (Eigenheimrente)',value:'wohn_riester'},{label:'Weiß ich nicht',value:'unbekannt'}]},
@@ -85,7 +86,8 @@ var QUESTIONS=[
 
   var dir=sessionStorage.getItem('vf_dir')||'right';
   sessionStorage.removeItem('vf_dir');
-  if(window.VF&&window.VF.slideIn){ VF.slideIn(body,dir); }
+  if(window.VF&&window.VF.funnelBuildIn){ VF.funnelBuildIn(body,dir); }
+  else if(window.VF&&window.VF.slideIn){ VF.slideIn(body,dir); }
 
   document.getElementById('options').addEventListener('click',function(e){
     var btn=e.target.closest('.funnel-option'); if(!btn)return;
