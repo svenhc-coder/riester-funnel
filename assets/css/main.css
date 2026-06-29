@@ -380,4 +380,55 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .app-cta-list{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px;}
 .app-cta-list li{display:flex;align-items:center;gap:10px;font-size:15px;color:var(--txt);}
 .app-cta-btn{display:inline-flex;align-items:center;gap:10px;font-size:16px;padding:16px 28px;}
-.app-cta-hint{margin-to
+.app-cta-hint{margin-top:14px;font-size:12px;color:var(--txt3);line-height:1.6;}
+.app-cta-right{display:flex;align-items:center;justify-content:center;}
+.app-cta-badge-wrap{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px 40px;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);}
+.app-cta-fox{font-size:64px;line-height:1;}
+.app-cta-badge-text{text-align:center;}
+.app-cta-badge-title{font-size:20px;font-weight:700;color:var(--txt);}
+.app-cta-badge-sub{font-size:12px;color:var(--txt3);margin-top:4px;}
+
+/* ─── APP CTA RESULT BLOCK ───────────────────────────────────────────── */
+.app-cta-result{margin-top:32px;background:linear-gradient(135deg,rgba(234,179,8,0.08),rgba(234,179,8,0.03));border:1px solid rgba(234,179,8,0.25);border-radius:16px;padding:28px 32px;}
+.app-cta-result-inner{display:flex;align-items:flex-start;gap:20px;}
+.app-cta-result-fox{font-size:40px;flex-shrink:0;line-height:1;}
+.app-cta-result-title{font-size:18px;font-weight:700;color:var(--txt);margin:0 0 10px;}
+.app-cta-result-text{font-size:14px;color:var(--txt2);line-height:1.7;margin:0 0 16px;}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media(max-width:640px){
+  .nav-links{display:none;}
+  .nav-cta{font-size:13px;padding:8px 14px;}
+  .nav-toggle{display:flex;}
+  .home-hero{padding:80px 0 60px;}
+  .home-hero-actions{flex-direction:column;align-items:flex-start;}
+  .hero-stats{padding:14px 16px;}
+  .hero-stat{padding:8px 12px;}
+  .hero-stat-num{font-size:22px;}
+  .hero-stat-divider{display:none;}
+  .trust-break,.modules-section,.depot-section,.faq-section,.wie-section,.pricing-section,.app-cta-section{padding:60px 0;}
+  .app-cta-inner{grid-template-columns:1fr;}
+  .app-cta-right{display:none;}
+  .tb-grid,.modules-grid,.depot-cards,.pricing-grid,.dcg-cards{grid-template-columns:1fr;}
+  .footer-inner{flex-direction:column;}
+  .funnel-body{padding:36px 20px 60px;}
+}
+
+/* ── Funnel Fox (verspielte Fragebogen-Animation, additiv) ───────────── */
+.ff-fox{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;align-items:flex-end;gap:8px;pointer-events:none;}
+.ff-fox-mark{filter:drop-shadow(0 6px 14px rgba(255,122,0,.35));transform-origin:bottom center;display:inline-block;}
+.ff-fox.ff-bounce .ff-fox-mark{animation:ffBounce .6s cubic-bezier(.34,1.56,.64,1);}
+@keyframes ffBounce{0%{transform:translateY(0) rotate(0)}30%{transform:translateY(-12px) rotate(-6deg)}60%{transform:translateY(0) rotate(4deg)}100%{transform:translateY(0) rotate(0)}}
+.ff-bubble{max-width:160px;background:#fff;color:#0c0c0c;font-size:13px;font-weight:600;line-height:1.3;padding:8px 12px;border-radius:12px 12px 2px 12px;box-shadow:0 8px 24px rgba(0,0,0,.35);opacity:0;transform:translateY(6px) scale(.9);transition:opacity .25s,transform .3s cubic-bezier(.34,1.56,.64,1);}
+.ff-bubble-show{opacity:1;transform:translateY(0) scale(1);}
+.ff-eye{transform-box:fill-box;transform-origin:center;animation:ffBlink 5s infinite;}
+@keyframes ffBlink{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}
+.funnel-option.ff-pop{animation:ffPop .34s cubic-bezier(.34,1.56,.64,1);}
+@keyframes ffPop{0%{transform:scale(1)}40%{transform:scale(1.035)}100%{transform:scale(1)}}
+.ff-paw{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:14px;line-height:1;transition:left .5s cubic-bezier(.34,1.56,.64,1);pointer-events:none;filter:drop-shadow(0 1px 3px rgba(0,0,0,.4));}
+.funnel-next.ff-glow{animation:ffGlow 1.8s ease-in-out infinite;}
+@keyframes ffGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,122,0,.45)}50%{box-shadow:0 0 22px 4px rgba(255,122,0,.35)}}
+@media (prefers-reduced-motion: reduce){
+  .ff-fox.ff-bounce .ff-fox-mark,.ff-eye,.funnel-option.ff-pop,.funnel-next.ff-glow{animation:none !important;}
+}
+@media (max-width:640px){.ff-fox{right:10px;bottom:10px;}.ff-fox-mark svg{width:38px;height:38px;}.ff-bubble{max-width:120px;font-size:12px;}}
