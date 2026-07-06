@@ -4,18 +4,29 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
-  <title>Riester-Check starten – VersicherungsFuchs</title>
+  <title>Check starten – VersicherungsFuchs</title>
   <meta name="robots" content="noindex">
 </head>
 <body>
 <script>
-  sessionStorage.removeItem('vf_answers');
-  sessionStorage.removeItem('vf_lead');
-  sessionStorage.removeItem('vf_lead_id');
-  sessionStorage.removeItem('vf_cs');
-  sessionStorage.removeItem('vf_payment_id');
-  window.location.replace('/riester-check/q/?n=0');
+  // Nicht-Riester-Checks führen zu ihrer eigenen ehrlichen Anfrage-Seite,
+  // NICHT in den Riester-Fragebogen (kein Themen-Bait-and-Switch).
+  var check = (new URLSearchParams(window.location.search).get('check') || '').toLowerCase();
+  var NONRIESTER = { bu:1, rente:1, baufi:1, pkv:1 };
+  if (NONRIESTER[check]) {
+    window.location.replace('/check-anfrage/?check=' + check);
+  } else {
+    sessionStorage.removeItem('vf_answers');
+    sessionStorage.removeItem('vf_lead');
+    sessionStorage.removeItem('vf_lead_id');
+    sessionStorage.removeItem('vf_cs');
+    sessionStorage.removeItem('vf_payment_id');
+    window.location.replace('/riester-check/q/?n=0');
+  }
 </script>
-<noscript><meta http-equiv="refresh" content="0;url=/riester-check/q/?n=0"></noscript>
+<noscript>
+  <meta http-equiv="refresh" content="0;url=/riester-check/q/?n=0">
+  <p>Bitte aktivieren Sie JavaScript oder <a href="/riester-check/q/?n=0">hier klicken</a>.</p>
+</noscript>
 </body>
 </html>

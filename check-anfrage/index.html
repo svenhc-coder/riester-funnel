@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <title>Kostenlose Einschätzung anfordern · VersicherungsFuchs</title>
+  <meta name="description" content="Fordern Sie Ihre kostenlose, persönliche Einschätzung durch einen unabhängigen Experten an — unverbindlich.">
+  <meta name="robots" content="noindex,follow">
+  <link rel="icon" href="/assets/img/favicon.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0a0f; --bg2: #111118; --bg3: #1a1a26;
+      --border: rgba(255,255,255,0.08); --text: #e8e8f0; --muted: #8888aa;
+      --primary: #f97316; --primary2: #fb923c; --accent: #6366f1;
+      --green: #22c55e; --red: #ef4444; --radius: 12px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; min-height: 100vh; }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1rem 0; }
+    nav .container { display: flex; justify-content: space-between; align-items: center; }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+    .logo { font-weight: 700; font-size: 1.2rem; color: var(--text); }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { color: var(--muted); font-size: 0.9rem; }
+    .nav-links a:hover { color: var(--text); }
+    main { padding: 3.5rem 0; }
+    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb a { color: var(--muted); }
+    h1 { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
+    h1 .accent { color: var(--primary); }
+    .lede { font-size: 1.1rem; color: var(--muted); margin-bottom: 2rem; }
+    .badge { display: inline-block; background: rgba(249,115,22,.12); color: var(--primary2); border: 1px solid rgba(249,115,22,.35); border-radius: 999px; padding: .3rem .9rem; font-size: .8rem; font-weight: 600; margin-bottom: 1.25rem; }
+    .card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+    label { display: block; font-size: .9rem; font-weight: 600; margin: 1rem 0 .4rem; }
+    label .opt { color: var(--muted); font-weight: 400; }
+    input, textarea { width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-family: var(--font); font-size: 1rem; padding: .8rem .9rem; }
+    input:focus, textarea:focus { outline: none; border-color: var(--primary); }
+    textarea { min-height: 96px; resize: vertical; }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .consent { display: flex; gap: .6rem; align-items: flex-start; margin: 1.25rem 0 .5rem; font-size: .85rem; color: var(--muted); }
+    .consent input { width: auto; margin-top: .25rem; flex: 0 0 auto; }
+    .submit { width: 100%; margin-top: 1.25rem; background: var(--primary); color: #000; font-weight: 700; font-size: 1.05rem; border: none; border-radius: var(--radius); padding: 1rem; cursor: pointer; transition: transform .2s, opacity .2s; }
+    .submit:hover:not(:disabled) { transform: translateY(-2px); }
+    .submit:disabled { opacity: .55; cursor: default; }
+    .trust { margin-top: 1rem; font-size: .82rem; color: var(--muted); text-align: center; }
+    .err { display: none; margin-top: 1rem; color: var(--red); font-size: .9rem; }
+    .ok { display: none; text-align: center; padding: 1rem 0; }
+    .ok .big { font-size: 3rem; line-height: 1; }
+    .ok h2 { font-size: 1.5rem; margin: 1rem 0 .5rem; }
+    .ok p { color: var(--muted); }
+    footer { padding: 3rem 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; margin-top: 2rem; }
+    footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    footer a { color: var(--muted); }
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+<nav>
+  <div class="container">
+    <a href="/" class="logo">Versicherungs<span>Fuchs</span></a>
+    <div class="nav-links">
+      <a href="/riester-check">Riester</a>
+      <a href="/pkv-check">PKV</a>
+      <a href="/bu-check">BU</a>
+      <a href="/baufi-check">Baufi</a>
+      <a href="/renten-check">Rente</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="container">
+    <p class="breadcrumb"><a href="/">Start</a> · <span id="crumb">Einschätzung anfordern</span></p>
+
+    <div id="form-wrap">
+      <span class="badge" id="badge">Kostenlos &amp; unverbindlich</span>
+      <h1 id="headline">Ihre kostenlose <span class="accent">Einschätzung</span></h1>
+      <p class="lede" id="lede">Fordern Sie Ihre persönliche Einschätzung durch einen unabhängigen Experten an — kostenlos und unverbindlich.</p>
+
+      <div class="card">
+        <form id="lead-form" novalidate>
+          <label for="name">Name <span class="opt">(optional)</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Vor- und Nachname">
+
+          <label for="email">E-Mail-Adresse</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="name@beispiel.de" required>
+
+          <label for="telefon">Telefon <span class="opt">(optional, für schnelleren Rückruf)</span></label>
+          <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="0151 …">
+
+          <label for="nachricht" id="nachricht-label">Ihre Ausgangslage <span class="opt">(optional)</span></label>
+          <textarea id="nachricht" name="nachricht" placeholder="Kurz zu Ihrer Situation …"></textarea>
+
+          <div class="hp" aria-hidden="true"><label>Website<input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+          <div class="consent">
+            <input type="checkbox" id="consent" required>
+            <label for="consent" style="margin:0;font-weight:400;">Ich bin einverstanden, dass meine Angaben zur Bearbeitung meiner Anfrage gespeichert und verarbeitet werden. Weitere Infos in der <a href="/datenschutz">Datenschutzerklärung</a>.</label>
+          </div>
+
+          <button type="submit" class="submit" id="submit-btn">Kostenlose Einschätzung anfordern →</button>
+          <p class="err" id="err"></p>
+          <p class="trust">🔒 Datensparsam · DSGVO-konform · Keine Kosten, keine Verpflichtung</p>
+        </form>
+      </div>
+    </div>
+
+    <div id="ok" class="ok">
+      <div class="big">🦊</div>
+      <h2>Danke — Ihre Anfrage ist da!</h2>
+      <p>Ein unabhängiger Experte aus unserem Netzwerk meldet sich in Kürze bei Ihnen. Kostenlos und unverbindlich.</p>
+      <p style="margin-top:1.5rem"><a href="/">← Zurück zur Startseite</a></p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div>© 2026 VersicherungsFuchs · Klare Entscheidungen statt Finanzchaos</div>
+    <div><a href="/datenschutz">Datenschutz</a> · <a href="/impressum">Impressum</a></div>
+  </div>
+</footer>
+
+<script>
+  var API_URL = 'https://api.versicherungs-fuchs.online';
+  var CFG = {
+    bu:    { crumb:'BU-Check', accent:'Berufsunfähigkeits­absicherung',
+             lede:'Der interaktive BU-Check kommt in Kürze. Bis dahin erhalten Sie eine kostenlose, persönliche Einschätzung durch einen unabhängigen Experten: ob Sie eine BU brauchen, in welcher Höhe — und worauf Sie bei Gesundheitsfragen und Bedingungen achten sollten.',
+             q:'Ihre Ausgangslage (Beruf, bestehende BU, Alter)' },
+    rente: { crumb:'Renten-Check', accent:'Renten- &amp; Vorsorge-Analyse',
+             lede:'Der interaktive Renten-Check kommt in Kürze. Bis dahin erhalten Sie eine kostenlose, persönliche Einschätzung durch einen unabhängigen Experten: Ihre voraussichtliche Versorgungslücke und welche Bausteine sinnvoll sind.',
+             q:'Ihre Ausgangslage (Alter, bestehende Verträge, Ziel)' },
+    baufi: { crumb:'Baufi-Check', accent:'Baufinanzierungs-Check',
+             lede:'Der interaktive Baufi-Check kommt in Kürze. Bis dahin erhalten Sie eine kostenlose, persönliche Einschätzung durch einen unabhängigen Experten: realistische Finanzierbarkeit, Zins- und Tilgungsstruktur und mögliche Förderungen (z. B. KfW).',
+             q:'Ihr Vorhaben (Kaufpreis/Bauvorhaben, Eigenkapital, Region)' },
+    pkv:   { crumb:'PKV-Check', accent:'PKV-Vergleich',
+             lede:'Der interaktive PKV-Check kommt in Kürze. Bis dahin erhalten Sie eine kostenlose, persönliche Einschätzung durch einen unabhängigen Experten: ob sich die private Krankenversicherung für Sie lohnt und worauf Sie achten sollten.',
+             q:'Ihre Ausgangslage (Status, Einkommen, aktuelle Versicherung)' }
+  };
+  var params = new URLSearchParams(window.location.search);
+  var check = (params.get('check') || '').toLowerCase();
+  var cfg = CFG[check];
+  if (cfg) {
+    document.getElementById('crumb').textContent = cfg.crumb;
+    document.getElementById('badge').innerHTML = cfg.crumb + ' · kostenlos';
+    document.getElementById('headline').innerHTML = 'Ihre kostenlose <span class="accent">' + cfg.accent + '</span>';
+    document.getElementById('lede').innerHTML = cfg.lede;
+    document.getElementById('nachricht-label').innerHTML = cfg.q + ' <span class="opt">(optional)</span>';
+    document.title = cfg.crumb + ' — kostenlose Einschätzung · VersicherungsFuchs';
+  }
+
+  var form = document.getElementById('lead-form');
+  var btn = document.getElementById('submit-btn');
+  var errEl = document.getElementById('err');
+
+  function showErr(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errEl.style.display = 'none';
+    if (document.getElementById('website').value) { return; } // Honeypot: still ausfüllen wie Erfolg
+    var email = document.getElementById('email').value.trim();
+    if (!email || email.indexOf('@') < 1) { showErr('Bitte geben Sie eine gültige E-Mail-Adresse an.'); return; }
+    if (!document.getElementById('consent').checked) { showErr('Bitte bestätigen Sie die Verarbeitung Ihrer Angaben.'); return; }
+
+    btn.disabled = true; btn.textContent = 'Wird gesendet …';
+    var payload = {
+      name: document.getElementById('name').value.trim(),
+      email: email,
+      answers: {
+        check: check || 'allgemein',
+        telefon: document.getElementById('telefon').value.trim(),
+        nachricht: document.getElementById('nachricht').value.trim(),
+        quelle: 'check-anfrage'
+      },
+      source: (check || 'allgemein') + '-check-anfrage'
+    };
+    fetch(API_URL + '/api/lead', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(r){ if (!r.ok) throw new Error('http'); return r.json(); })
+    .then(function(){
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('ok').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(function(){
+      btn.disabled = false; btn.textContent = 'Kostenlose Einschätzung anfordern →';
+      showErr('Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut oder schreiben Sie an info@isurance-group.de.');
+    });
+  });
+</script>
+</body>
+</html>
