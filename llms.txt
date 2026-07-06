@@ -1,13 +1,13 @@
 # VersicherungsFuchs — Klare Entscheidungen statt Finanzchaos
 
 > Datenbasierte Analyse von Versicherungen und Altersvorsorge für Endkunden in Deutschland.
-> Neutrale Selbst-Checks, ohne Verkaufsdruck, ohne Marken-Bias. Teil der iSurance Gruppe.
+> Kostenlose, unverbindliche Selbst-Checks ohne Marken-Bias. Teil der iSurance Gruppe.
 
 ## Über VersicherungsFuchs
 
 VersicherungsFuchs bietet kostenlose, datenbasierte Selbst-Checks für die wichtigsten privaten Vorsorge- und Versicherungs-Entscheidungen. Alle Checks sind:
 
-- **Neutral**: keine Vermittlung, keine Affiliate-Provision auf Empfehlungs-Ebene
+- **Transparent**: Die Checks selbst sind kostenlos und unverbindlich. Wer Hilfe bei der Umsetzung wünscht, kann sich an unser Netzwerk unabhängiger Versicherungsexperten vermitteln lassen (provisionsbasierte Maklerleistung, klar gekennzeichnet).
 - **Datenbasiert**: aktuelle Stichtags-Werte 2026, transparente Annahmen
 - **Schnell**: 3–5 Minuten pro Check
 - **DSGVO-konform**: optional anonym nutzbar
