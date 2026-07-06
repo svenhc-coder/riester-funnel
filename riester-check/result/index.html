@@ -200,10 +200,10 @@ var stripeInst = null, stripeEls = null;
     var steps=(empf.naechste_schritte||[]).map(function(s){return '<li class="ergebnis-step">'+CHK_SVG+'<span>'+s+'</span></li>';}).join('');
     var scoreCircle='<div id="score-circle" class="score-ring-wrap"><svg class="score-ring-svg" width="120" height="120" viewBox="0 0 120 120"><circle class="score-ring-track" cx="60" cy="60" r="42" stroke-width="8"/><circle class="score-ring-fill" cx="60" cy="60" r="42" stroke-width="8" transform="rotate(-90 60 60)"/><text class="score-ring-label" x="60" y="58" text-anchor="middle" dominant-baseline="middle">0</text><text class="score-ring-sublabel" x="60" y="74" text-anchor="middle" dominant-baseline="middle">/ 100</text></svg></div>';
     var dcgCards=[
-      {tier:'ki',price:'12,90 &euro;',name:'KI-Check',featured:true,btn:'Jetzt buchen',fn:'openKiPayment()',
+      {tier:'ki',price:'Kostenlos',name:'KI-Analyse Ihres Vertrags',featured:true,btn:'Kostenlos hochladen',fn:'scrollToUpload()',
        features:['Upload Standmitteilung, Police oder Foto','KI-Analyse Ihrer tatsächlichen Vertragsdaten','Depot-Option 2027 im Vergleich','Ergebnis-PDF per E-Mail &middot; Datei danach gelöscht']},
-      {tier:'deep',price:'49 &euro;',name:'Deep-Check + Berater',featured:false,btn:'Termin buchen',fn:'openDeepPayment()',
-       features:['Alles aus KI-Check','30 min Videocall mit Analyst','Schriftliche Handlungsempfehlung','Priorisiert (48h)']}
+      {tier:'deep',price:'Kostenlos',name:'Hilfe durch Experten-Netzwerk',featured:false,btn:'Hilfe anfragen',fn:"window.location.href='mailto:info@isurance-group.de?subject=Riester-Check%20Umsetzungshilfe'",
+       features:['Vermittlung an unabhängige Versicherungsexperten','Persönliche Beratung zur Umsetzung','Sie entscheiden frei &mdash; kein Verkauf','Kostenlos und unverbindlich']}
     ].map(function(c){
       return '<div class="dcg-card'+(c.featured?' dcg-card-featured':'')+'"><div class="dcg-card-price">'+c.price+'</div><div class="dcg-card-name">'+c.name+'</div><ul class="dcg-card-features">'
         +c.features.map(function(f){return '<li class="dcg-card-feature">'+CHK_SVG+'<span>'+f+'</span></li>';}).join('')
@@ -229,8 +229,8 @@ var stripeInst = null, stripeEls = null;
       +'<input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.heic,.heif,.webp" onchange="uploadFile(this)"></div>'
       +'<div id="upload-status"></div></div>'
       +'<div class="deep-check-gate"><div class="dcg-header"><div class="tb-label">Nächster Schritt</div>'
-      +'<h2 class="dcg-title">Mehr als eine Orientierung: Der Strategische Deep-Check</h2>'
-      +'<p class="dcg-sub">Mit Ihren Vertragsunterlagen analysieren wir konkret: Kosten, Förderhistorie, Struktur, Depot-Option 2027 – und liefern eine schriftliche Handlungsempfehlung.</p></div>'
+      +'<h2 class="dcg-title">Kostenlos vertiefen &mdash; und Hilfe bei der Umsetzung</h2>'
+      +'<p class="dcg-sub">Mit Ihren Vertragsunterlagen analysieren wir konkret: Kosten, Förderhistorie, Struktur, Depot-Option 2027 &ndash; kostenlos. Für die Umsetzung vermitteln wir Sie an unser Netzwerk unabhängiger Versicherungsexperten.</p></div>'
       +'<div class="dcg-cards">'+dcgCards+'</div>'
       +'</div>'
       +'<div class="app-download-cta">'
@@ -254,12 +254,8 @@ var stripeInst = null, stripeEls = null;
     if(window.location.search.indexOf('payment=success')!==-1){setTimeout(_showUpload,400);}
   }
 
-  window.openKiPayment=function(){
-    var cs=vfClientSecret||sessionStorage.getItem('vf_cs');
-    if(cs&&cs!=='null'&&cs!==''){_openPayModal('12,90 €','KI-Check – Riester-Analyse','KI analysiert Ihren Vertrag · Datei wird danach gelöscht',cs,'ki');}
-    else{_createAndPay('ki');}
-  };
-  window.openDeepPayment=function(){_createAndPay('deep');};
+  window.openKiPayment=function(){ if(typeof _showUpload==='function'){_showUpload();} };
+  window.openDeepPayment=function(){ window.location.href='mailto:info@isurance-group.de?subject=Riester-Check%20Umsetzungshilfe'; };
 
   function _createAndPay(tier){
     var lead=vfGetLead();
@@ -281,10 +277,9 @@ var stripeInst = null, stripeEls = null;
         sessionStorage.setItem('vf_cs',vfClientSecret);
         sessionStorage.setItem('vf_payment_id',vfPaymentId);
       }
-      _openPayModal(
-        tier==='ki'?'12,90 €':'49,00 €',
-        tier==='ki'?'KI-Check – Riester-Analyse':'Deep-Check + Berater-Gespräch',
-        tier==='ki'?'KI analysiert Ihren Vertrag · Datei wird danach gelöscht':'Inkl. 30-min Videocall · Schriftliche Empfehlung',
+      _openPayModal('Kostenlos',
+        tier==='ki'?'KI-Analyse Ihres Vertrags':'Hilfe durch Experten-Netzwerk',
+        'Kostenlos und unverbindlich',
         data.client_secret,tier);
     })
     .catch(function(){
@@ -365,5 +360,6 @@ var stripeInst = null, stripeEls = null;
   };
 })();
 </script>
+<script>function scrollToUpload(){var u=document.getElementById('file-input')||document.querySelector('.uz-hint');if(u){u.scrollIntoView({behavior:'smooth',block:'center'});}}</script>
 </body>
 </html>
