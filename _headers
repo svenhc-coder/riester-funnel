@@ -1,3 +1,13 @@
+# VersicherungsFuchs — HTTP-Header (Cloudflare Pages)
+
+/*
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://api.versicherungs-fuchs.online; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.versicherungs-fuchs.online
+
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
   X-Robots-Tag: noindex
@@ -7,5 +17,3 @@
 
 /pkv-check/*
   Cache-Control: public, max-age=0, must-revalidate
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
