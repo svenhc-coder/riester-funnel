@@ -15,12 +15,12 @@ VersicherungsFuchs bietet kostenlose, datenbasierte Selbst-Checks für die wicht
 
 Anbieter: iSurance Gruppe (Versicherungsmakler nach § 34d GewO, Köln).
 
-## Verfügbare Checks (Stand Juni 2026)
+## Verfügbare Checks (Stand Juli 2026)
 
 ### Riester-Check
 - URL: https://versicherungs-fuchs.online/riester-check
 - Frage: Lohnt sich mein Riester-Vertrag noch? Soll ich kündigen / beitragsfrei stellen?
-- 12 Fragen, 3 Minuten, 3 Bezahl-Stufen (Quick gratis, KI-Check 12,90 €, Deep-Check mit Berater 49 €)
+- 12 Fragen, ~3 Minuten, kostenlos — Sofort-Ergebnis, optionaler Deep-Check mit Vertragsupload
 - Themen: Förderquote, Kostenstruktur, Garantien, Rendite-Prognose, Auszahl-Optionen
 
 ### PKV-Check
