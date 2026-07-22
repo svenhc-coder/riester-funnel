@@ -51,20 +51,27 @@
   var r=check.score(answers);
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 
-  var html='<span class="check-hero-badge">'+esc(check.kurz)+'</span>';
+  var html='<span class="check-hero-badge">'+esc(check.kurz)+' · Ihre Orientierung</span>';
   html+='<h1 style="margin:.2em 0 .1em">'+esc(r.titel)+'</h1>';
-  html+='<div class="res-ampel '+r.ampel+'"><span class="res-dot"></span><div><b>'+esc(r.ampelLabel)+'</b>'
-    +'<div style="color:var(--muted);font-size:.92rem;margin-top:2px">Ihre persönliche Einordnung – keine Produktempfehlung.</div></div></div>';
+  html+='<div class="res-ampel '+r.ampel+'"><span class="res-dot"></span><div><b>Orientierung: '+esc(r.ampelLabel)+'</b>'
+    +'<div style="color:var(--muted);font-size:.92rem;margin-top:2px">Eine erste Einordnung auf Basis Ihrer Angaben – <strong>kein abschließendes Urteil</strong> und keine Produktempfehlung. Die Details klärt ein Berater mit Ihnen.</div></div></div>';
+  html+='<p style="color:var(--muted);line-height:1.6;margin:0 0 6px">Das sind die Punkte, die in Ihrer Lage typischerweise offen sind – und warum man sie einzeln anschauen sollte:</p>';
   r.bloecke.forEach(function(b){ html+='<div class="res-block"><h3>'+esc(b.h)+'</h3><p>'+b.t+'</p></div>'; });
+  // First-Principles: offen zeigen, was der Check NICHT wissen kann (Landkarte statt Urteil).
+  html+='<div class="res-block" style="background:transparent"><h3>Was dieser Check noch nicht weiß</h3>'
+    +'<p>Wenige Fragen können Ihre Situation nur grob einordnen. Ihr genauer Beruf, bestehende Vertragsdetails, '
+    +'Ihr Gesundheitszustand und Ihre Ziele fließen erst im persönlichen Gespräch ein. Deshalb ist das hier ein '
+    +'Ausgangspunkt – ein unabhängiger Berater bestätigt oder verfeinert die Einordnung mit Ihnen.</p></div>';
   if(r.voranfrage){
     html+='<div class="res-vor"><strong>Ihr wertvoller nächster Schritt: die anonyme Risiko-Voranfrage.</strong>'
       +'<p style="color:var(--muted);margin:.4em 0 0;line-height:1.6">Wir fragen für Sie – ohne Ihren Namen – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Chancen, bevor irgendwo ein Antrag steht. Das kostet Sie nichts.</p></div>';
   }
   // Nächster Schritt: bei Voranfrage -> Gesundheitsfragebogen; sonst -> einfaches Lead-Formular
   if(r.voranfrage){
-    html+='<div class="res-lead"><h3 style="margin:0 0 4px">Anonyme Risiko-Voranfrage starten</h3>'
-      +'<p style="color:var(--muted);margin:0 0 6px;font-size:.92rem">Sie geben Ihre Kontaktdaten + ein paar Gesundheitsangaben ein. Wir fragen dann <strong>anonym</strong> bei mehreren Versicherern an und melden uns mit Ihrem Ergebnis – Ihr Name wird dabei nicht genannt.</p>'
-      +'<a class="btn-primary btn-lg" style="width:100%;margin-top:12px;justify-content:center" href="/versicherungs-check/voranfrage/?type='+encodeURIComponent(type)+'"><span>Voranfrage &amp; Gesundheitsangaben ausfüllen</span></a></div>';
+    html+='<div class="res-lead"><h3 style="margin:0 0 4px">Ihre echten Chancen klären lassen</h3>'
+      +'<p style="color:var(--muted);margin:0 0 6px;font-size:.92rem">Wir fragen für Sie bei mehreren Versicherern vorab an, wie sie Ihre Situation einschätzen – <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht. Ihre Kontaktdaten brauchen wir nur, um Ihnen Ihr Ergebnis mitzuteilen.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted);margin:4px 0 10px"><span>✓ Kostenlos &amp; unverbindlich</span><span>✓ Keine Verpflichtung</span><span>✓ Daten verschlüsselt</span></div>'
+      +'<a class="btn-primary btn-lg" style="width:100%;justify-content:center" href="/versicherungs-check/voranfrage/?type='+encodeURIComponent(type)+'"><span>Chancen kostenlos prüfen lassen</span></a></div>';
   } else {
     html+='<div class="res-lead"><h3 style="margin:0 0 4px">Kostenlose Einordnung anfordern</h3>'
       +'<p style="color:var(--muted);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
