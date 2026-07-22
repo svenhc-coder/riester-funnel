@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="icon" type="image/png" href="/assets/img/favicon.png">
   <link rel="stylesheet" href="/assets/css/main.css">
-  <title>Anonyme Risiko-Voranfrage – VersicherungsFuchs</title>
+  <title>Ihre Chancen prüfen lassen – VersicherungsFuchs</title>
   <meta name="robots" content="noindex">
   <style>
     .vf-wrap{max-width:680px;margin:0 auto;padding:30px 20px 72px}
@@ -30,6 +30,9 @@
     .consent input{width:auto;margin-top:3px}
     .hp{position:absolute;left:-9999px}
     .foot{font-size:.8rem;color:var(--muted);margin-top:18px;line-height:1.6}
+    .trust{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted);margin:6px 0 2px}
+    #step2{display:none}
+    .doneline{color:var(--acc,#ff7a00);font-size:.85rem;margin-top:8px}
   </style>
 </head>
 <body>
@@ -37,58 +40,68 @@
   <div class="nav-links"><a href="/versicherungs-check/">Alle Checks</a></div></div></nav>
 
 <main class="vf-wrap" id="main">
-  <span class="check-hero-badge">Anonyme Risiko-Voranfrage</span>
-  <h1 style="margin:.2em 0 .3em">Ihre Chancen klären – ohne dass ein Eintrag entsteht</h1>
-  <p style="color:var(--muted);line-height:1.6">Wir fragen für Sie <strong>anonym</strong> bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Konditionen, bevor irgendwo ein Antrag steht. Kostenlos und unverbindlich. Ihr Name wird bei der Voranfrage <strong>nicht</strong> genannt.</p>
+  <span class="check-hero-badge">Kostenlose Erst-Einschätzung</span>
+  <h1 style="margin:.2em 0 .3em">Ihre echten Chancen klären lassen</h1>
+  <p style="color:var(--muted);line-height:1.6">Ein unabhängiger Berater schaut sich Ihre Situation an und meldet sich bei Ihnen – kostenlos und unverbindlich. Auf Wunsch fragen wir vorab bei mehreren Versicherern an, wie sie Ihre Situation einschätzen: <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht.</p>
 
-  <form id="vform" novalidate>
-    <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">
+  <div class="trust"><span>✓ Kostenlos &amp; unverbindlich</span><span>✓ Unabhängig, im Auftrag des Kunden</span><span>✓ Keine Verpflichtung</span></div>
 
+  <!-- SCHRITT 1: Kontakt (sichert den Lead sofort) -->
+  <form id="cform" novalidate>
+    <input class="hp" type="text" name="botcheck1" tabindex="-1" autocomplete="off">
     <div class="vf-step">
       <h2>1. Wie erreichen wir Sie?</h2>
-      <p class="sub">Damit wir uns mit Ihrem Ergebnis bei Ihnen melden können.</p>
+      <p class="sub">Damit sich ein Berater mit Ihrer Einschätzung bei Ihnen melden kann.</p>
       <div class="vf-row">
         <div><label class="fl">Vor- und Nachname</label><input type="text" name="name" autocomplete="name"></div>
-        <div><label class="fl">Telefon</label><input type="tel" name="tel" autocomplete="tel"></div>
+        <div><label class="fl">Telefon (optional)</label><input type="tel" name="tel" autocomplete="tel"></div>
       </div>
       <label class="fl">E-Mail</label><input type="email" name="email" autocomplete="email">
+      <div class="consent"><input type="checkbox" id="c1"><label for="c1">Ich willige ein, dass VersicherungsFuchs (iSurance Group) meine Angaben verarbeitet und mich zu meiner Anfrage kontaktiert. <a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>
+      <div id="cmsg" style="margin-top:10px"></div>
+      <button class="btn-primary btn-lg" id="cbtn" type="submit" style="margin-top:14px;width:100%"><span>Kostenlose Einschätzung anfordern</span></button>
+      <p class="sub" style="margin:10px 0 0;text-align:center">Optional geht es danach weiter mit einer anonymen Voranfrage bei den Versicherern.</p>
     </div>
-
-    <div class="vf-step">
-      <h2>2. Ein paar Eckdaten</h2>
-      <p class="sub">Für die Einschätzung der Versicherer.</p>
-      <div class="vf-row">
-        <div><label class="fl">Größe (cm)</label><input type="number" name="groesse" min="100" max="230" inputmode="numeric"></div>
-        <div><label class="fl">Gewicht (kg)</label><input type="number" name="gewicht" min="30" max="300" inputmode="numeric"></div>
-      </div>
-      <div class="gitem"><div class="gq"><span class="lbl">Rauchen Sie?</span>
-        <span class="toggle" data-field="raucher"><button type="button" data-v="ja">Ja</button><button type="button" data-v="nein">Nein</button></span></div></div>
-    </div>
-
-    <div class="vf-step">
-      <h2>3. Gesundheit</h2>
-      <p class="sub">Bitte ehrlich und vollständig – nur so ist die Voranfrage aussagekräftig. Bei „Ja" hilft eine kurze Angabe (was, seit wann, ausgeheilt?).</p>
-      <div id="gliste"></div>
-      <label class="fl" style="margin-top:14px">Wurden Sie in den letzten 5 Jahren untersucht, beraten oder behandelt (außer Vorsorge)? Wenn ja, kurz:</label>
-      <textarea name="behandlungen"></textarea>
-      <label class="fl">Nehmen Sie regelmäßig Medikamente (länger als 7 Tage)? Wenn ja, welche:</label>
-      <textarea name="medikamente"></textarea>
-      <div class="gitem"><div class="gq"><span class="lbl">Besteht eine Minderung der Erwerbsfähigkeit / Schwerbehinderung (GdB)?</span>
-        <span class="toggle" data-field="erwerbsminderung"><button type="button" data-v="ja">Ja</button><button type="button" data-v="nein">Nein</button></span></div>
-        <div class="gdetail" data-for="erwerbsminderung"><input type="text" name="erwerbsminderung_detail" placeholder="Grad in %, seit wann"></div></div>
-    </div>
-
-    <div class="vf-step">
-      <h2>4. Ihre Einwilligung</h2>
-      <div class="consent"><input type="checkbox" id="c1">
-        <label for="c1">Ich willige ein, dass VersicherungsFuchs (iSurance Group) meine Angaben zur Bearbeitung meiner Anfrage verarbeitet und mich dazu kontaktiert. <a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>
-      <div class="consent"><input type="checkbox" id="c2">
-        <label for="c2"><strong>Gesundheitsdaten (Art. 9 DSGVO):</strong> Ich willige ausdrücklich ein, dass meine Gesundheitsangaben für eine <strong>anonymisierte Risiko-Voranfrage</strong> an spezialisierte Dienstleister und Versicherer weitergegeben werden. Mein Name wird dabei nicht übermittelt. Die Einwilligung ist jederzeit widerrufbar.</label></div>
-      <div id="vmsg" style="margin-top:12px"></div>
-      <button class="btn-primary btn-lg" id="vbtn" type="submit" style="margin-top:16px;width:100%"><span>Anonyme Voranfrage jetzt starten</span></button>
-    </div>
-    <p class="foot">Diese Voranfrage ist kostenlos und unverbindlich. Sobald uns das Ergebnis der Versicherer vorliegt, melden wir uns bei Ihnen. §&nbsp;34d GewO – keine Anlage- oder Rechtsberatung. <a href="/versicherungs-check/" style="color:var(--acc)">Zurück zu den Checks</a></p>
   </form>
+
+  <!-- SCHRITT 2: Gesundheitsangaben (optional, für die anonyme Voranfrage) -->
+  <div id="step2">
+    <div class="doneline" id="doneline">✓ Ihre Anfrage ist eingegangen – ein Berater meldet sich.</div>
+    <form id="vform" novalidate>
+      <input class="hp" type="text" name="botcheck2" tabindex="-1" autocomplete="off">
+      <div class="vf-step">
+        <h2>2. Optional: Anonyme Voranfrage bei den Versicherern</h2>
+        <p class="sub">Mit ein paar Gesundheitsangaben fragen wir – <strong>ohne Ihren Namen</strong> – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So wissen Sie Ihre Chancen, ohne dass ein Antrag oder Eintrag entsteht. Sie können das auch überspringen und alles im Gespräch klären.</p>
+        <div class="vf-row">
+          <div><label class="fl">Größe (cm)</label><input type="number" name="groesse" min="100" max="230" inputmode="numeric"></div>
+          <div><label class="fl">Gewicht (kg)</label><input type="number" name="gewicht" min="30" max="300" inputmode="numeric"></div>
+        </div>
+        <div class="gitem"><div class="gq"><span class="lbl">Rauchen Sie?</span>
+          <span class="toggle" data-field="raucher"><button type="button" data-v="ja">Ja</button><button type="button" data-v="nein">Nein</button></span></div></div>
+      </div>
+      <div class="vf-step">
+        <h2>Gesundheit</h2>
+        <p class="sub">Bitte ehrlich und vollständig – nur so ist die Voranfrage aussagekräftig. Bei „Ja" hilft eine kurze Angabe (was, seit wann, ausgeheilt?).</p>
+        <div id="gliste"></div>
+        <label class="fl" style="margin-top:14px">Wurden Sie in den letzten 5 Jahren untersucht, beraten oder behandelt (außer Vorsorge)? Wenn ja, kurz:</label>
+        <textarea name="behandlungen"></textarea>
+        <label class="fl">Nehmen Sie regelmäßig Medikamente (länger als 7 Tage)? Wenn ja, welche:</label>
+        <textarea name="medikamente"></textarea>
+        <div class="gitem"><div class="gq"><span class="lbl">Besteht eine Minderung der Erwerbsfähigkeit / Schwerbehinderung (GdB)?</span>
+          <span class="toggle" data-field="erwerbsminderung"><button type="button" data-v="ja">Ja</button><button type="button" data-v="nein">Nein</button></span></div>
+          <div class="gdetail" data-for="erwerbsminderung"><input type="text" name="erwerbsminderung_detail" placeholder="Grad in %, seit wann"></div></div>
+      </div>
+      <div class="vf-step">
+        <h2>Einwilligung Gesundheitsdaten</h2>
+        <div class="consent"><input type="checkbox" id="c2">
+          <label for="c2"><strong>Gesundheitsdaten (Art. 9 DSGVO):</strong> Ich willige ausdrücklich ein, dass meine Gesundheitsangaben für eine <strong>anonymisierte Risiko-Voranfrage</strong> an spezialisierte Dienstleister und Versicherer weitergegeben werden. Mein Name wird dabei nicht übermittelt. Jederzeit widerrufbar.</label></div>
+        <div id="vmsg" style="margin-top:12px"></div>
+        <button class="btn-primary btn-lg" id="vbtn" type="submit" style="margin-top:16px;width:100%"><span>Anonyme Voranfrage absenden</span></button>
+      </div>
+    </form>
+  </div>
+
+  <p class="foot">Kostenlos und unverbindlich. Sobald uns Ergebnisse vorliegen, melden wir uns. §&nbsp;34d GewO – keine Anlage- oder Rechtsberatung. <a href="/versicherungs-check/" style="color:var(--acc)">Zurück zu den Checks</a></p>
 </main>
 
 <script src="/assets/js/state.js"></script>
@@ -97,35 +110,52 @@
 (function(){
   var params=new URLSearchParams(location.search);
   var type=(params.get('type')||'').toLowerCase();
-  // Eine request_id (echtes UUID v4) pro Fragebogen-Sitzung — Idempotenz gegen Doppel-Submits/Retries.
-  function _uuid4(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);return v.toString(16);});}
-  var REQUEST_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():_uuid4();
   var check=window.VF_CHECKS[type];
   var KEY='vf_ans_'+type;
   var checkAns={}; try{checkAns=JSON.parse(sessionStorage.getItem(KEY))||{};}catch(e){}
   var checkErg = check ? check.score(checkAns) : null;
+  var REQUEST_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():('xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);return v.toString(16);}));
+  var API='https://api.versicherungs-fuchs.online';
+  var extra=function(){return window.vfExtra?window.vfExtra():{};};
 
-  // Gesundheits-Kategorien (aus echten iwv-BU-Gesundheitsfragen §19 VVG)
+  // ---- SCHRITT 1: Kontakt -> Lead sofort an die zentrale Bridge (auch wenn Schritt 2 abgebrochen wird) ----
+  var cf=document.getElementById('cform');
+  cf.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(cf.botcheck1.value)return;
+    var msg=document.getElementById('cmsg'), btn=document.getElementById('cbtn');
+    var name=(cf.name.value||'').trim(), email=(cf.email.value||'').trim();
+    if(!name){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie Ihren Namen an.</span>'; return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie eine gültige E-Mail an.</span>'; cf.email.focus(); return; }
+    if(!document.getElementById('c1').checked){ msg.innerHTML='<span style="color:#ffb4a8">Bitte bestätigen Sie die Einwilligung.</span>'; return; }
+    btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
+    fetch(API+'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name,email:email,answers:checkAns,source:(check&&check.leadSource||type),ampel_status:checkErg?checkErg.ampel:null,
+        extra:Object.assign({tel:(cf.tel.value||'').trim(),request_id:REQUEST_ID}, extra())})})
+    .then(function(r){return r.json().catch(function(){return{};});}).then(function(){
+      // Lead gesichert -> Schritt 2 (optionaler Gesundheitsbogen) freigeben
+      cf.querySelector('.vf-step').style.opacity='.55';
+      btn.style.display='none';
+      document.getElementById('step2').style.display='block';
+      document.getElementById('step2').scrollIntoView({behavior:'smooth',block:'start'});
+    }).catch(function(){
+      btn.disabled=false; btn.querySelector('span').textContent='Kostenlose Einschätzung anfordern';
+      msg.innerHTML='<span style="color:#ffb4a8">Senden nicht möglich. Bitte per E-Mail an <a href="mailto:info@versicherungs-fuchs.online">info@versicherungs-fuchs.online</a>.</span>';
+    });
+  });
+
+  // ---- SCHRITT 2: Gesundheitsfragebogen ----
   var KATS=[
-    ['herz_kreislauf','Herz, Kreislauf, Gefäße'],
-    ['lunge_atemwege','Lunge, Bronchien, Atemwege, Nase'],
-    ['verdauung','Speiseröhre, Magen, Darm, Leber, Galle'],
-    ['nieren_harn','Nieren, Harnwege, Geschlechtsorgane'],
-    ['stoffwechsel','Stoffwechsel, Blut, Schilddrüse (z. B. Diabetes)'],
-    ['nerven','Gehirn, Nervensystem (z. B. Migräne, Epilepsie)'],
-    ['ruecken_gelenke','Rücken, Gelenke, Muskeln, Wirbelsäule, Bandscheiben'],
-    ['ohren_augen','Ohren, Augen (Sehhilfe über 6 Dioptrien)'],
-    ['haut_allergien','Haut oder Allergien'],
-    ['infekt','Infektionskrankheiten'],
-    ['psyche_sucht','Psyche, Suchterkrankungen (z. B. Therapie, Burnout)']
-  ];
-  var gliste=document.getElementById('gliste');
-  gliste.innerHTML=KATS.map(function(k){
+    ['herz_kreislauf','Herz, Kreislauf, Gefäße'],['lunge_atemwege','Lunge, Bronchien, Atemwege, Nase'],
+    ['verdauung','Speiseröhre, Magen, Darm, Leber, Galle'],['nieren_harn','Nieren, Harnwege, Geschlechtsorgane'],
+    ['stoffwechsel','Stoffwechsel, Blut, Schilddrüse (z. B. Diabetes)'],['nerven','Gehirn, Nervensystem (z. B. Migräne, Epilepsie)'],
+    ['ruecken_gelenke','Rücken, Gelenke, Muskeln, Wirbelsäule, Bandscheiben'],['ohren_augen','Ohren, Augen (Sehhilfe über 6 Dioptrien)'],
+    ['haut_allergien','Haut oder Allergien'],['infekt','Infektionskrankheiten'],['psyche_sucht','Psyche, Suchterkrankungen (z. B. Therapie, Burnout)']];
+  document.getElementById('gliste').innerHTML=KATS.map(function(k){
     return '<div class="gitem"><div class="gq"><span class="lbl">'+k[1]+'</span>'
       +'<span class="toggle" data-field="'+k[0]+'"><button type="button" data-v="ja">Ja</button><button type="button" data-v="nein">Nein</button></span></div>'
       +'<div class="gdetail" data-for="'+k[0]+'"><input type="text" name="'+k[0]+'_detail" placeholder="Was, seit wann, ausgeheilt?"></div></div>';
   }).join('');
-
   var state={};
   document.querySelectorAll('.toggle').forEach(function(tg){
     var field=tg.dataset.field;
@@ -137,47 +167,38 @@
       if(det) det.classList.toggle('show', b.dataset.v==='ja');
     });
   });
-
-  document.getElementById('vform').addEventListener('submit',function(e){
-    e.preventDefault();
-    var f=e.target; if(f.botcheck.value)return;
+  var vf=document.getElementById('vform');
+  vf.addEventListener('submit',function(e){
+    e.preventDefault(); if(vf.botcheck2.value)return;
     var msg=document.getElementById('vmsg'), btn=document.getElementById('vbtn');
-    var email=(f.email.value||'').trim();
-    if(!(f.name.value||'').trim()){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie Ihren Namen an.</span>'; return; }
-    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie eine gültige E-Mail an.</span>'; return; }
-    if(!document.getElementById('c1').checked||!document.getElementById('c2').checked){ msg.innerHTML='<span style="color:#ffb4a8">Für die anonyme Voranfrage benötigen wir beide Einwilligungen (inkl. Gesundheitsdaten).</span>'; return; }
-
+    // Alle Gesundheitskategorien müssen beantwortet sein (kein stilles "Nein").
+    var offen=KATS.map(function(k){return k[0];}).concat(['raucher','erwerbsminderung']).filter(function(f){return !state[f];});
+    if(offen.length){ msg.innerHTML='<span style="color:#ffb4a8">Bitte beantworten Sie alle Gesundheitsfragen mit Ja oder Nein ('+offen.length+' offen).</span>'; return; }
+    if(!document.getElementById('c2').checked){ msg.innerHTML='<span style="color:#ffb4a8">Für die anonyme Voranfrage benötigen wir die Einwilligung zu den Gesundheitsdaten.</span>'; return; }
     var bereiche={};
     KATS.concat([['erwerbsminderung','']]).forEach(function(k){
-      var ja=state[k[0]]==='ja';
-      var d=f.querySelector('[name="'+k[0]+'_detail"]');
+      var ja=state[k[0]]==='ja'; var d=vf.querySelector('[name="'+k[0]+'_detail"]');
       bereiche[k[0]]={ja:ja, detail:ja&&d?(d.value||'').trim():''};
     });
-    var payload={
-      quelle:'vf-voranfrage', request_id:REQUEST_ID, check_typ:type,
+    var payload={quelle:'vf-voranfrage', request_id:REQUEST_ID, check_typ:type,
       check_antworten:checkAns, check_ergebnis:checkErg?{ampel:checkErg.ampel,titel:checkErg.titel}:null,
-      kontakt:{name:f.name.value.trim(), email:email, tel:(f.tel.value||'').trim()},
-      gesundheit:{
-        groesse_cm:parseInt(f.groesse.value,10)||null, gewicht_kg:parseInt(f.gewicht.value,10)||null,
-        raucher: state.raucher==='ja',
-        bereiche:bereiche,
-        behandlungen_5j:(f.behandlungen.value||'').trim(),
-        medikamente_5j:(f.medikamente.value||'').trim()
-      },
+      kontakt:{name:(cf.name.value||'').trim(), email:(cf.email.value||'').trim(), tel:(cf.tel.value||'').trim()},
+      gesundheit:{groesse_cm:parseInt(vf.groesse.value,10)||null, gewicht_kg:parseInt(vf.gewicht.value,10)||null,
+        raucher: state.raucher==='ja', bereiche:bereiche,
+        behandlungen_5j:(vf.behandlungen.value||'').trim(), medikamente_5j:(vf.medikamente.value||'').trim()},
       einwilligungen:{datenverarbeitung:true, dvs_weiterleitung:true, gesundheitsdaten_art9:true, text_version:'v1'},
-      handoff:'dvs', source:(check&&check.leadSource||type)+'-voranfrage'
-    };
+      handoff:'dvs', source:(check&&check.leadSource||type)+'-voranfrage', utm:extra().utm||{}, landing_page:extra().landing_page};
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
-    fetch('https://api.versicherungs-fuchs.online/api/voranfrage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    fetch(API+'/api/voranfrage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
       .then(function(r){ if(!r.ok&&r.status!==409) throw new Error('status '+r.status); return r.json().catch(function(){return {};}); }).then(function(){
         document.getElementById('main').innerHTML='<span class="check-hero-badge">Eingegangen</span>'
           +'<h1 style="margin:.2em 0 .3em">Danke – wir kümmern uns darum.</h1>'
-          +'<p style="color:var(--muted);line-height:1.7">Wir stellen jetzt die <strong>anonyme Risiko-Voranfrage</strong> bei mehreren Versicherern. Das dauert in der Regel einige Tage. <strong>Sobald uns Ihr Ergebnis vorliegt, melden wir uns bei Ihnen</strong> – telefonisch oder per E-Mail. Ihr Name wurde bei der Anfrage nicht genannt.</p>'
+          +'<p style="color:var(--muted);line-height:1.7">Wir stellen jetzt die <strong>anonyme Risiko-Voranfrage</strong> bei mehreren Versicherern. Das dauert in der Regel einige Tage. <strong>Sobald uns Ihr Ergebnis vorliegt, melden wir uns bei Ihnen.</strong> Ihr Name wurde bei der Anfrage nicht genannt.</p>'
           +'<p style="margin-top:20px"><a class="btn-primary" href="/versicherungs-check/">Zu den Checks</a></p>';
         window.scrollTo(0,0);
       }).catch(function(){
-        btn.disabled=false; btn.querySelector('span').textContent='Anonyme Voranfrage jetzt starten';
-        msg.innerHTML='<span style="color:#ffb4a8">Senden nicht möglich. Bitte per E-Mail an <a href="mailto:info@versicherungs-fuchs.online">info@versicherungs-fuchs.online</a>.</span>';
+        btn.disabled=false; btn.querySelector('span').textContent='Anonyme Voranfrage absenden';
+        msg.innerHTML='<span style="color:#ffb4a8">Senden nicht möglich. Ihre Kontaktanfrage ist aber bereits eingegangen – wir melden uns.</span>';
       });
   });
 })();
