@@ -37,7 +37,7 @@
 </main>
 
 <script src="/assets/js/state.js"></script>
-<script src="/assets/js/vf-checks.js?v=20260722b"></script>
+<script src="/assets/js/vf-checks.js"></script>
 <script>
 (function(){
   var params=new URLSearchParams(window.location.search);
@@ -60,19 +60,25 @@
     html+='<div class="res-vor"><strong>Ihr wertvoller nächster Schritt: die anonyme Risiko-Voranfrage.</strong>'
       +'<p style="color:var(--muted);margin:.4em 0 0;line-height:1.6">Wir fragen für Sie – ohne Ihren Namen – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Chancen, bevor irgendwo ein Antrag steht. Das kostet Sie nichts.</p></div>';
   }
-  // Lead
-  html+='<div class="res-lead"><h3 style="margin:0 0 4px">'+(r.voranfrage?'Anonyme Voranfrage & Einordnung anfordern':'Kostenlose Einordnung anfordern')+'</h3>'
-    +'<p style="color:var(--muted);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
-    +'<form id="leadform" novalidate>'
-    +'<input class="res-hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">'
-    +'<label>Name</label><input name="name" autocomplete="name">'
-    +'<label>E-Mail</label><input name="email" type="email" autocomplete="email">'
-    +'<label>Telefon (optional)</label><input name="tel" type="tel" autocomplete="tel">'
-    +'<div class="consent"><input type="checkbox" id="cons" style="width:auto"><label for="cons" style="margin:0">Ich bin einverstanden, dass mich VersicherungsFuchs zu meiner Anfrage kontaktiert. '
-    +'<a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>'
-    +'<div id="lead-msg" style="margin-top:10px"></div>'
-    +'<button class="btn-primary btn-lg" id="lead-btn" type="submit" style="margin-top:14px;width:100%"><span>Jetzt anfordern</span></button>'
-    +'</form></div>';
+  // Nächster Schritt: bei Voranfrage -> Gesundheitsfragebogen; sonst -> einfaches Lead-Formular
+  if(r.voranfrage){
+    html+='<div class="res-lead"><h3 style="margin:0 0 4px">Anonyme Risiko-Voranfrage starten</h3>'
+      +'<p style="color:var(--muted);margin:0 0 6px;font-size:.92rem">Sie geben Ihre Kontaktdaten + ein paar Gesundheitsangaben ein. Wir fragen dann <strong>anonym</strong> bei mehreren Versicherern an und melden uns mit Ihrem Ergebnis – Ihr Name wird dabei nicht genannt.</p>'
+      +'<a class="btn-primary btn-lg" style="width:100%;margin-top:12px;justify-content:center" href="/versicherungs-check/voranfrage/?type='+encodeURIComponent(type)+'"><span>Voranfrage &amp; Gesundheitsangaben ausfüllen</span></a></div>';
+  } else {
+    html+='<div class="res-lead"><h3 style="margin:0 0 4px">Kostenlose Einordnung anfordern</h3>'
+      +'<p style="color:var(--muted);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
+      +'<form id="leadform" novalidate>'
+      +'<input class="res-hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">'
+      +'<label>Name</label><input name="name" autocomplete="name">'
+      +'<label>E-Mail</label><input name="email" type="email" autocomplete="email">'
+      +'<label>Telefon (optional)</label><input name="tel" type="tel" autocomplete="tel">'
+      +'<div class="consent"><input type="checkbox" id="cons" style="width:auto"><label for="cons" style="margin:0">Ich bin einverstanden, dass mich VersicherungsFuchs zu meiner Anfrage kontaktiert. '
+      +'<a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>'
+      +'<div id="lead-msg" style="margin-top:10px"></div>'
+      +'<button class="btn-primary btn-lg" id="lead-btn" type="submit" style="margin-top:14px;width:100%"><span>Jetzt anfordern</span></button>'
+      +'</form></div>';
+  }
   html+='<p class="res-foot">Diese Einordnung dient der neutralen Information nach §&nbsp;34d GewO und ersetzt keine individuelle Beratung. '
     +'<a href="/versicherungs-check/" style="color:var(--acc)">Zurück zu allen Checks</a></p>';
 
