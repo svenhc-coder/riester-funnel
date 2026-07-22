@@ -168,7 +168,7 @@
       handoff:'dvs', source:(check&&check.leadSource||type)+'-voranfrage'
     };
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
-    fetch('/api/voranfrage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    fetch('https://api.versicherungs-fuchs.online/api/voranfrage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
       .then(function(r){ if(!r.ok&&r.status!==409) throw new Error('status '+r.status); return r.json().catch(function(){return {};}); }).then(function(){
         document.getElementById('main').innerHTML='<span class="check-hero-badge">Eingegangen</span>'
           +'<h1 style="margin:.2em 0 .3em">Danke – wir kümmern uns darum.</h1>'

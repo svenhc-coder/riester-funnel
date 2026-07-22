@@ -93,7 +93,7 @@
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie eine gültige E-Mail-Adresse an.</span>'; f.email.focus(); return; }
     if(!document.getElementById('cons').checked){ msg.innerHTML='<span style="color:#ffb4a8">Bitte bestätigen Sie die Einwilligung.</span>'; return; }
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
-    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+    fetch('https://api.versicherungs-fuchs.online/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name,email:email,tel:f.tel.value.trim(),answers:answers,
         source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage})})
     .then(function(x){return x.json();}).then(function(j){
