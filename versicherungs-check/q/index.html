@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <title>Check – VersicherungsFuchs</title>
+  <meta name="robots" content="noindex">
+</head>
+<body>
+<div id="root">
+  <div class="funnel-wrap" id="funnel">
+    <div class="funnel-header">
+      <a href="/" class="funnel-logo"><img src="/assets/img/logo.png" height="32" alt="VersicherungsFuchs"></a>
+      <button class="funnel-back" id="btn-back">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span>Zurück</span>
+      </button>
+      <div class="funnel-progress-wrap">
+        <div class="funnel-progress-bar"><div class="funnel-progress-fill" id="prog-fill"></div></div>
+        <span class="funnel-progress-label" id="prog-label"></span>
+      </div>
+      <a href="/versicherungs-check/" class="funnel-exit">&larr; Übersicht</a>
+    </div>
+    <div class="funnel-body" id="funnel-body"></div>
+  </div>
+</div>
+<script src="/assets/js/animations.js"></script>
+<script src="/assets/js/brand.js"></script>
+<script src="/assets/js/state.js"></script>
+<script src="/assets/js/funnel-fox.js"></script>
+<script src="/assets/js/vf-checks.js"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var type   = (params.get('type')||'').toLowerCase();
+  var qIndex = parseInt(params.get('n')||'0',10);
+  var check  = window.VF_CHECKS[type];
+  if(!check){ window.location.replace('/versicherungs-check/'); return; }
+  if(isNaN(qIndex)||qIndex<0) qIndex=0;
+
+  // Antworten sind pro Check-Typ getrennt gespeichert.
+  var KEY='vf_ans_'+type;
+  function getAns(){ try{return JSON.parse(sessionStorage.getItem(KEY))||{};}catch(e){return {};} }
+  function setAns(a){ sessionStorage.setItem(KEY, JSON.stringify(a)); }
+
+  var answers = getAns();
+  var QLIST = window.vfCheckQuestions(type, answers);
+  var total = QLIST.length;
+  if(qIndex>=total){ window.location.replace('/versicherungs-check/ergebnis/?type='+type); return; }
+  if(qIndex>0 && Object.keys(answers).length===0){ window.location.replace('/versicherungs-check/q/?type='+type+'&n=0'); return; }
+
+  var q = QLIST[qIndex];
+  var selected = answers[q.id]||null;
+  var pct = Math.round((qIndex/total)*100);
+  document.getElementById('prog-fill').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = 'Frage '+(qIndex+1)+' von '+total;
+  document.title = 'Frage '+(qIndex+1)+' von '+total+' – '+check.kurz;
+  document.querySelector('.funnel-exit').setAttribute('href','/versicherungs-check/');
+
+  document.getElementById('btn-back').addEventListener('click',function(){
+    if(qIndex===0){ window.location.href='/versicherungs-check/'; }
+    else{ sessionStorage.setItem('vf_dir','left'); window.location.href='/versicherungs-check/q/?type='+type+'&n='+(qIndex-1); }
+  });
+
+  var hint = q.hint?'<p class="funnel-hint"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg> '+q.hint+'</p>':'';
+  var opts = q.options.map(function(opt){
+    var isSel=selected===opt.value;
+    return '<button class="funnel-option'+(isSel?' funnel-option-selected':'')+'" data-value="'+opt.value+'">'
+      +'<span class="funnel-option-radio">'+(isSel?'<span class="funnel-option-radio-inner"></span>':'')+'</span>'
+      +'<span class="funnel-option-label">'+opt.label+'</span></button>';
+  }).join('');
+
+  var body = document.getElementById('funnel-body');
+  body.innerHTML='<div class="funnel-question-num">Frage '+(qIndex+1)+' von '+total+'</div>'
+    +'<h2 class="funnel-question">'+q.question+'</h2>'+hint
+    +'<div class="funnel-options" id="options">'+opts+'</div>'
+    +'<button class="btn-primary btn-lg funnel-next'+(selected?'':' funnel-next-disabled')+'" id="btn-next"'+(selected?'':' disabled')+'>'
+    +'<span>'+(qIndex===total-1?'Ergebnis anzeigen':'Weiter')+'</span>'
+    +'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>';
+
+  var dir=sessionStorage.getItem('vf_dir')||'right'; sessionStorage.removeItem('vf_dir');
+  if(window.VF&&window.VF.funnelBuildIn){ VF.funnelBuildIn(body,dir); } else if(window.VF&&window.VF.slideIn){ VF.slideIn(body,dir); }
+
+  document.getElementById('options').addEventListener('click',function(e){
+    var btn=e.target.closest('.funnel-option'); if(!btn)return;
+    selected=btn.dataset.value;
+    document.querySelectorAll('.funnel-option').forEach(function(b){
+      b.classList.toggle('funnel-option-selected',b.dataset.value===selected);
+      b.querySelector('.funnel-option-radio').innerHTML=b.dataset.value===selected?'<span class="funnel-option-radio-inner"></span>':'';
+    });
+    var nxt=document.getElementById('btn-next'); nxt.disabled=false; nxt.classList.remove('funnel-next-disabled');
+  });
+
+  document.getElementById('btn-next').addEventListener('click',function(){
+    if(!selected)return;
+    var ans=getAns(); ans[q.id]=selected; setAns(ans);
+    // Verzweigung kann die Liste verändert haben -> Gesamtzahl neu bestimmen
+    var newTotal = window.vfCheckQuestions(type, ans).length;
+    if(qIndex>=newTotal-1){ window.location.href='/versicherungs-check/ergebnis/?type='+type; }
+    else{ sessionStorage.setItem('vf_dir','right'); window.location.href='/versicherungs-check/q/?type='+type+'&n='+(qIndex+1); }
+  });
+})();
+</script>
+<script src="/assets/js/smooth-scroll.js" defer></script>
+</body>
+</html>

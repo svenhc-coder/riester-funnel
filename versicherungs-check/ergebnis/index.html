@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <title>Ihr Ergebnis – VersicherungsFuchs</title>
+  <meta name="robots" content="noindex">
+  <style>
+    .res-wrap{max-width:680px;margin:0 auto;padding:32px 20px 64px}
+    .res-ampel{display:flex;align-items:center;gap:16px;border-radius:16px;padding:20px 22px;margin:14px 0 26px;border:1.5px solid}
+    .res-ampel.rot{background:rgba(210,60,50,.10);border-color:rgba(210,60,50,.5)}
+    .res-ampel.gelb{background:rgba(255,160,0,.10);border-color:rgba(255,160,0,.5)}
+    .res-ampel.gruen{background:rgba(60,160,90,.12);border-color:rgba(60,160,90,.5)}
+    .res-dot{width:16px;height:16px;border-radius:50%;flex:0 0 auto}
+    .rot .res-dot{background:#d23c32}.gelb .res-dot{background:#ffa000}.gruen .res-dot{background:#3ca05a}
+    .res-ampel b{font-size:1.05rem}
+    .res-block{border:1px solid var(--border,rgba(255,255,255,.08));border-radius:14px;padding:18px 20px;margin-bottom:14px;background:rgba(255,255,255,.02)}
+    .res-block h3{margin:0 0 6px;font-size:1.05rem}
+    .res-block p{margin:0;color:var(--muted);line-height:1.6}
+    .res-vor{border:1px solid var(--acc,#ff7a00);background:rgba(255,122,0,.07);border-radius:14px;padding:18px 20px;margin:18px 0}
+    .res-lead{background:rgba(255,255,255,.03);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:16px;padding:22px;margin-top:26px}
+    .res-lead label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+    .res-lead input{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--border,rgba(255,255,255,.14));background:rgba(0,0,0,.25);color:inherit;font-size:1rem}
+    .res-lead .consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:.85rem;color:var(--muted)}
+    .res-hp{position:absolute;left:-9999px}
+    .res-foot{font-size:.8rem;color:var(--muted);margin-top:22px;line-height:1.6;border-top:1px solid var(--border,rgba(255,255,255,.08));padding-top:16px}
+  </style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="/" class="nav-logo"><img src="/assets/img/logo.png" height="42" alt="VersicherungsFuchs"></a>
+  <div class="nav-links"><a href="/versicherungs-check/">Alle Checks</a></div></div></nav>
+
+<main class="res-wrap" id="res">
+  <p style="color:var(--muted)">Ihr Ergebnis wird geladen …</p>
+</main>
+
+<script src="/assets/js/state.js"></script>
+<script src="/assets/js/vf-checks.js"></script>
+<script>
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var type=(params.get('type')||'').toLowerCase();
+  var check=window.VF_CHECKS[type];
+  if(!check){ window.location.replace('/versicherungs-check/'); return; }
+  var KEY='vf_ans_'+type;
+  var answers={}; try{answers=JSON.parse(sessionStorage.getItem(KEY))||{};}catch(e){}
+  if(!answers || Object.keys(answers).length<3){ window.location.replace('/versicherungs-check/q/?type='+type+'&n=0'); return; }
+
+  var r=check.score(answers);
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+
+  var html='<span class="check-hero-badge">'+esc(check.kurz)+'</span>';
+  html+='<h1 style="margin:.2em 0 .1em">'+esc(r.titel)+'</h1>';
+  html+='<div class="res-ampel '+r.ampel+'"><span class="res-dot"></span><div><b>'+esc(r.ampelLabel)+'</b>'
+    +'<div style="color:var(--muted);font-size:.92rem;margin-top:2px">Ihre persönliche Einordnung – keine Produktempfehlung.</div></div></div>';
+  r.bloecke.forEach(function(b){ html+='<div class="res-block"><h3>'+esc(b.h)+'</h3><p>'+b.t+'</p></div>'; });
+  if(r.voranfrage){
+    html+='<div class="res-vor"><strong>Ihr wertvoller nächster Schritt: die anonyme Risiko-Voranfrage.</strong>'
+      +'<p style="color:var(--muted);margin:.4em 0 0;line-height:1.6">Wir fragen für Sie – ohne Ihren Namen – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Chancen, bevor irgendwo ein Antrag steht. Das kostet Sie nichts.</p></div>';
+  }
+  // Lead
+  html+='<div class="res-lead"><h3 style="margin:0 0 4px">'+(r.voranfrage?'Anonyme Voranfrage & Einordnung anfordern':'Kostenlose Einordnung anfordern')+'</h3>'
+    +'<p style="color:var(--muted);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
+    +'<form id="leadform" novalidate>'
+    +'<input class="res-hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">'
+    +'<label>Name</label><input name="name" autocomplete="name">'
+    +'<label>E-Mail</label><input name="email" type="email" autocomplete="email">'
+    +'<label>Telefon (optional)</label><input name="tel" type="tel" autocomplete="tel">'
+    +'<div class="consent"><input type="checkbox" id="cons" style="width:auto"><label for="cons" style="margin:0">Ich bin einverstanden, dass mich VersicherungsFuchs zu meiner Anfrage kontaktiert. '
+    +'<a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>'
+    +'<div id="lead-msg" style="margin-top:10px"></div>'
+    +'<button class="btn-primary btn-lg" id="lead-btn" type="submit" style="margin-top:14px;width:100%"><span>Jetzt anfordern</span></button>'
+    +'</form></div>';
+  html+='<p class="res-foot">Diese Einordnung dient der neutralen Information nach §&nbsp;34d GewO und ersetzt keine individuelle Beratung. '
+    +'<a href="/versicherungs-check/" style="color:var(--acc)">Zurück zu allen Checks</a></p>';
+
+  document.getElementById('res').innerHTML=html;
+
+  var f=document.getElementById('leadform');
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(f.botcheck.value) return;
+    var msg=document.getElementById('lead-msg'), btn=document.getElementById('lead-btn');
+    var name=f.name.value.trim(), email=f.email.value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ msg.innerHTML='<span style="color:#ffb4a8">Bitte geben Sie eine gültige E-Mail-Adresse an.</span>'; f.email.focus(); return; }
+    if(!document.getElementById('cons').checked){ msg.innerHTML='<span style="color:#ffb4a8">Bitte bestätigen Sie die Einwilligung.</span>'; return; }
+    btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
+    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({name:name,email:email,tel:f.tel.value.trim(),answers:answers,
+        source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage})})
+    .then(function(x){return x.json();}).then(function(j){
+      msg.innerHTML='<div class="res-vor" style="margin:0"><strong>Danke! Ihre Anfrage ist bei uns eingegangen.</strong>'
+        +'<p style="color:var(--muted);margin:.3em 0 0">Ein unabhängiger Berater meldet sich bei Ihnen.</p></div>';
+      f.querySelector('#lead-btn').style.display='none';
+    }).catch(function(){
+      btn.disabled=false; btn.querySelector('span').textContent='Jetzt anfordern';
+      msg.innerHTML='<span style="color:#ffb4a8">Senden nicht möglich. Bitte per E-Mail an <a href="mailto:info@versicherungs-fuchs.online">info@versicherungs-fuchs.online</a>.</span>';
+    });
+  });
+})();
+</script>
+</body>
+</html>
