@@ -97,6 +97,8 @@
 (function(){
   var params=new URLSearchParams(location.search);
   var type=(params.get('type')||'').toLowerCase();
+  // Eine request_id pro Fragebogen-Sitzung (Idempotenz gegen Doppel-Submits/Retries).
+  var REQUEST_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now()+'-'+Math.random().toString(36).slice(2));
   var check=window.VF_CHECKS[type];
   var KEY='vf_ans_'+type;
   var checkAns={}; try{checkAns=JSON.parse(sessionStorage.getItem(KEY))||{};}catch(e){}
@@ -151,7 +153,7 @@
       bereiche[k[0]]={ja:ja, detail:ja&&d?(d.value||'').trim():''};
     });
     var payload={
-      quelle:'vf-voranfrage', check_typ:type,
+      quelle:'vf-voranfrage', request_id:REQUEST_ID, check_typ:type,
       check_antworten:checkAns, check_ergebnis:checkErg?{ampel:checkErg.ampel,titel:checkErg.titel}:null,
       kontakt:{name:f.name.value.trim(), email:email, tel:(f.tel.value||'').trim()},
       gesundheit:{
@@ -165,8 +167,8 @@
       handoff:'dvs', source:(check&&check.leadSource||type)+'-voranfrage'
     };
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
-    fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-      .then(function(r){return r.json();}).then(function(){
+    fetch('/api/voranfrage',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){ if(!r.ok&&r.status!==409) throw new Error('status '+r.status); return r.json().catch(function(){return {};}); }).then(function(){
         document.getElementById('main').innerHTML='<span class="check-hero-badge">Eingegangen</span>'
           +'<h1 style="margin:.2em 0 .3em">Danke – wir kümmern uns darum.</h1>'
           +'<p style="color:var(--muted);line-height:1.7">Wir stellen jetzt die <strong>anonyme Risiko-Voranfrage</strong> bei mehreren Versicherern. Das dauert in der Regel einige Tage. <strong>Sobald uns Ihr Ergebnis vorliegt, melden wir uns bei Ihnen</strong> – telefonisch oder per E-Mail. Ihr Name wurde bei der Anfrage nicht genannt.</p>'
