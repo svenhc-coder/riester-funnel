@@ -1,5 +1,5 @@
-/* VersicherungsFuchs Multi-Check-Engine (auto-assembliert). §34d. */
-/* ---- questions-bu ---- */
+/* VF Multi-Check-Engine (auto-assembliert). §34d. */
+/* ---- bu ---- */
 /* VersicherungsFuchs — BU/DU-Check Fragen (v1)
  * Geerdet in der echten iSurance-Risikovoranfrage Arbeitskraftabsicherung.
  * §34d-Orientierung: qualifiziert + ordnet ein, NIE Produktempfehlung, KEIN Antrags-Gesundheitsformular.
@@ -98,7 +98,7 @@ const QUESTIONS_DU_EXTRA = [
      {label:'Keine Absicherung', value:'keine'},
      {label:'Weiß ich nicht', value:'unbekannt'}]},
 ];
-/* ---- questions-pkv ---- */
+/* ---- pkv ---- */
 /* VersicherungsFuchs — PKV-Check Fragen (v1)
  * Geerdet in echten iSurance-Unterlagen: Erstkontakt-PKV-Lead, Beratungsscript KV,
  * Risikovorabanfrage KV Voll (SDV, 06.2024), Angebotsanforderung Beihilfe (06.2024),
@@ -225,7 +225,7 @@ const QUESTIONS_BEIHILFE_EXTRA = [
  *   anonyme/unverbindliche Risikovoranfrage über den Makler – Chancen prüfen, OHNE dass
  *   eine ablehnbare Antragshistorie entsteht (kein Arztbesuch nötig; Details separat).
  * Grundton durchgehend §34d-konform: einordnen + qualifizieren, NIE „Tarif X empfehlen". */
-/* ---- questions-kvzusatz ---- */
+/* ---- kvzusatz ---- */
 /* VersicherungsFuchs — Krankenzusatz-Check Fragen (v1)
  * Zielgruppe: gesetzlich Versicherte (GKV). Schwerpunkte: Zahn, ambulant (Brille/
  * Heilpraktiker/Vorsorge), stationär (Chefarzt/Einbett), Pflegezusatz.
@@ -314,7 +314,7 @@ const QUESTIONS_KVZUSATZ = [
      {label:'Konkret Leistungen vergleichen', value:'vergleich'},
      {label:'Ich habe ein Zahn-/Vorerkrankungsthema – geht das noch?', value:'voranfrage'}]},
 ];
-/* ---- questions-basisrente ---- */
+/* ---- basisrente ---- */
 /* VersicherungsFuchs — Basisrenten-Check (Rürup) Fragen (v1)
  * Zielgruppe: Selbstständige/Freiberufler ohne Riester-Zugang + Gutverdiener mit hohem Grenzsteuersatz.
  * Fachlich geerdet: Beiträge als Sonderausgaben abziehbar (§10 EStG, seit 2023 zu 100 %); lebenslange Rente;
@@ -410,7 +410,7 @@ const QUESTIONS_BASISRENTE = [
      {label:'Konkret Varianten (klassisch / ETF) vergleichen', value:'vergleich'},
      {label:'Erst mal verstehen, ob Rürup überhaupt zu mir passt', value:'verstehen'}]},
 ];
-/* ---- questions-kinder ---- */
+/* ---- kinder ---- */
 /* VersicherungsFuchs — Kindervorsorge-Check Fragen (v1)
  * Geerdet in echten iSurance-Unterlagen: Zinseszins-Berechnung Familie Jandt
  * (früh anfangen: 25 €/61J ≈ 72,50 €/41J ≈ 124 €/30J für dasselbe Endkapital)
@@ -502,7 +502,7 @@ const QUESTIONS_KINDER = [
      {label:'Konkret Wege vergleichen (Sparen / Absicherung)', value:'vergleich'},
      {label:'Ich habe schon etwas – bitte auf Lücken prüfen', value:'check'}]},
 ];
-/* ---- questions-schul ---- */
+/* ---- schul ---- */
 /* VersicherungsFuchs — Schulunfähigkeits-Check Fragen (v1)
  * Schulunfähigkeit = BU-Äquivalent für Kinder/Schüler: sichert ab, wenn ein Kind
  * die Schule/Ausbildung dauerhaft nicht mehr schaffen kann (Nische; später EU / Pflege).
@@ -585,7 +585,7 @@ const QUESTIONS_SCHUL = [
      {label:'Konkret Möglichkeiten & Beiträge vergleichen', value:'vergleich'},
      {label:'Mein Kind hat eine Vorerkrankung – geht das überhaupt?', value:'voranfrage'}]},
 ];
-/* ---- questions-rlv ---- */
+/* ---- rlv ---- */
 /* VersicherungsFuchs — Risikolebensversicherungs-Check / Hinterbliebenenschutz (v1)
  * Geerdet in der echten iSurance-RLV-Fallakte (verbundene Leben "Messing") + Risikovoranfrage RLV.
  * §34d-Orientierung: qualifiziert + ordnet ein, NIE Produktempfehlung, KEIN Antrags-Gesundheitsformular.
@@ -711,7 +711,7 @@ function scoreBU(a){
 function scorePKV(a){
   a=a||{}; var beamter=a.status==='beamter';
   var zugang, ampel;
-  if(beamter) zugang={t:'Als Beamter/Beamtin haben Sie über die <strong>Beihilfe</strong> einen sehr attraktiven Zugang zur PKV – meist die günstigste und leistungsstärkste Lösung. Das lohnt sich fast immer zu prüfen.'};
+  if(beamter) zugang={t:'Als Beamter/Beamtin haben Sie über die <strong>Beihilfe</strong> einen oft attraktiven Zugang zur PKV. Ob eine beihilfekonforme PKV im Einzelfall passt, hängt u. a. von Bundesland, Familienkonstellation, Leistungsumfang und langfristiger Beitragsbelastung ab – das prüfen wir mit Ihnen.'};
   else if(a.status==='selbststaendig') zugang={t:'Als Selbstständige/r können Sie frei zwischen gesetzlicher und privater Krankenversicherung wählen. Ob die PKV für Sie passt, hängt von Leistung, Beitragsstabilität und Ihrer Situation ab.'};
   else if(a.status==='student') zugang={t:'Als Student/in gelten besondere Regeln – ein früher Blick lohnt sich, weil sich mit dem Berufseinstieg das Zeitfenster ändert.'};
   else { // angestellt: Versicherungspflichtgrenze
@@ -735,7 +735,7 @@ function scoreKVZusatz(a){
   else timing={ampel:'gelb',t:'Guter Zeitpunkt: Solange kein Bedarf besteht, ist die Annahme unkompliziert und die <strong>Leistungsstaffel</strong> läuft an, bevor Sie sie brauchen. Genau dafür ist ein Zusatz gedacht.'};
   var vor=vfHealthFlag(a);
   var b=[
-    {h:'Ihre Lücke in der gesetzlichen Kasse',t:'Im Bereich <strong>'+({zahn:'Zahn',ambulant:'ambulant (Brille, Heilpraktiker)',stationaer:'Krankenhaus (Chefarzt, Einbett)',pflege:'Pflege',kombi:'mehreren Bereichen'})[a.bereich]||'Ihrer Wahl'+'</strong> zahlt die GKV oft nur einen Teil. Ein passender Zusatz schließt genau diese Lücke – für '+({selbst:'Sie',partner:'Ihren Partner',kind:'Ihr Kind',familie:'Ihre Familie'})[a.fuer_wen]||'Sie'+'.'},
+    {h:'Ihre Lücke in der gesetzlichen Kasse',t:'Im Bereich <strong>'+({zahn:'Zahn',ambulant:'ambulant (Brille, Heilpraktiker)',stationaer:'Krankenhaus (Chefarzt, Einbett)',pflege:'Pflege',kombi:'mehreren Bereichen'})[a.bereich]||'Ihrer Wahl'+'</strong> zahlt die GKV oft nur einen Teil. Ein passender Zusatz kann genau diese Lücke schließen – für '+({selbst:'Sie',partner:'Ihren Partner',kind:'Ihr Kind',familie:'Ihre Familie'})[a.fuer_wen]||'Sie'+'.'},
     {h:'Warum das Timing zählt',t:timing.t},
     {h:'Versicherbarkeit',t:vor?'Bei Vorbelastung (z. B. fehlende Zähne) klären wir vorab, welche Tarife annehmen – gern über eine <strong>anonyme Voranfrage</strong>.':'Nach Ihren Angaben ist die Annahme voraussichtlich unkompliziert.'}
   ];
@@ -747,27 +747,28 @@ function scoreBasisrente(a){
   a=a||{};
   var hebel=vfIn(a.zve,['ue100','60_100'])?'hoch':(a.zve==='30_60'?'mittel':'gering');
   var geeignet=vfIn(a.status,['selbststaendig','freiberufler','gesellschafter_gf'])||a.status==='angestellt_gut';
-  var ampel=(hebel==='hoch'&&geeignet)?'rot':(hebel==='gering'?'gelb':'gelb');
+  // Positiv-Check: hohe Eignung = gruen (Chance), nie rot (rot bleibt Handlungsbedarf/Gefahr vorbehalten)
+  var ampel=(hebel==='hoch'&&geeignet)?'gruen':'gelb';
   var b=[
-    {h:'Ihr Steuer-Hebel',t:hebel==='hoch'?'Bei Ihrem Einkommen ist der <strong>Steuervorteil</strong> besonders groß: Basisrenten-Beiträge sind zu 100 % als Sonderausgaben absetzbar – ein erheblicher Teil fließt über die Steuer zurück.':(hebel==='mittel'?'Ihr Steuersatz macht die Basisrente interessant: Die Beiträge sind voll absetzbar, ein Teil kommt über die Steuererklärung zurück.':'Der Steuervorteil ist bei Ihrem Einkommen eher moderat – die Basisrente kann trotzdem passen, andere Bausteine aber ggf. flexibler sein.')},
-    {h:'Passt die Basisrente zu Ihnen?',t:geeignet?'Für Selbstständige und Gutverdiener ist die Basisrente oft die sinnvollste geförderte Altersvorsorge – gerade ohne Zugang zu Riester.':'Prüfen wir gemeinsam, ob die Basisrente oder ein anderer Baustein besser zu Ihrer Situation passt.'},
+    {h:'Ihr Steuer-Hebel',t:hebel==='hoch'?'Bei Ihrem Einkommen kann der <strong>Steuervorteil</strong> groß sein: Basisrenten-Beiträge sind zu 100 % als Sonderausgaben absetzbar – ein Teil kann über die Steuer zurückfließen. Die genaue Höhe hängt von Ihrer Steuersituation ab.':(hebel==='mittel'?'Ihr Steuersatz macht die Basisrente interessant: Die Beiträge sind absetzbar, ein Teil kann über die Steuererklärung zurückkommen.':'Der Steuervorteil dürfte bei Ihrem Einkommen eher moderat sein – die Basisrente kann trotzdem passen, andere Bausteine sind aber ggf. flexibler.')},
+    {h:'Passt die Basisrente zu Ihnen?',t:geeignet?'Für viele Selbstständige und Gutverdiener – gerade ohne Zugang zu Riester – ist die Basisrente ein prüfenswerter, steuerlich geförderter Baustein. Ob sie im Einzelfall die beste Wahl ist, hängt von Ihren Zielen, bestehender Vorsorge und Ihrem Flexibilitätsbedarf ab.':'Prüfen wir gemeinsam, ob die Basisrente oder ein anderer Baustein besser zu Ihrer Situation passt.'},
     {h:'Ehrlich zum Trade-off',t:'Wichtig zu wissen: Eine Basisrente ist <strong>nicht kündbar und nicht kapitalisierbar</strong> – Sie erhalten sie als lebenslange Rente, kein Einmalkapital. Dafür ist sie pfändungs- und Hartz-IV-geschützt. Ob dieser Trade-off für Sie passt, klären wir offen.'}
   ];
-  return vfRes(ampel,{rot:'Hoher Steuer-Hebel',gelb:'Prüfenswert'}[ampel],'Ihre Basisrenten-Einordnung',b,false);
+  return vfRes(ampel,{gruen:'Hoher Steuer-Hebel',gelb:'Prüfenswert'}[ampel],'Ihre Basisrenten-Einordnung',b,false);
 }
 
 /* ---------- Kindervorsorge ---------- */
 function scoreKinder(a){
   a=a||{};
   var jung=vfIn(a.alter,['baby','klein']);
-  var ampel=jung?'rot':'gelb';
+  var ampel=jung?'gruen':'gelb';  // Positiv-Check: Chance = gruen, nie rot (rot = Handlungsbedarf/Gefahr)
   var schutz=vfIn(a.aspekt,['schutz','beides']);
   var b=[
     {h:'Ihr Zeit-Vorteil',t:jung?'Je jünger Ihr Kind, desto stärker wirkt der <strong>Zinseszins</strong>: Wer früh und klein anfängt, erreicht mit deutlich weniger Einsatz dasselbe Ziel. Jetzt ist der ideale Zeitpunkt.':'Auch jetzt lohnt sich der Start – wichtig ist, überhaupt anzufangen. Der Zinseszins arbeitet ab dem ersten Tag für Ihr Kind.'},
     {h:'Passende Bausteine',t:schutz?'Sie möchten nicht nur sparen, sondern Ihr Kind auch <strong>absichern</strong> (z. B. gegen Invalidität) – dafür gibt es sinnvolle Bausteine, die wir Ihnen zeigen.':'Für reines Sparen fürs Kind gibt es flexible, chancenorientierte Wege (z. B. ETF-basiert) – abgestimmt auf Ihr Ziel und Ihren Zeithorizont.'},
     {h:'Ihr nächster Schritt',t:'Wir ordnen Ihre Möglichkeiten ein – ohne erfundene Renditeversprechen – und Sie entscheiden in Ruhe.'}
   ];
-  return vfRes(ampel,{rot:'Großer Zeit-Vorteil',gelb:'Guter Zeitpunkt'}[ampel],'Ihre Kindervorsorge-Einordnung',b,false);
+  return vfRes(ampel,{gruen:'Großer Zeit-Vorteil',gelb:'Guter Zeitpunkt'}[ampel],'Ihre Kindervorsorge-Einordnung',b,false);
 }
 
 /* ---------- Schulunfähigkeit ---------- */
