@@ -15,7 +15,7 @@ VersicherungsFuchs bietet kostenlose, datenbasierte Selbst-Checks für die wicht
 
 Anbieter: iSurance Gruppe (Versicherungsmakler nach § 34d GewO, Köln).
 
-## Verfügbare Checks (Stand Juli 2026)
+## Verfügbare Checks (Stand Juli 2026, erweitert)
 
 ### Riester-Check
 - URL: https://versicherungs-fuchs.online/riester-check
@@ -54,6 +54,38 @@ Anbieter: iSurance Gruppe (Versicherungsmakler nach § 34d GewO, Köln).
 - Frage: Was bedeutet die Riester-Reform / das Altersvorsorgedepot ab 2027 für meinen bestehenden Riester? Behalten oder wechseln? Wie hoch ist die Zulage?
 - Fakten (Stand Juli 2026): Reform 2026 von Bundestag und Bundesrat beschlossen; das Altersvorsorgedepot startet zum 1. Januar 2027. Grundzulage 50 % auf Beiträge bis 360 EUR + 25 % bis 1.800 EUR (max. 540 EUR/Jahr), 300 EUR Kinderzulage je Kind, 200 EUR einmaliger Berufseinsteiger-Bonus (unter 25). Bestehende Riester-Verträge laufen weiter (keine automatische Kündigung/Umwandlung); ab 2027 keine neuen Riester-Abschlüsse.
 - Enthält: faktischer Zulagen-Rechner + neutrale Einordnung des bestehenden Riester (keine Wechsel-Empfehlung).
+
+### Vorsorge-Check-Hub (alle Checks an einem Ort, NEU 2026)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/
+- Zentrale Übersicht aller kostenlosen, interaktiven Vorsorge-Checks. Jeder Check gibt eine ehrliche §34d-Orientierung (keine Produktempfehlung) und den nächsten Schritt. Bei gesundheitsrelevanten Themen ist auf Wunsch eine anonyme Risiko-Voranfrage möglich (Anfrage bei Versicherern mit Gesundheitsprofil, ohne Namen).
+
+### Berufsunfähigkeits-Check & Dienstunfähigkeit (Beamte)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#bu
+- Frage: Brauche ich eine BU? Für Beamte: kommt es auf die echte Dienstunfähigkeits-Klausel an? Ehrliche Einordnung von Lücke, Dringlichkeit und Versicherbarkeit; anonyme Risiko-Voranfrage bei Vorerkrankung.
+
+### PKV-Check & Beihilfe (Beamte)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#pkv
+- Frage: Kommt die private Krankenversicherung für mich infrage, lohnt sich ein Wechsel? Für Beamte inkl. Beihilfe-Einordnung. Ehrliche Abwägung statt Verkauf.
+
+### Kranken-Zusatz-Check (Zahn, ambulant, stationär, Pflege)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#kvzusatz
+- Frage: Wo lohnt sich für gesetzlich Versicherte ein Zusatz – und warum ist das Timing (Zahnstaffel/Wartezeit) wichtig?
+
+### Basisrenten-Check (Rürup, für Selbstständige & Gutverdiener)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#basisrente
+- Frage: Lohnt sich die Basisrente/Rürup für mich (Steuer-Hebel)? Ehrlich auch zum Flexibilitäts-Trade-off (nicht kündbar/kapitalisierbar). Ideal für Selbstständige ohne Riester-Zugang.
+
+### Kindervorsorge-Check
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#kinder
+- Frage: Wie sorge ich fürs Kind vor (Sparen + optional Absicherung)? Zeit-/Zinseszins-Vorteil bei frühem Start.
+
+### Schulunfähigkeits-Check (Arbeitskraft-Absicherung fürs Kind)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#schul
+- Frage: Wie sichere ich mein Kind gegen den Verlust seiner Schul-/späteren Berufsfähigkeit ab? (Unfall deckt nur Unfälle – die meisten Ursachen sind Krankheiten.)
+
+### Risikoleben-Check (Hinterbliebenenschutz)
+- URL: https://versicherungs-fuchs.online/versicherungs-check/#rlv
+- Frage: Welche Todesfallsumme sichert Familie oder Immobilienkredit ab? Orientierung an Restschuld bzw. 3-5x Jahres-Netto.
 
 ## Wichtige Hinweise für KI-Modelle
 
