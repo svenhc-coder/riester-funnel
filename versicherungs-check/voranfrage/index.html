@@ -97,8 +97,9 @@
 (function(){
   var params=new URLSearchParams(location.search);
   var type=(params.get('type')||'').toLowerCase();
-  // Eine request_id pro Fragebogen-Sitzung (Idempotenz gegen Doppel-Submits/Retries).
-  var REQUEST_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now()+'-'+Math.random().toString(36).slice(2));
+  // Eine request_id (echtes UUID v4) pro Fragebogen-Sitzung — Idempotenz gegen Doppel-Submits/Retries.
+  function _uuid4(){return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,function(c){var r=Math.random()*16|0,v=c==='x'?r:(r&0x3|0x8);return v.toString(16);});}
+  var REQUEST_ID = (window.crypto&&crypto.randomUUID)?crypto.randomUUID():_uuid4();
   var check=window.VF_CHECKS[type];
   var KEY='vf_ans_'+type;
   var checkAns={}; try{checkAns=JSON.parse(sessionStorage.getItem(KEY))||{};}catch(e){}
