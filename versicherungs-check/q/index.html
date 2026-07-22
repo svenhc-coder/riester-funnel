@@ -83,24 +83,30 @@
   var dir=sessionStorage.getItem('vf_dir')||'right'; sessionStorage.removeItem('vf_dir');
   if(window.VF&&window.VF.funnelBuildIn){ VF.funnelBuildIn(body,dir); } else if(window.VF&&window.VF.slideIn){ VF.slideIn(body,dir); }
 
+  var navigating=false;
+  function proceed(){
+    if(navigating||!selected) return; navigating=true;
+    var ans=getAns(); ans[q.id]=selected; setAns(ans);
+    // Verzweigung kann die Liste verändert haben -> Gesamtzahl neu bestimmen
+    var newTotal = window.vfCheckQuestions(type, ans).length;
+    if(qIndex>=newTotal-1){ window.location.href='/versicherungs-check/ergebnis/?type='+type; }
+    else{ sessionStorage.setItem('vf_dir','right'); window.location.href='/versicherungs-check/q/?type='+type+'&n='+(qIndex+1); }
+  }
+
   document.getElementById('options').addEventListener('click',function(e){
-    var btn=e.target.closest('.funnel-option'); if(!btn)return;
+    var btn=e.target.closest('.funnel-option'); if(!btn||navigating)return;
     selected=btn.dataset.value;
     document.querySelectorAll('.funnel-option').forEach(function(b){
       b.classList.toggle('funnel-option-selected',b.dataset.value===selected);
       b.querySelector('.funnel-option-radio').innerHTML=b.dataset.value===selected?'<span class="funnel-option-radio-inner"></span>':'';
     });
     var nxt=document.getElementById('btn-next'); nxt.disabled=false; nxt.classList.remove('funnel-next-disabled');
+    // Auto-Weiter: kurze Sichtbarkeit der Auswahl, dann automatisch zur nächsten Frage.
+    setTimeout(proceed, 320);
   });
 
-  document.getElementById('btn-next').addEventListener('click',function(){
-    if(!selected)return;
-    var ans=getAns(); ans[q.id]=selected; setAns(ans);
-    // Verzweigung kann die Liste verändert haben -> Gesamtzahl neu bestimmen
-    var newTotal = window.vfCheckQuestions(type, ans).length;
-    if(qIndex>=newTotal-1){ window.location.href='/versicherungs-check/ergebnis/?type='+type; }
-    else{ sessionStorage.setItem('vf_dir','right'); window.location.href='/versicherungs-check/q/?type='+type+'&n='+(qIndex+1); }
-  });
+  // Weiter-Button bleibt als Fallback (Tastatur / falls jemand schneller ist).
+  document.getElementById('btn-next').addEventListener('click', proceed);
 })();
 </script>
 <script src="/assets/js/smooth-scroll.js" defer></script>
