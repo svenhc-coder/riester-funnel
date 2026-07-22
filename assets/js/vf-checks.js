@@ -812,6 +812,20 @@ window.VF_CHECKS = {
   rlv:       {key:'rlv',       kurz:'Risikoleben-Check',     questions:QUESTIONS_RLV,       score:scoreRLV,       leadSource:'risikoleben-check'}
 };
 
+// UTM-/Landing-Erfassung (persistiert über Seitenwechsel; einmal beim ersten Kontakt gesetzt).
+(function(){ try{
+  var p=new URLSearchParams(location.search), u={};
+  ['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(k){ if(p.get(k)) u[k.replace('utm_','')]=p.get(k); });
+  if(Object.keys(u).length && !sessionStorage.getItem('vf_utm')) sessionStorage.setItem('vf_utm', JSON.stringify(u));
+  if(!sessionStorage.getItem('vf_landing')) sessionStorage.setItem('vf_landing', location.pathname);
+  if(!sessionStorage.getItem('vf_ref') && document.referrer && document.referrer.indexOf(location.host)<0) sessionStorage.setItem('vf_ref', document.referrer);
+}catch(e){} })();
+window.vfExtra = function(){ try{ return {
+  utm: JSON.parse(sessionStorage.getItem('vf_utm')||'{}'),
+  landing_page: sessionStorage.getItem('vf_landing')||location.pathname,
+  referrer: sessionStorage.getItem('vf_ref')||''
+}; }catch(e){ return {}; } };
+
 window.vfCheckQuestions = function(type, answers){
   var c=window.VF_CHECKS[type]; if(!c) return [];
   var list=c.questions.slice();

@@ -101,8 +101,9 @@
     if(!document.getElementById('cons').checked){ msg.innerHTML='<span style="color:#ffb4a8">Bitte bestätigen Sie die Einwilligung.</span>'; return; }
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
     fetch('https://api.versicherungs-fuchs.online/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({name:name,email:email,tel:f.tel.value.trim(),answers:answers,
-        source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage})})
+      body:JSON.stringify({name:name,email:email,answers:answers,
+        source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage,
+        extra:Object.assign({tel:f.tel.value.trim()}, window.vfExtra?window.vfExtra():{})})})
     .then(function(x){return x.json();}).then(function(j){
       msg.innerHTML='<div class="res-vor" style="margin:0"><strong>Danke! Ihre Anfrage ist bei uns eingegangen.</strong>'
         +'<p style="color:var(--muted);margin:.3em 0 0">Ein unabhängiger Berater meldet sich bei Ihnen.</p></div>';
