@@ -138,7 +138,7 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .footer{padding:60px 0 40px;border-top:1px solid var(--border);}
 .footer-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap;margin-bottom:40px;}
 .footer-brand{display:flex;flex-direction:column;gap:10px;}
-.footer-logo{display:block;opacity:0.8;}
+.footer-logo{display:block;opacity:0.8;width:auto;max-width:100%;align-self:flex-start;object-fit:contain;}
 .footer-tagline{font-size:13px;color:var(--txt3,#6f6f85);margin:0;}
 .footer-copy{font-size:12px;color:var(--txt3,#6f6f85);margin:0;}
 .footer-links{display:flex;gap:24px;flex-wrap:wrap;align-items:center;}
