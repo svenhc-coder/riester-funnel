@@ -455,3 +455,18 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .app-store-row a{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--txt);transition:border-color .2s ease,transform .2s ease;}
 .app-store-row a:hover{border-color:var(--acc);transform:translateY(-2px);}
 .app-fine{font-size:13px;color:var(--txt3);margin:0;}
+
+/* nachgezogen: Cookie-Banner, Store-Button-Innenteile und section-head waren im HTML
+   verwendet, aber nie definiert. Beim Cookie-Banner sind gleichwertig erkennbare
+   Buttons wichtig, damit Ablehnen genauso auffindbar ist wie Zustimmen. */
+.cookie-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+.cookie-btn-accept,.cookie-btn-decline{font:inherit;font-size:14px;font-weight:600;padding:10px 18px;border-radius:10px;cursor:pointer;border:1px solid var(--border);transition:border-color .2s ease,background .2s ease;}
+.cookie-btn-accept{background:var(--acc);border-color:var(--acc);color:#fff;}
+.cookie-btn-accept:hover{filter:brightness(1.08);}
+.cookie-btn-decline{background:transparent;color:var(--txt);}
+.cookie-btn-decline:hover{border-color:var(--txt2);}
+.section-head{margin-bottom:26px;}
+.store-btn-lg{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--txt);transition:border-color .2s ease,transform .2s ease;}
+.store-btn-lg:hover{border-color:var(--acc);transform:translateY(-2px);}
+.store-label{display:block;font-size:11px;color:var(--txt3);line-height:1.2;}
+.store-name{display:block;font-size:15px;font-weight:700;color:var(--txt);line-height:1.25;}
