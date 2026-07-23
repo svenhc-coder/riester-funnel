@@ -492,3 +492,14 @@ a.btn-primary:visited,a.btn-secondary:visited,a.btn-ghost:visited{color:inherit;
 a.btn-primary:visited{color:#fff;}
 .card-link,.vc-card,.footer-link,.nav-logo{text-decoration:none;}
 .card-link:visited,.vc-card:visited,.footer-link:visited{color:inherit;}
+
+
+/* Sicherheitsnetz: Inhalte, die per JS eingeblendet werden sollen, duerfen NIE dauerhaft
+   unsichtbar bleiben. Greift die regulaere Einblendung, ist sie vorher fertig. */
+@keyframes vfSafetyReveal{to{opacity:1;transform:none;}}
+.funnel-question,.funnel-sub,.funnel-option,.funnel-options>*,.funnel-next,
+.vf-reveal,.reveal{animation:vfSafetyReveal .01s linear .9s forwards;}
+@media (prefers-reduced-motion:reduce){
+  .funnel-question,.funnel-sub,.funnel-option,.funnel-options>*,.funnel-next,
+  .vf-reveal,.reveal{animation-delay:0s;}
+}
