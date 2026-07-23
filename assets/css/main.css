@@ -451,7 +451,7 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .app-benefits{list-style:none;padding:0;margin:0 auto 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 20px;max-width:620px;text-align:left;}
 .app-benefit{display:flex;align-items:flex-start;gap:8px;color:var(--txt2);font-size:15px;line-height:1.5;}
 .app-benefit-icon{color:var(--acc);flex-shrink:0;}
-.app-store-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:18px;}
+.app-store-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:14px;}
 .app-store-row a{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--txt);transition:border-color .2s ease,transform .2s ease;}
 .app-store-row a:hover{border-color:var(--acc);transform:translateY(-2px);}
 .app-fine{font-size:13px;color:var(--txt3);margin:0;}
@@ -466,7 +466,7 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .cookie-btn-decline{background:transparent;color:var(--txt);}
 .cookie-btn-decline:hover{border-color:var(--txt2);}
 .section-head{margin-bottom:26px;}
-.store-btn-lg{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--txt);transition:border-color .2s ease,transform .2s ease;}
-.store-btn-lg:hover{border-color:var(--acc);transform:translateY(-2px);}
+.store-btn-lg{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:var(--txt);padding:14px 26px;border-radius:14px;text-decoration:none;min-width:160px;transition:background .2s,transform .15s,box-shadow .2s;}
+.store-btn-lg:hover{background:rgba(255,255,255,0.14);transform:translateY(-2px);}
 .store-label{display:block;font-size:11px;color:var(--txt3);line-height:1.2;}
 .store-name{display:block;font-size:15px;font-weight:700;color:var(--txt);line-height:1.25;}
