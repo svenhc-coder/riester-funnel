@@ -16,16 +16,16 @@
     .res-dot{width:16px;height:16px;border-radius:50%;flex:0 0 auto}
     .rot .res-dot{background:#d23c32}.gelb .res-dot{background:#ffa000}.gruen .res-dot{background:#3ca05a}
     .res-ampel b{font-size:1.05rem}
-    .res-block{border:1px solid var(--border,rgba(255,255,255,.08));border-radius:14px;padding:18px 20px;margin-bottom:14px;background:rgba(255,255,255,.02)}
+    .res-block{border:1px solid var(--border);border-radius:14px;padding:18px 20px;margin-bottom:14px;background:rgba(255,255,255,.02)}
     .res-block h3{margin:0 0 6px;font-size:1.05rem}
-    .res-block p{margin:0;color:var(--muted);line-height:1.6}
+    .res-block p{margin:0;color:var(--txt2);line-height:1.6}
     .res-vor{border:1px solid var(--acc,#ff7a00);background:rgba(255,122,0,.07);border-radius:14px;padding:18px 20px;margin:18px 0}
-    .res-lead{background:rgba(255,255,255,.03);border:1px solid var(--border,rgba(255,255,255,.08));border-radius:16px;padding:22px;margin-top:26px}
-    .res-lead label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 4px}
+    .res-lead{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:22px;margin-top:26px}
+    .res-lead label{display:block;font-size:.85rem;color:var(--txt2);margin:12px 0 4px}
     .res-lead input{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--border,rgba(255,255,255,.14));background:rgba(0,0,0,.25);color:inherit;font-size:1rem}
-    .res-lead .consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:.85rem;color:var(--muted)}
+    .res-lead .consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:.85rem;color:var(--txt2)}
     .res-hp{position:absolute;left:-9999px}
-    .res-foot{font-size:.8rem;color:var(--muted);margin-top:22px;line-height:1.6;border-top:1px solid var(--border,rgba(255,255,255,.08));padding-top:16px}
+    .res-foot{font-size:.8rem;color:var(--txt2);margin-top:22px;line-height:1.6;border-top:1px solid var(--border);padding-top:16px}
   </style>
 </head>
 <body>
@@ -33,7 +33,7 @@
   <div class="nav-links"><a href="/versicherungs-check/">Alle Checks</a></div></div></nav>
 
 <main class="res-wrap" id="res">
-  <p style="color:var(--muted)">Ihr Ergebnis wird geladen …</p>
+  <p style="color:var(--txt2)">Ihr Ergebnis wird geladen …</p>
 </main>
 
 <script src="/assets/js/state.js"></script>
@@ -54,8 +54,8 @@
   var html='<span class="check-hero-badge">'+esc(check.kurz)+' · Ihre Orientierung</span>';
   html+='<h1 style="margin:.2em 0 .1em">'+esc(r.titel)+'</h1>';
   html+='<div class="res-ampel '+r.ampel+'"><span class="res-dot"></span><div><b>Orientierung: '+esc(r.ampelLabel)+'</b>'
-    +'<div style="color:var(--muted);font-size:.92rem;margin-top:2px">Eine erste Einordnung auf Basis Ihrer Angaben – <strong>kein abschließendes Urteil</strong> und keine Produktempfehlung. Die Details klärt ein Berater mit Ihnen.</div></div></div>';
-  html+='<p style="color:var(--muted);line-height:1.6;margin:0 0 6px">Das sind die Punkte, die in Ihrer Lage typischerweise offen sind – und warum man sie einzeln anschauen sollte:</p>';
+    +'<div style="color:var(--txt2);font-size:.92rem;margin-top:2px">Eine erste Einordnung auf Basis Ihrer Angaben – <strong>kein abschließendes Urteil</strong> und keine Produktempfehlung. Die Details klärt ein Berater mit Ihnen.</div></div></div>';
+  html+='<p style="color:var(--txt2);line-height:1.6;margin:0 0 6px">Das sind die Punkte, die in Ihrer Lage typischerweise offen sind – und warum man sie einzeln anschauen sollte:</p>';
   r.bloecke.forEach(function(b){ html+='<div class="res-block"><h3>'+esc(b.h)+'</h3><p>'+b.t+'</p></div>'; });
   // First-Principles: offen zeigen, was der Check NICHT wissen kann (Landkarte statt Urteil).
   html+='<div class="res-block" style="background:transparent"><h3>Was dieser Check noch nicht weiß</h3>'
@@ -64,17 +64,17 @@
     +'Ausgangspunkt – ein unabhängiger Berater bestätigt oder verfeinert die Einordnung mit Ihnen.</p></div>';
   if(r.voranfrage){
     html+='<div class="res-vor"><strong>Ihr wertvoller nächster Schritt: die anonyme Risiko-Voranfrage.</strong>'
-      +'<p style="color:var(--muted);margin:.4em 0 0;line-height:1.6">Wir fragen für Sie – ohne Ihren Namen – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Chancen, bevor irgendwo ein Antrag steht. Das kostet Sie nichts.</p></div>';
+      +'<p style="color:var(--txt2);margin:.4em 0 0;line-height:1.6">Wir fragen für Sie – ohne Ihren Namen – bei mehreren Versicherern an, wie sie Ihre Situation einschätzen. So kennen Sie Ihre echten Chancen, bevor irgendwo ein Antrag steht. Das kostet Sie nichts.</p></div>';
   }
   // Nächster Schritt: bei Voranfrage -> Gesundheitsfragebogen; sonst -> einfaches Lead-Formular
   if(r.voranfrage){
     html+='<div class="res-lead"><h3 style="margin:0 0 4px">Ihre echten Chancen klären lassen</h3>'
-      +'<p style="color:var(--muted);margin:0 0 6px;font-size:.92rem">Wir fragen für Sie bei mehreren Versicherern vorab an, wie sie Ihre Situation einschätzen – <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht. Ihre Kontaktdaten brauchen wir nur, um Ihnen Ihr Ergebnis mitzuteilen.</p>'
-      +'<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--muted);margin:4px 0 10px"><span>✓ Kostenlos &amp; unverbindlich</span><span>✓ Keine Verpflichtung</span><span>✓ Daten verschlüsselt</span></div>'
+      +'<p style="color:var(--txt2);margin:0 0 6px;font-size:.92rem">Wir fragen für Sie bei mehreren Versicherern vorab an, wie sie Ihre Situation einschätzen – <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht. Ihre Kontaktdaten brauchen wir nur, um Ihnen Ihr Ergebnis mitzuteilen.</p>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--txt2);margin:4px 0 10px"><span>✓ Kostenlos &amp; unverbindlich</span><span>✓ Keine Verpflichtung</span><span>✓ Daten verschlüsselt</span></div>'
       +'<a class="btn-primary btn-lg" style="width:100%;justify-content:center" href="/versicherungs-check/voranfrage/?type='+encodeURIComponent(type)+'"><span>Chancen kostenlos prüfen lassen</span></a></div>';
   } else {
     html+='<div class="res-lead"><h3 style="margin:0 0 4px">Kostenlose Einordnung anfordern</h3>'
-      +'<p style="color:var(--muted);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
+      +'<p style="color:var(--txt2);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
       +'<form id="leadform" novalidate>'
       +'<input class="res-hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">'
       +'<label>Name</label><input name="name" autocomplete="name">'
@@ -106,7 +106,7 @@
         extra:Object.assign({tel:f.tel.value.trim()}, window.vfExtra?window.vfExtra():{})})})
     .then(function(x){return x.json();}).then(function(j){
       msg.innerHTML='<div class="res-vor" style="margin:0"><strong>Danke! Ihre Anfrage ist bei uns eingegangen.</strong>'
-        +'<p style="color:var(--muted);margin:.3em 0 0">Ein unabhängiger Berater meldet sich bei Ihnen.</p></div>';
+        +'<p style="color:var(--txt2);margin:.3em 0 0">Ein unabhängiger Berater meldet sich bei Ihnen.</p></div>';
       f.querySelector('#lead-btn').style.display='none';
     }).catch(function(){
       btn.disabled=false; btn.querySelector('span').textContent='Jetzt anfordern';

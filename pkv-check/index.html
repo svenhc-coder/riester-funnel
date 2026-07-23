@@ -59,7 +59,7 @@
     }
     .step-label { font-size: 0.75rem; font-weight: 700; color: var(--primary,#f97316);
       text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
-    .step-title { font-size: 1.3rem; font-weight: 800; color: var(--text,#e8e8f0); margin-bottom: 28px; }
+    .step-title { font-size: 1.3rem; font-weight: 800; color: var(--txt); margin-bottom: 28px; }
 
     /* Options grid */
     .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
@@ -68,7 +68,7 @@
     .opt-btn {
       background: rgba(255,255,255,0.04); border: 1.5px solid rgba(255,255,255,0.09);
       border-radius: 12px; padding: 16px 14px; cursor: pointer; text-align: left;
-      color: var(--text,#e8e8f0); transition: all .2s; font-size: 0.9rem; font-weight: 500;
+      color: var(--txt); transition: all .2s; font-size: 0.9rem; font-weight: 500;
     }
     .opt-btn .ob-icon { font-size: 1.4rem; margin-bottom: 6px; display: block; }
     .opt-btn .ob-title { font-weight: 700; display: block; margin-bottom: 2px; }
@@ -82,7 +82,7 @@
     .sl-field { margin-bottom: 24px; }
     .sl-field label { font-size: 0.82rem; font-weight: 600; color: var(--muted,#8888a0);
       text-transform: uppercase; letter-spacing: .06em; display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .sl-field label span { color: var(--text,#e8e8f0); font-size: 1rem; font-weight: 800; }
+    .sl-field label span { color: var(--txt); font-size: 1rem; font-weight: 800; }
     input[type=range] { width: 100%; accent-color: var(--primary,#f97316); }
 
     /* Health notice */
@@ -111,7 +111,7 @@
     .result-card.r-low    { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); }
 
     .result-emoji { font-size: 2.2rem; margin-bottom: 12px; }
-    .result-verdict { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: var(--text,#e8e8f0); }
+    .result-verdict { font-size: 1.4rem; font-weight: 800; margin-bottom: 10px; color: var(--txt); }
     .result-verdict.orange { color: var(--primary,#f97316); }
     .result-summary { font-size: 0.93rem; color: var(--muted,#8888a0); line-height: 1.7; margin-bottom: 24px; }
     .result-points { display: flex; flex-direction: column; gap: 8px; margin-bottom: 28px; }
@@ -121,11 +121,11 @@
     .result-sep { border: none; border-top: 1px solid rgba(255,255,255,.07); margin: 24px 0; }
 
     /* Lead form */
-    .r-lead-title { font-size: 0.95rem; font-weight: 700; color: var(--text,#e8e8f0); margin-bottom: 6px; }
+    .r-lead-title { font-size: 0.95rem; font-weight: 700; color: var(--txt); margin-bottom: 6px; }
     .r-lead-sub   { font-size: 0.82rem; color: var(--muted,#8888a0); margin-bottom: 16px; }
     .r-form { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
     .r-form input { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-      border-radius: 10px; padding: 12px 14px; color: var(--text,#e8e8f0); font-size:.9rem; flex: 1; min-width:160px; }
+      border-radius: 10px; padding: 12px 14px; color: var(--txt); font-size:.9rem; flex: 1; min-width:160px; }
     .r-form input::placeholder { color: rgba(200,200,220,.38); }
     .r-form button { background: var(--primary,#f97316); color:#fff; border:none; border-radius:10px;
       padding:12px 22px; font-weight:700; font-size:.9rem; cursor:pointer; white-space:nowrap; }
@@ -139,12 +139,12 @@
       border: 1px solid rgba(255,255,255,.07); border-radius: 12px; padding: 18px 20px;
       font-size: .80rem; color: var(--muted,#8888a0); line-height: 1.6;
     }
-    .para204-box strong { color: var(--text,#e8e8f0); }
+    .para204-box strong { color: var(--txt); }
 
     /* FAQ */
     .pkv-faq { padding: 60px 24px 80px; }
     .faq-item { border-bottom: 1px solid rgba(255,255,255,.07); padding: 20px 0; }
-    .faq-q { font-size:1rem; font-weight:700; color:var(--text,#e8e8f0); cursor:pointer;
+    .faq-q { font-size:1rem; font-weight:700; color:var(--txt); cursor:pointer;
       display:flex; justify-content:space-between; align-items:center; gap:12px; }
     .faq-q .faq-icon { flex-shrink:0; width:20px; height:20px; display:flex; align-items:center; justify-content:center;
       background:rgba(249,115,22,.12); border-radius:50%; color:var(--primary,#f97316); font-size:14px; }
@@ -167,7 +167,7 @@
   <div class="nav-inner">
     <a href="/" class="nav-logo"><img src="/assets/img/logo-header.png" height="46" alt="VersicherungsFuchs"></a>
     <div class="nav-links">
-      <a href="/versicherungs-check/" style="color:var(--text,#e8e8f0)">Checks</a>
+      <a href="/versicherungs-check/" style="color:var(--txt)">Checks</a>
       <a href="/news/">Wissen</a>
       <a href="/versicherungs-check/" class="nav-cta">Check starten</a>
     </div>
@@ -244,7 +244,7 @@
         <div class="step-label">Schritt 2 von 3</div>
         <div class="step-title">Ihr Tarif und Ihre Situation</div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Haben Sie in den letzten 2 Jahren eine Beitragsanpassung erhalten?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:18px;">Haben Sie in den letzten 2 Jahren eine Beitragsanpassung erhalten?</p>
         <div class="opt-grid" style="margin-bottom:22px">
           <button class="opt-btn" id="o-bap-ja"  onclick="sel2('bap','ja')">
             <span class="ob-icon">📈</span>
@@ -258,7 +258,7 @@
           </button>
         </div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Sind Sie beihilfeberechtigt (z.B. Beamte, Richter)?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:18px;">Sind Sie beihilfeberechtigt (z.B. Beamte, Richter)?</p>
         <div class="opt-grid" style="margin-bottom:22px">
           <button class="opt-btn" id="o-bei-ja"  onclick="sel2('bei','ja')">
             <span class="ob-title">Ja, beihilfeberechtigt</span>
@@ -270,7 +270,7 @@
           </button>
         </div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:18px;">Was stört Sie an Ihrem aktuellen Tarif am meisten?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:18px;">Was stört Sie an Ihrem aktuellen Tarif am meisten?</p>
         <div class="opt-grid cols-1" style="margin-bottom:8px">
           <button class="opt-btn" id="o-grund-preis"    onclick="sel2('grund','preis')">💰 Beitrag ist zu hoch</button>
           <button class="opt-btn" id="o-grund-leistung" onclick="sel2('grund','leistung')">🏥 Leistungen nicht mehr zeitgemäß</button>
@@ -295,7 +295,7 @@
           <strong>🔒 Datenschutz-Hinweis:</strong> Die folgenden Angaben fließen ausschließlich lokal in Ihrem Browser in die Bewertung ein. Sie werden weder übertragen noch gespeichert. Rechtsgrundlage für die browser-seitige Verarbeitung: Ihre ausdrückliche Einwilligung per Klick (Art. 9 Abs. 2 lit. a DSGVO).
         </div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Bestehen bei Ihnen chronische oder behandlungsbedürftige Erkrankungen?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:16px;">Bestehen bei Ihnen chronische oder behandlungsbedürftige Erkrankungen?</p>
         <div class="opt-grid" style="margin-bottom:22px">
           <button class="opt-btn" id="o-voe-ja"  onclick="sel3('voe','ja')">
             <span class="ob-title">Ja, Vorerkrankungen vorhanden</span>
@@ -307,7 +307,7 @@
           </button>
         </div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Stationäre Behandlung (Krankenhaus) in den letzten 3 Jahren?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:16px;">Stationäre Behandlung (Krankenhaus) in den letzten 3 Jahren?</p>
         <div class="opt-grid" style="margin-bottom:22px">
           <button class="opt-btn" id="o-kh-ja"  onclick="sel3('kh','ja')">
             <span class="ob-title">Ja, hatte stationäre Behandlung</span>
@@ -317,7 +317,7 @@
           </button>
         </div>
 
-        <p style="font-size:.85rem;color:var(--muted);margin-bottom:16px;">Nehmen Sie regelmäßig verschriebene Medikamente?</p>
+        <p style="font-size:.85rem;color:var(--txt2);margin-bottom:16px;">Nehmen Sie regelmäßig verschriebene Medikamente?</p>
         <div class="opt-grid" style="margin-bottom:8px">
           <button class="opt-btn" id="o-med-ja"  onclick="sel3('med','ja')">
             <span class="ob-title">Ja, regelmäßig</span>
@@ -386,7 +386,7 @@
   <div style="max-width:520px;margin:0 auto">
     <div class="section-label">Weitere Tools</div>
     <h2 class="section-title" style="font-size:1.8rem;margin-bottom:16px">Haben Sie auch einen Riester-Vertrag?</h2>
-    <p style="color:var(--muted);margin-bottom:28px">Viele Sparer optimieren PKV und Altersvorsorge parallel. Unser Riester-Check zeigt, ob Ihr Vertrag noch zeitgemäß ist.</p>
+    <p style="color:var(--txt2);margin-bottom:28px">Viele Sparer optimieren PKV und Altersvorsorge parallel. Unser Riester-Check zeigt, ob Ihr Vertrag noch zeitgemäß ist.</p>
     <a href="/riester-check/" class="btn-primary">Zum Riester-Check</a>
   </div>
 </section>

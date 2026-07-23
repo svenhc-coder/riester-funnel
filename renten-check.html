@@ -120,14 +120,14 @@
     nav .container { display: flex; justify-content: space-between; align-items: center; }
     .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
     .logo { font-weight: 700; font-size: 1.2rem; color: var(--text); } .logo span { color: var(--primary); }
-    .nav-links { display: flex; gap: 1.5rem; } .nav-links a { color: var(--muted); font-size: 0.9rem; } .nav-links a:hover { color: var(--text); }
+    .nav-links { display: flex; gap: 1.5rem; } .nav-links a { color: var(--txt2); font-size: 0.9rem; } .nav-links a:hover { color: var(--text); }
     main { padding: 4rem 0; }
-    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+    .breadcrumb { font-size: 0.85rem; color: var(--txt2); margin-bottom: 1rem; }
     h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem; }
     h1 .accent { color: var(--primary); }
-    .lede { font-size: 1.15rem; color: var(--muted); max-width: 700px; margin-bottom: 2rem; }
+    .lede { font-size: 1.15rem; color: var(--txt2); max-width: 700px; margin-bottom: 2rem; }
     .hero-cta { display: inline-flex; gap: .5rem; background: var(--primary); color: #000; font-weight: 600; padding: 1rem 1.75rem; border-radius: var(--radius); }
-    .hero-meta { margin-top: 1rem; font-size: .85rem; color: var(--muted); }
+    .hero-meta { margin-top: 1rem; font-size: .85rem; color: var(--txt2); }
     section { padding: 3rem 0; border-top: 1px solid var(--border); }
     h2 { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 1.5rem; }
     h3 { font-size: 1.2rem; margin: 2rem 0 .75rem; }
@@ -139,7 +139,7 @@
     .faq details[open] { border-color: var(--primary); }
     .faq summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; list-style: none; }
     .faq summary::after { content: '+'; float: right; color: var(--primary); } .faq details[open] summary::after { content: '−'; }
-    .faq details p { margin-top: 1rem; color: var(--muted); }
+    .faq details p { margin-top: 1rem; color: var(--txt2); }
     .howto { counter-reset: step; }
     .howto .step { counter-increment: step; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1.5rem 1.5rem 4.5rem; margin-bottom: 1rem; position: relative; }
     .howto .step::before { content: counter(step); position: absolute; left: 1.5rem; top: 1.5rem; width: 2rem; height: 2rem; background: var(--primary); color: #000; font-weight: 700; border-radius: 50%; display: grid; place-items: center; }
@@ -147,11 +147,11 @@
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin: 2rem 0; }
     .stat { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; text-align: center; }
     .stat .num { font-size: 2rem; font-weight: 700; color: var(--primary); }
-    .stat .label { color: var(--muted); font-size: .9rem; margin-top: .25rem; }
+    .stat .label { color: var(--txt2); font-size: .9rem; margin-top: .25rem; }
     .cta-final { background: linear-gradient(135deg, rgba(249,115,22,0.15), rgba(99,102,241,0.1)); border: 1px solid var(--primary); border-radius: var(--radius); padding: 2.5rem; text-align: center; }
-    footer { padding: 3rem 0; border-top: 1px solid var(--border); color: var(--muted); font-size: .9rem; }
+    footer { padding: 3rem 0; border-top: 1px solid var(--border); color: var(--txt2); font-size: .9rem; }
     footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-    footer a { color: var(--muted); }
+    footer a { color: var(--txt2); }
   </style>
 </head>
 <body>
@@ -160,7 +160,7 @@
   <div class="container">
     <a href="/" class="logo">Versicherungs<span>Fuchs</span></a>
     <div class="nav-links">
-      <a href="/versicherungs-check/" style="color:var(--text,#e8e8f0)">Checks</a>
+      <a href="/versicherungs-check/" style="color:var(--txt)">Checks</a>
       <a href="/news/">Wissen</a>
       <a href="/versicherungs-check/" class="nav-cta">Check starten</a>
     </div>
@@ -169,7 +169,7 @@
 
 <main>
   <div class="container">
-    <p class="breadcrumb"><a href="/" style="color:var(--muted)">Start</a> · Renten-Lebensstil-Check</p>
+    <p class="breadcrumb"><a href="/" style="color:var(--txt2)">Start</a> · Renten-Lebensstil-Check</p>
 
     <header>
       <h1>Was brauche ich in der Rente, um <span class="accent">meinen Lebensstil zu halten</span>?</h1>
@@ -208,7 +208,7 @@
           <p>Wer mit 35 anfängt (30 J. bis Rente): ca. <strong>315 € / Monat</strong>. Mit 45: ca. <strong>630 €</strong>. Mit 55: <strong>1.620 €</strong> — kaum noch schließbar.</p>
         </div>
       </div>
-      <p style="color:var(--muted);font-size:.9rem;margin-top:1rem">Annahme: 4 % reale Rendite (nach Inflation). ETF-Welt-Sparplan langfristig nahe diesem Wert.</p>
+      <p style="color:var(--txt2);font-size:.9rem;margin-top:1rem">Annahme: 4 % reale Rendite (nach Inflation). ETF-Welt-Sparplan langfristig nahe diesem Wert.</p>
     </section>
 
     <section>
