@@ -23,7 +23,7 @@
       --radius:12px; --font:'Inter',system-ui,-apple-system,sans-serif;
     }
     html { scroll-behavior: smooth; }
-    body { background:var(--bg); color:var(--text); font-family:var(--font); line-height:1.6; min-height:100vh; }
+    body { background:var(--bg); color:var(--txt); font-family:var(--font); line-height:1.6; min-height:100vh; }
     a { color:inherit; text-decoration:none; }
 
     nav {
@@ -42,7 +42,7 @@
       padding:6px 14px; border-radius:8px; font-size:0.875rem; color:var(--txt2);
       transition:color .2s,background .2s;
     }
-    .nav-links a:hover { color:var(--text); background:rgba(255,255,255,0.06); }
+    .nav-links a:hover { color:var(--txt); background:rgba(255,255,255,0.06); }
     .nav-cta { background:var(--primary)!important; color:#fff!important; font-weight:600; }
 
     .article-layout {
@@ -57,7 +57,7 @@
       font-size:0.8rem; color:var(--txt2); margin-bottom:32px;
       display:flex; align-items:center; gap:6px;
     }
-    .article-breadcrumb a:hover { color:var(--text); }
+    .article-breadcrumb a:hover { color:var(--txt); }
     .article-breadcrumb span { color:var(--txt2); }
 
     .article-tag {
@@ -82,17 +82,17 @@
     /* Article body typography */
     .article-body h2 {
       font-size:1.4rem; font-weight:800; letter-spacing:-0.02em;
-      margin:40px 0 16px; color:var(--text);
+      margin:40px 0 16px; color:var(--txt);
     }
     .article-body h3 {
       font-size:1.1rem; font-weight:700;
-      margin:28px 0 12px; color:var(--text);
+      margin:28px 0 12px; color:var(--txt);
     }
     .article-body p {
       font-size:1rem; color:rgba(232,232,240,0.85);
       line-height:1.8; margin-bottom:20px;
     }
-    .article-body strong { color:var(--text); font-weight:700; }
+    .article-body strong { color:var(--txt); font-weight:700; }
     .article-body em { color:var(--primary2); font-style:normal; }
 
     .article-body .info-box {
@@ -150,7 +150,7 @@
     }
     .takeaways ul { list-style:none; padding:0; }
     .takeaways li {
-      font-size:0.9rem; color:var(--text);
+      font-size:0.9rem; color:var(--txt);
       padding:8px 0 8px 24px; position:relative; border-bottom:1px solid var(--border);
     }
     .takeaways li:last-child { border-bottom:none; }
@@ -208,7 +208,7 @@
       border:1px solid rgba(249,115,22,0.25); border-radius:var(--radius);
       padding:24px; text-align:center;
     }
-    .sidebar-cta-box h5 { color:var(--text); font-size:1rem; margin-bottom:8px; }
+    .sidebar-cta-box h5 { color:var(--txt); font-size:1rem; margin-bottom:8px; }
     .sidebar-cta-box p { font-size:0.8rem; color:var(--txt2); margin-bottom:16px; }
     .sidebar-cta-box a {
       background:var(--primary); color:#fff; font-weight:700;
@@ -241,7 +241,7 @@
     .footer-bottom-simple nav a {
       font-size:0.8rem; color:var(--txt2); margin-left:16px; transition:color .2s;
     }
-    .footer-bottom-simple nav a:hover { color:var(--text); }
+    .footer-bottom-simple nav a:hover { color:var(--txt); }
 
     @media (max-width:800px) {
       .article-layout { grid-template-columns:1fr; }
@@ -268,7 +268,7 @@
       font-size: clamp(1.5rem,3.5vw,2.2rem); font-weight: 800;
       letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 14px;
     }
-    .app-sub { color: var(--muted,#8888aa); font-size: 1rem; line-height: 1.7; margin-bottom: 28px; }
+    .app-sub { color: var(--txt2); font-size: 1rem; line-height: 1.7; margin-bottom: 28px; }
     .app-benefits {
       display: flex; flex-wrap: wrap; gap: 10px 20px;
       justify-content: center; margin-bottom: 32px;
@@ -291,7 +291,7 @@
     }
     .store-label { font-size: 10px; opacity: .7; }
     .store-name { font-size: 16px; font-weight: 700; }
-    .app-fine { font-size: 0.75rem; color: var(--muted,#8888aa); }
+    .app-fine { font-size: 0.75rem; color: var(--txt2); }
     /* Footer logo fix */
     .footer-logo, img.footer-logo { height: 48px !important; width: auto !important; max-width: 200px; display: block; }
     .nav-logo img { height: 42px !important; width: auto; }
@@ -568,7 +568,7 @@ function renderArticle(art, id) {
     <div class="article-breadcrumb">
       <a href="/">Start</a> <span>›</span>
       <a href="/news/">Wissen</a> <span>›</span>
-      <span style="color:var(--text)">${art.tag}</span>
+      <span style="color:var(--txt)">${art.tag}</span>
     </div>
     <span class="article-tag">${art.tag}</span>
     <h1 class="article-title">${art.title}</h1>
