@@ -432,3 +432,12 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
   .ff-fox.ff-bounce .ff-fox-mark,.ff-eye,.funnel-option.ff-pop,.funnel-next.ff-glow{animation:none !important;}
 }
 @media (max-width:640px){.ff-fox{right:10px;bottom:10px;}.ff-fox-mark svg{width:38px;height:38px;}.ff-bubble{max-width:120px;font-size:12px;}}
+
+/* nachgezogen: section-title / section-label / faq wurden im HTML verwendet, waren aber
+   nie definiert. Werte entsprechen .section-h2 bzw. .tb-label, damit die Seiten dasselbe
+   Typo- und Farbsystem nutzen statt Browser-Defaults. */
+.section-title{font-size:clamp(28px,3.5vw,40px);font-weight:800;color:var(--txt);margin:0 0 14px;letter-spacing:-0.02em;line-height:1.2;}
+.section-label{font-size:12px;font-weight:700;color:var(--acc);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:14px;}
+.faq summary{color:var(--txt);}
+.faq summary::-webkit-details-marker{display:none;}
+.faq[open] summary{color:var(--acc);}
