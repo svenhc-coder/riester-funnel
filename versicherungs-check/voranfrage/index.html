@@ -11,10 +11,10 @@
     .vf-wrap{max-width:680px;margin:0 auto;padding:30px 20px 72px}
     .vf-step{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:22px;margin:16px 0}
     .vf-step h2{font-size:1.15rem;margin:0 0 4px}
-    .vf-step .sub{color:var(--txt2);font-size:.9rem;margin:0 0 14px}
+    .vf-step .sub{color:var(--txt2,#8888a0);font-size:.9rem;margin:0 0 14px}
     .vf-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media(max-width:560px){.vf-row{grid-template-columns:1fr}}
-    label.fl{display:block;font-size:.85rem;color:var(--txt2);margin:10px 0 4px}
+    label.fl{display:block;font-size:.85rem;color:var(--txt2,#8888a0);margin:10px 0 4px}
     input[type=text],input[type=email],input[type=tel],input[type=number],textarea{width:100%;padding:11px 13px;border-radius:10px;border:1px solid var(--border,rgba(255,255,255,.14));background:rgba(0,0,0,.25);color:inherit;font-size:1rem;font-family:inherit}
     textarea{min-height:60px;resize:vertical}
     .gitem{border-top:1px solid var(--border,rgba(255,255,255,.06));padding:12px 0}
@@ -22,15 +22,15 @@
     .gq{display:flex;justify-content:space-between;align-items:center;gap:12px}
     .gq .lbl{font-size:.95rem}
     .toggle{display:inline-flex;border:1px solid var(--border,rgba(255,255,255,.16));border-radius:9px;overflow:hidden;flex:0 0 auto}
-    .toggle button{background:transparent;color:var(--txt2);border:0;padding:7px 16px;cursor:pointer;font-size:.9rem}
+    .toggle button{background:transparent;color:var(--txt2,#8888a0);border:0;padding:7px 16px;cursor:pointer;font-size:.9rem}
     .toggle button.on{background:var(--acc,#ff7a00);color:#111;font-weight:600}
     .gdetail{margin-top:8px;display:none}
     .gdetail.show{display:block}
-    .consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.88rem;color:var(--txt2)}
+    .consent{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.88rem;color:var(--txt2,#8888a0)}
     .consent input{width:auto;margin-top:3px}
     .hp{position:absolute;left:-9999px}
-    .foot{font-size:.8rem;color:var(--txt2);margin-top:18px;line-height:1.6}
-    .trust{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--txt2);margin:6px 0 2px}
+    .foot{font-size:.8rem;color:var(--txt2,#8888a0);margin-top:18px;line-height:1.6}
+    .trust{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--txt2,#8888a0);margin:6px 0 2px}
     #step2{display:none}
     .doneline{color:var(--acc,#ff7a00);font-size:.85rem;margin-top:8px}
   </style>
@@ -42,7 +42,7 @@
 <main class="vf-wrap" id="main">
   <span class="check-hero-badge">Kostenlose Erst-Einschätzung</span>
   <h1 style="margin:.2em 0 .3em">Ihre echten Chancen klären lassen</h1>
-  <p style="color:var(--txt2);line-height:1.6">Ein unabhängiger Berater schaut sich Ihre Situation an und meldet sich bei Ihnen – kostenlos und unverbindlich. Auf Wunsch fragen wir vorab bei mehreren Versicherern an, wie sie Ihre Situation einschätzen: <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht.</p>
+  <p style="color:var(--txt2,#8888a0);line-height:1.6">Ein unabhängiger Berater schaut sich Ihre Situation an und meldet sich bei Ihnen – kostenlos und unverbindlich. Auf Wunsch fragen wir vorab bei mehreren Versicherern an, wie sie Ihre Situation einschätzen: <strong>mit Ihrem Gesundheitsprofil, aber ohne Ihren Namen</strong>. So kennen Sie Ihre Konditionen, bevor irgendwo ein Antrag steht.</p>
 
   <div class="trust"><span>✓ Kostenlos &amp; unverbindlich</span><span>✓ Unabhängig, im Auftrag des Kunden</span><span>✓ Keine Verpflichtung</span></div>
 
@@ -193,7 +193,7 @@
       .then(function(r){ if(!r.ok&&r.status!==409) throw new Error('status '+r.status); return r.json().catch(function(){return {};}); }).then(function(){
         document.getElementById('main').innerHTML='<span class="check-hero-badge">Eingegangen</span>'
           +'<h1 style="margin:.2em 0 .3em">Danke – wir kümmern uns darum.</h1>'
-          +'<p style="color:var(--txt2);line-height:1.7">Wir stellen jetzt die <strong>anonyme Risiko-Voranfrage</strong> bei mehreren Versicherern. Das dauert in der Regel einige Tage. <strong>Sobald uns Ihr Ergebnis vorliegt, melden wir uns bei Ihnen.</strong> Ihr Name wurde bei der Anfrage nicht genannt.</p>'
+          +'<p style="color:var(--txt2,#8888a0);line-height:1.7">Wir stellen jetzt die <strong>anonyme Risiko-Voranfrage</strong> bei mehreren Versicherern. Das dauert in der Regel einige Tage. <strong>Sobald uns Ihr Ergebnis vorliegt, melden wir uns bei Ihnen.</strong> Ihr Name wurde bei der Anfrage nicht genannt.</p>'
           +'<p style="margin-top:20px"><a class="btn-primary" href="/versicherungs-check/">Zu den Checks</a></p>';
         window.scrollTo(0,0);
       }).catch(function(){
