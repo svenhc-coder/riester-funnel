@@ -441,3 +441,17 @@ input[type="email"]:focus,input[type="text"]:focus{border-color:var(--acc);}
 .faq summary{color:var(--txt);}
 .faq summary::-webkit-details-marker{display:none;}
 .faq[open] summary{color:var(--acc);}
+
+/* nachgezogen: App-Sektion war komplett ungestylt (Klassen im HTML, aber nie definiert). */
+.app-section{padding:clamp(48px,7vw,88px) 20px;border-top:1px solid var(--border);}
+.app-section-inner{max-width:760px;margin:0 auto;text-align:center;}
+.app-badge{display:inline-block;font-size:12px;font-weight:700;color:var(--acc);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;border:1px solid var(--border);border-radius:100px;padding:6px 14px;}
+.app-title{font-size:clamp(26px,3.2vw,38px);font-weight:800;color:var(--txt);margin:0 0 14px;letter-spacing:-0.02em;line-height:1.2;}
+.app-sub{font-size:16px;color:var(--txt2);line-height:1.65;margin:0 auto 26px;max-width:60ch;}
+.app-benefits{list-style:none;padding:0;margin:0 auto 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px 20px;max-width:620px;text-align:left;}
+.app-benefit{display:flex;align-items:flex-start;gap:8px;color:var(--txt2);font-size:15px;line-height:1.5;}
+.app-benefit-icon{color:var(--acc);flex-shrink:0;}
+.app-store-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:18px;}
+.app-store-row a{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--txt);transition:border-color .2s ease,transform .2s ease;}
+.app-store-row a:hover{border-color:var(--acc);transform:translateY(-2px);}
+.app-fine{font-size:13px;color:var(--txt3);margin:0;}
