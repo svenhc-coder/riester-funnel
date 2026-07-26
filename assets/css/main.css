@@ -503,3 +503,13 @@ a.btn-primary:visited{color:#fff;}
   .funnel-question,.funnel-sub,.funnel-option,.funnel-options>*,.funnel-next,
   .vf-reveal,.reveal{animation-delay:0s;}
 }
+
+
+/* Tap-Ziele: Links in Karten waren 22px hoch (gemessen bei 375px Viewport).
+   Fuer Fingerbedienung sind mind. 44px noetig. */
+.card-link,.vc-go,.footer-link{display:inline-flex;align-items:center;min-height:44px;}
+.vc-card{min-height:44px;}
+@media (max-width:640px){
+  .nav-links a{min-height:44px;display:inline-flex;align-items:center;}
+  .card-link{width:100%;}
+}
