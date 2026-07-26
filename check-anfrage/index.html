@@ -59,6 +59,12 @@
     footer a { color: var(--txt2,#8888a0); }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
   </style>
+<style>
+/* CTA-Kontrast (Sven 07-23): weisse Schrift auf Orange erreichte nur 2.6 statt 4.5 (WCAG AA).
+   Markenfarbe bleibt, Schrift wird dunkel -> ~7.5. Auch BFSG-relevant. */
+.btn-primary,a.btn-primary,button.btn-primary,.nav-cta,.btn-cta,.cta-primary{color:#0a0a0f !important;}
+.btn-primary svg,.nav-cta svg{stroke:#0a0a0f !important;}
+</style>
 </head>
 <body>
 <nav>

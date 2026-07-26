@@ -153,6 +153,12 @@
     footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     footer a { color: var(--txt2,#8888a0); }
   </style>
+<style>
+/* CTA-Kontrast (Sven 07-23): weisse Schrift auf Orange erreichte nur 2.6 statt 4.5 (WCAG AA).
+   Markenfarbe bleibt, Schrift wird dunkel -> ~7.5. Auch BFSG-relevant. */
+.btn-primary,a.btn-primary,button.btn-primary,.nav-cta,.btn-cta,.cta-primary{color:#0a0a0f !important;}
+.btn-primary svg,.nav-cta svg{stroke:#0a0a0f !important;}
+</style>
 </head>
 <body>
 
