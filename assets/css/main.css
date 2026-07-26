@@ -513,3 +513,11 @@ a.btn-primary:visited{color:#fff;}
   .nav-links a{min-height:44px;display:inline-flex;align-items:center;}
   .card-link{width:100%;}
 }
+
+
+/* CTA-Kontrast (Sven 07-23): weiss auf #ff7a00 war 2.61, WCAG AA verlangt 4.5.
+   Markenfarbe bleibt, Schrift wird dunkel -> ~7.5. Auch BFSG-relevant. */
+.btn-primary,a.btn-primary,.nav-cta,.nav-links a.nav-cta,.btn-lg.btn-primary,
+button.btn-primary,.cookie-btn-accept{color:#0a0a0f !important;}
+.btn-primary svg,.nav-cta svg{stroke:#0a0a0f;}
+.btn-primary:hover,a.btn-primary:hover,.nav-cta:hover{color:#0a0a0f !important;}
