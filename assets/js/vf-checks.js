@@ -119,16 +119,16 @@ const QUESTIONS_PKV = [
      {label:'Aktuell nicht erwerbstätig / Sonstiges', value:'sonstiges'}]},
 
   {id:'einkommen', question:'Wie hoch ist Ihr Brutto-Einkommen im Jahr?',
-   hint:'Nur für Angestellte entscheidend: Ihr Bruttoeinkommen muss über der gesetzlichen Versicherungspflichtgrenze (Jahresarbeitsentgeltgrenze) liegen, die jährlich angepasst wird – zuletzt im Bereich von rund 69.000–74.000 € pro Jahr. Für Beamte, Selbstständige und Studenten gilt diese Grenze nicht.',
+   hint:'Nur für Angestellte entscheidend: Der Wechsel in die PKV setzt ein Bruttoeinkommen über der Versicherungspflichtgrenze voraus. Diese Grenze wird jährlich angehoben – wer knapp darüber liegt, kann im Folgejahr wieder darunter rutschen. Für Beamte, Selbstständige und Studenten gilt sie nicht.',
    options:[
-     {label:'Unter 60.000 €', value:'u60'},
-     {label:'60.000–70.000 €', value:'60_70'},
-     {label:'70.000–80.000 €', value:'70_80'},
-     {label:'Über 80.000 €', value:'ue80'},
+     {label:'Unter 75.000 €', value:'u75'},
+     {label:'75.000–85.000 €', value:'75_85'},
+     {label:'85.000–95.000 €', value:'85_95'},
+     {label:'Über 95.000 €', value:'ue95'},
      {label:'Schwankend / kein festes Gehalt (z. B. selbstständig)', value:'schwankend'}]},
 
   {id:'aktuell', question:'Wie sind Sie aktuell krankenversichert?',
-   hint:'Damit sehen wir, ob überhaupt ein Wechsel ansteht – und ob dabei Fristen (z. B. Kündigung der gesetzlichen Kasse) zu beachten sind.',
+   hint:'Damit sehen wir, ob überhaupt ein Wechsel ansteht – und ob dabei Fristen (z. B. Kündigung der gesetzlichen Kasse) zu beachten sind. Liegt Ihr Einkommen sicher über der Pflichtgrenze, entfallen die Antworten, die dann gar nicht mehr möglich sind.',
    options:[
      {label:'Gesetzlich (GKV) – pflichtversichert', value:'gkv_pflicht'},
      {label:'Gesetzlich (GKV) – freiwillig versichert', value:'gkv_freiwillig'},
@@ -708,17 +708,45 @@ function scoreBU(a){
 }
 
 /* ---------- PKV ---------- */
+/* Angestellte oberhalb der Versicherungspflichtgrenze koennen weder pflichtversichert
+   noch familienversichert sein - wer keine PKV hat, ist dort zwangslaeufig FREIWILLIG
+   gesetzlich versichert. Diese Antworten daher gar nicht erst anbieten (Sven, 29.07.2026).
+   Im Grenzband 75-85k bleibt alles stehen: dort entscheidet die exakte Summe. */
+function pkvSicherUeberGrenze(a){
+  return a && a.status==='angestellt' && (a.einkommen==='85_95' || a.einkommen==='ue95');
+}
+function refinePKV(list, a){
+  if(!pkvSicherUeberGrenze(a)) return list;
+  return list.map(function(q){
+    if(q.id!=='aktuell') return q;
+    var kopie={}; for(var k in q){ if(Object.prototype.hasOwnProperty.call(q,k)) kopie[k]=q[k]; }
+    kopie.options = q.options.filter(function(o){ return o.value!=='gkv_pflicht' && o.value!=='familie'; });
+    kopie.hint = 'Bei Ihrem Einkommen greift die Versicherungspflicht nicht mehr: Wer dann keine PKV hat, ist freiwillig gesetzlich versichert. Wir fragen nur noch, was in Ihrem Fall ueberhaupt moeglich ist.';
+    return kopie;
+  });
+}
+
 function scorePKV(a){
   a=a||{}; var beamter=a.status==='beamter';
   var zugang, ampel;
   if(beamter) zugang={t:'Als Beamter/Beamtin haben Sie über die <strong>Beihilfe</strong> einen oft attraktiven Zugang zur PKV. Ob eine beihilfekonforme PKV im Einzelfall passt, hängt u. a. von Bundesland, Familienkonstellation, Leistungsumfang und langfristiger Beitragsbelastung ab – das prüfen wir mit Ihnen.'};
   else if(a.status==='selbststaendig') zugang={t:'Als Selbstständige/r können Sie frei zwischen gesetzlicher und privater Krankenversicherung wählen. Ob die PKV für Sie passt, hängt von Leistung, Beitragsstabilität und Ihrer Situation ab.'};
   else if(a.status==='student') zugang={t:'Als Student/in gelten besondere Regeln – ein früher Blick lohnt sich, weil sich mit dem Berufseinstieg das Zeitfenster ändert.'};
-  else { // angestellt: Versicherungspflichtgrenze
-    zugang = vfIn(a.einkommen,['ue80','70_80']) ? {t:'Als Angestellte/r können Sie in die PKV wechseln, wenn Ihr Bruttoeinkommen über der Versicherungspflichtgrenze (jährlich angepasst, rund 69.000–74.000 €) liegt. Nach Ihren Angaben ist das prüfenswert.'} : {t:'Als Angestellte/r ist der PKV-Zugang an die Versicherungspflichtgrenze (rund 69.000–74.000 € Jahresbrutto) gebunden. Nach Ihren Angaben liegen Sie eher darunter – dann ist die PKV aktuell meist nicht möglich, aber Kranken-Zusätze können Lücken schließen.'};
+  else { // angestellt: Versicherungspflichtgrenze - vier Baender (Sven, 29.07.2026)
+    if(a.einkommen==='ue95')
+      zugang={t:'Ihr Einkommen liegt deutlich über der Versicherungspflichtgrenze. Der Zugang zur PKV steht Ihnen offen – auch wenn die Grenze in den nächsten Jahren weiter angehoben wird, bleiben Sie darüber. Die eigentliche Frage ist damit nicht <em>ob</em>, sondern <em>ob es für Sie sinnvoll ist</em>.', ampel:'gruen'};
+    else if(a.einkommen==='85_95')
+      zugang={t:'Ihr Einkommen liegt sicher über der Versicherungspflichtgrenze – ein Wechsel in die PKV ist möglich. Zu bedenken: Die Grenze steigt jährlich. Bei einem späteren Gehaltsknick (Teilzeit, Elternzeit, Jobwechsel) kann die Versicherungspflicht zurückkehren.', ampel:'gruen'};
+    else if(a.einkommen==='75_85')
+      zugang={t:'Sie liegen im <strong>Grenzbereich</strong>. Hier entscheidet die exakte Jahressumme – inklusive Sonderzahlungen wie Weihnachts- und Urlaubsgeld. Weil die Grenze jedes Jahr angehoben wird, sollte zusätzlich Puffer da sein: Wer nur knapp darüber liegt, fällt im Folgejahr leicht wieder in die Versicherungspflicht. Diese Zahl schauen wir uns gemeinsam genau an, bevor irgendetwas entschieden wird.', ampel:'gelb'};
+    else if(a.einkommen==='schwankend')
+      zugang={t:'Bei schwankendem Einkommen kommt es darauf an, welches regelmäßige Jahresentgelt sich daraus ergibt. Das klären wir anhand Ihrer konkreten Zahlen.', ampel:'gelb'};
+    else // u75
+      zugang={t:'Als Angestellte/r mit einem Bruttoeinkommen unter der Versicherungspflichtgrenze sind Sie <strong>gesetzlich pflichtversichert</strong> – ein Wechsel in die PKV ist derzeit nicht möglich. Das ist keine Absage, sondern schlicht die Rechtslage. Sinnvoll ist jetzt der Blick auf <strong>Zusatzversicherungen</strong> (Zahn, Klinik, Ambulant): Die schließen genau die Lücken, wegen derer die meisten über die PKV nachdenken – und sie sind später anrechenbar, wenn sich Ihre Situation ändert.', ampel:'gelb'};
   }
   var vor=vfHealthFlag(a);
-  ampel = beamter?'gruen':(vor?'gelb':'gelb');
+  ampel = beamter ? 'gruen' : (zugang.ampel || 'gelb');
+  if(vor && ampel==='gruen') ampel='gelb'; // Gesundheitsvorbehalt zieht die Einordnung zurueck
   var b=[{h:'Kommt die PKV für Sie infrage?',t:zugang.t}];
   if(beamter) b.push({h:'Beihilfe: Ihr Vorteil',t:'Der Staat übernimmt als Dienstherr einen Teil Ihrer Krankheitskosten (Beihilfe) – die PKV versichert nur den Rest. Das macht sie für Beamte besonders günstig. Höhe und mitzuversichernde Familienmitglieder klären wir konkret.'});
   b.push({h:'Was zu klären ist',t:'Wichtig ist eine ehrliche Abwägung: Leistung, Beitrag im Alter und Ihre Lebensplanung. Wir zeigen die Vor- und Nachteile – ohne Verkaufsdruck.'});
@@ -804,7 +832,7 @@ function scoreRLV(a){
 /* ---------- Registry ---------- */
 window.VF_CHECKS = {
   bu:        {key:'bu',        kurz:'BU-Check',              questions:QUESTIONS_BU,        branch:{when:function(a){return a.status==='beamter';},after:'status',questions:QUESTIONS_DU_EXTRA}, score:scoreBU,        leadSource:'bu-check'},
-  pkv:       {key:'pkv',       kurz:'PKV-Check',             questions:QUESTIONS_PKV,       branch:{when:function(a){return a.status==='beamter';},after:'status',questions:QUESTIONS_BEIHILFE_EXTRA}, score:scorePKV,       leadSource:'pkv-check'},
+  pkv:       {key:'pkv',       kurz:'PKV-Check',             questions:QUESTIONS_PKV,       branch:{when:function(a){return a.status==='beamter';},after:'status',questions:QUESTIONS_BEIHILFE_EXTRA}, score:scorePKV,       refine:refinePKV, leadSource:'pkv-check'},
   kvzusatz:  {key:'kvzusatz',  kurz:'Kranken-Zusatz-Check',  questions:QUESTIONS_KVZUSATZ,  score:scoreKVZusatz,  leadSource:'kranken-zusatz-check'},
   basisrente:{key:'basisrente',kurz:'Basisrenten-Check',     questions:QUESTIONS_BASISRENTE,score:scoreBasisrente,leadSource:'basisrente-check'},
   kinder:    {key:'kinder',    kurz:'Kindervorsorge-Check',  questions:QUESTIONS_KINDER,    score:scoreKinder,    leadSource:'kindervorsorge-check'},
@@ -834,5 +862,8 @@ window.vfCheckQuestions = function(type, answers){
     var ins=idx>=0?idx+1:list.length;
     list=list.slice(0,ins).concat(c.branch.questions).concat(list.slice(ins));
   }
+  // Antworten ausblenden, die nach den bisherigen Angaben gar nicht moeglich sind.
+  // Ohne das fragt der Check Unmoegliches ab und wirkt fachlich unsauber.
+  if(typeof c.refine === 'function') list = c.refine(list, answers||{});
   return list;
 };
