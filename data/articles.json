@@ -59,6 +59,86 @@
       "date": "2026-02-18",
       "readtime": "6 min",
       "featured": false
+    },
+    {
+      "id": "pkv-zugang",
+      "tag": "Krankenversicherung",
+      "category": "pkv",
+      "title": "Wann der Wechsel in die PKV überhaupt möglich ist",
+      "excerpt": "Nicht die Frage, ob die PKV besser ist — sondern ob sie Ihnen rechtlich offensteht. Die Voraussetzungen nach Berufsgruppe, nüchtern sortiert.",
+      "date": "2026-07-29",
+      "readtime": "6 min",
+      "featured": false
+    },
+    {
+      "id": "bu-annahme",
+      "tag": "Arbeitskraft",
+      "category": "bu",
+      "title": "Berufsunfähigkeit: Wovon die Annahme wirklich abhängt",
+      "excerpt": "Beruf, Gesundheit, Hobbys — welche Angaben den Ausschlag geben und warum die anonyme Voranfrage vor den Antrag gehört.",
+      "date": "2026-07-29",
+      "readtime": "7 min",
+      "featured": false
+    },
+    {
+      "id": "rentenluecke-rechnen",
+      "tag": "Altersvorsorge",
+      "category": "altersvorsorge",
+      "title": "Rentenlücke realistisch rechnen — statt schätzen",
+      "excerpt": "Die Zahl auf der Renteninformation ist brutto und ohne Kaufkraftverlust. So kommen Sie auf einen belastbaren Betrag.",
+      "date": "2026-07-29",
+      "readtime": "6 min",
+      "featured": false
+    },
+    {
+      "id": "risikoleben-summe",
+      "tag": "Hinterbliebene",
+      "category": "risikoleben",
+      "title": "Risikolebensversicherung: Summe und Laufzeit bestimmen",
+      "excerpt": "Faustformeln führen regelmäßig daneben. Wie sich der Bedarf aus Schulden, Einkommen und Kinderjahren herleiten lässt.",
+      "date": "2026-07-29",
+      "readtime": "5 min",
+      "featured": false
+    },
+    {
+      "id": "kv-zusatz-luecken",
+      "tag": "Krankenversicherung",
+      "category": "kvzusatz",
+      "title": "Krankenzusatz: Welche Lücke er tatsächlich schließt",
+      "excerpt": "Zahn, Klinik, ambulant — was die gesetzliche Kasse nicht zahlt und welcher Baustein für welches Ziel gedacht ist.",
+      "date": "2026-07-29",
+      "readtime": "6 min",
+      "featured": false
+    },
+    {
+      "id": "kindervorsorge-frueh",
+      "tag": "Familie",
+      "category": "kinder",
+      "title": "Vorsorge für Kinder: Was früh wirklich zählt",
+      "excerpt": "Nicht das Sparprodukt ist der Hebel, sondern die frühe Absicherung der Gesundheit. Warum die Reihenfolge über das Ergebnis entscheidet.",
+      "date": "2026-07-29",
+      "readtime": "5 min",
+      "featured": false
+    },
+    {
+      "id": "schulunfaehigkeit-leistung",
+      "tag": "Familie",
+      "category": "schul",
+      "title": "Schulunfähigkeit: Was die Absicherung leistet — und was nicht",
+      "excerpt": "Der früheste Einstieg in die Arbeitskraftabsicherung. Wo die Grenzen liegen und warum die Wechseloption der eigentliche Kern ist.",
+      "date": "2026-07-29",
+      "readtime": "5 min",
+      "featured": false
+    },
+    {
+      "id": "baufi-vorbereitung",
+      "tag": "Baufinanzierung",
+      "category": "baufi",
+      "title": "Baufinanzierung: Welche Zahlen vor dem Termin feststehen sollten",
+      "excerpt": "Eigenkapital, Nebenkosten, Belastbarkeit — die Größen, die den Rahmen setzen, bevor über Zinsen gesprochen wird.",
+      "date": "2026-07-29",
+      "readtime": "7 min",
+      "featured": false
     }
   ]
 }
