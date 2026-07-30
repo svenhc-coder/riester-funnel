@@ -1,0 +1,19 @@
+/* Cookie-Hinweis VersicherungsFuchs */
+.vf-cn{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:9999;max-width:34rem;
+  margin-inline:auto;background:#fff;color:#1b1b1f;border:1px solid rgba(0,0,0,.08);
+  border-radius:1rem;box-shadow:0 12px 40px rgba(0,0,0,.18);
+  opacity:0;transform:translateY(12px);transition:opacity .28s ease,transform .28s ease}
+.vf-cn.is-visible{opacity:1;transform:none}
+.vf-cn__inner{padding:1.25rem 1.25rem 1.1rem}
+.vf-cn__title{margin:0 0 .4rem;font-size:1rem;font-weight:700}
+.vf-cn__body{margin:0;font-size:.85rem;line-height:1.55;color:#4a4a52}
+.vf-cn__body a{color:inherit;text-decoration:underline}
+.vf-cn__actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem}
+.vf-cn__btn{flex:1 1 10rem;min-height:2.6rem;padding:0 1rem;border-radius:.7rem;
+  font-size:.85rem;font-weight:600;cursor:pointer;border:1px solid transparent;
+  transition:filter .18s ease,background .18s ease}
+.vf-cn__btn--accept{background:#e2691a;color:#fff}
+.vf-cn__btn--accept:hover{filter:brightness(1.07)}
+.vf-cn__btn--reject{background:#f1f1f4;color:#1b1b1f;border-color:rgba(0,0,0,.1)}
+.vf-cn__btn--reject:hover{background:#e6e6ea}
+@media (prefers-reduced-motion:reduce){.vf-cn{transition:none}}

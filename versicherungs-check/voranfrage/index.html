@@ -34,6 +34,14 @@
     #step2{display:none}
     .doneline{color:var(--acc,#ff7a00);font-size:.85rem;margin-top:8px}
   </style>
+<!-- Consent-Mode + Google Ads (Conversion-Messung). Default "denied";
+     assets/js/cookie-notice.js hebt das nach Zustimmung per consent update auf. -->
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-820163824"></script>
+<script>gtag('js',new Date());gtag('config','AW-820163824');</script>
+<link rel="stylesheet" href="/assets/css/cookie-notice.css">
+<script defer src="/assets/js/cookie-notice.js"></script>
 </head>
 <body>
 <nav><div class="nav-inner"><a href="/" class="nav-logo"><img src="/assets/img/logo-header@2x.png" width="121" height="52" alt="VersicherungsFuchs"></a>
@@ -201,6 +209,28 @@
         msg.innerHTML='<span style="color:#ffb4a8">Senden nicht möglich. Ihre Kontaktanfrage ist aber bereits eingegangen – wir melden uns.</span>';
       });
   });
+})();
+</script>
+<script>
+/* Google Ads: Conversion "VersicherungsFuchs - Check-Anfrage abgeschickt".
+   Statt jeden einzelnen fetch-Aufruf anzufassen, wird window.fetch einmal
+   umhuellt: jede erfolgreiche Antwort von /api/lead meldet die Conversion.
+   Das faengt alle Formularwege dieser Seite ab, auch kuenftige. */
+(function(){
+  if (window.__vfFetchHooked) return; window.__vfFetchHooked = true;
+  var orig = window.fetch;
+  if (typeof orig !== 'function') return;
+  window.fetch = function(){
+    var url = arguments[0];
+    var pfad = (typeof url === 'string' ? url : (url && url.url) || '');
+    var p = orig.apply(this, arguments);
+    if (pfad.indexOf('/api/lead') !== -1) {
+      p.then(function(r){
+        if (r && r.ok && typeof window.vfAdsConversion === 'function') window.vfAdsConversion();
+      }).catch(function(){ /* Netzfehler: keine Conversion, absichtlich still */ });
+    }
+    return p;
+  };
 })();
 </script>
 </body>
