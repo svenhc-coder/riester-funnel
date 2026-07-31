@@ -262,35 +262,6 @@ if(nt)nt.addEventListener('click',function(){
 });
 </script>
 
-<!-- Cookie Consent Banner -->
-<div id="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie-Einwilligung">
-  <p>
-    Diese Website verwendet ausschließlich technisch notwendige Cookies für die Funktionalität des Riester-Checks.
-    Keine Tracking- oder Werbe-Cookies. Mehr dazu in unserer <a href="/datenschutz.html">Datenschutzerklärung</a>.
-  </p>
-  <div class="cookie-btns">
-    <button class="cookie-btn-decline" onclick="setCookieConsent('necessary')">Nur notwendige</button>
-    <button class="cookie-btn-accept" onclick="setCookieConsent('accepted')">Verstanden</button>
-  </div>
-</div>
-<script>
-(function() {
-  function setCookieConsent(val) {
-    try { localStorage.setItem('vf_cookie_consent', val); } catch(e) {}
-    var b = document.getElementById('cookie-banner');
-    if (b) { b.classList.remove('visible'); setTimeout(function(){ b.style.display='none'; }, 400); }
-  }
-  window.setCookieConsent = setCookieConsent;
-  document.addEventListener('DOMContentLoaded', function() {
-    var consent = null;
-    try { consent = localStorage.getItem('vf_cookie_consent'); } catch(e) {}
-    if (!consent) {
-      var b = document.getElementById('cookie-banner');
-      if (b) { b.style.display = 'flex'; setTimeout(function(){ b.classList.add('visible'); }, 100); }
-    }
-  });
-})();
-</script>
 
 <script src="/assets/js/smooth-scroll.js" defer></script>
 </body>

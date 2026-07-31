@@ -6,7 +6,7 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; connect-src 'self' https://api.versicherungs-fuchs.online; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.versicherungs-fuchs.online
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.googleadservices.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.de; font-src 'self' data:; connect-src 'self' https://api.versicherungs-fuchs.online https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google.com https://www.google.de; frame-src https://td.doubleclick.net; object-src 'none'; base-uri 'self'; form-action 'self' https://api.versicherungs-fuchs.online
 
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
