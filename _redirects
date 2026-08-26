@@ -1,3 +1,11 @@
+# --- Kanonischer Hostname: www -> ohne www -------------------------------------------
+# Befund 26.08.2026: www UND ohne www lieferten beide HTTP 200 - dieselbe Seite unter
+# zwei Hostnamen. Das Canonical zeigt auf die Variante OHNE www, also leitet www dorthin.
+# Ohne diese Regel verteilen sich Crawl-Budget und Links auf zwei Hosts, und die
+# Ads-Zielseiten-URL kann von der tatsaechlich ausgelieferten abweichen.
+# Das "!" erzwingt die Weiterleitung auch dann, wenn die Datei existiert.
+https://www.versicherungs-fuchs.online/*   https://versicherungs-fuchs.online/:splat   301!
+
 # Pretty-URLs für VersicherungsFuchs — Sevalla unterstützt Netlify-style _redirects
 # Status 200 = rewrite (URL bleibt), 301 = permanent redirect (URL wechselt)
 
