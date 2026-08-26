@@ -1,6 +1,11 @@
 # VersicherungsFuchs — HTTP-Header (Cloudflare Pages)
 
+# CDN-Cache, gesetzt 26.08.2026: Sevallas Standard war s-maxage=2592000 = 30 Tage
+# auch fuer HTML. Ein Deploy blieb dadurch bis zu einen Monat unsichtbar - an
+# VersicherungsFuchs nachgewiesen. 5 Minuten reichen, stale-while-revalidate
+# haelt die Auslieferung trotzdem schnell.
 /*
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=86400
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
@@ -17,3 +22,7 @@
 
 /pkv-check/*
   Cache-Control: public, max-age=0, must-revalidate
+
+# Statische Assets duerfen lang liegen bleiben - sie aendern sich selten.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
