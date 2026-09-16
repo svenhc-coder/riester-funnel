@@ -1,6 +1,6 @@
 /* VersicherungsFuchs Cookie-Hinweis - TDDDG-konform (§ 25 TDDDG, DSK 2023).
    - "Nur notwendige" und "Alle akzeptieren" gleichberechtigt auf der ersten Ebene
-   - Eine Stufe: Marketing (Google Ads Conversion-Messung). GA4 laeuft hier nicht.
+   - Eine Stufe: Marketing (Google Ads Conversion-Messung + Google Analytics 4, beide im <head>).
    - Persistenz: localStorage 'vf_cookie_consent' = 'accepted' | 'necessary'
    - Widerruf: Link mit class="vf-cn-trigger" -> zuruecksetzen + neu laden
    Das Google-Tag liegt im <head> jeder Seite mit Consent-Default "denied".
@@ -39,7 +39,8 @@
       + '  <p id="vf-cn-desc" class="vf-cn__body">'
       + '    Technisch notwendige Cookies brauchen wir, damit die Seite funktioniert.'
       + '    Optional messen wir, ueber welche Anzeige Sie zu uns gefunden haben'
-      + '    (Google Ads). Sie entscheiden - jederzeit widerrufbar. Details in der'
+      + '    (Google Ads) und wie die Seite genutzt wird (Google Analytics 4). Sie entscheiden -'
+      + '    jederzeit widerrufbar ueber „Cookie-Einstellungen" im Fussbereich. Details in der'
       + '    <a href="/datenschutz.html">Datenschutzerklaerung</a>.'
       + '  </p>'
       + '  <div class="vf-cn__actions">'

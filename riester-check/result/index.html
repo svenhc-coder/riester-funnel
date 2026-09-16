@@ -72,8 +72,8 @@
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-820163824"></script>
 <script>gtag('js',new Date());gtag('config','AW-820163824');gtag('config','G-VYF5P956SP');</script>
-<link rel="stylesheet" href="/assets/css/cookie-notice.css">
-<script defer src="/assets/js/cookie-notice.js"></script>
+<link rel="stylesheet" href="/assets/css/cookie-notice.css?v=20260916">
+<script defer src="/assets/js/cookie-notice.js?v=20260916"></script>
 </head>
 <body>
 <div id="root">
@@ -106,7 +106,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
             <a href="/" class="footer-link">Übersicht</a>
             <a href="/riester-check/" class="footer-link">Riester-Check</a>
             <a href="/impressum.html" class="footer-link">Impressum</a>
-            <a href="/datenschutz.html" class="footer-link">Datenschutz</a>
+            <a href="/datenschutz.html" class="footer-link">Datenschutz</a><a href="/erstinformation.html" class="footer-link">Erstinformation</a><a href="/widerrufsbelehrung.html" class="footer-link">Widerruf</a><a href="/bildnachweis.html" class="footer-link">Bildnachweis</a><a href="#" class="footer-link vf-cn-trigger">Cookie-Einstellungen</a>
           </div>
         </div>
         <p class="footer-disclaimer">Kein Finanz-, Rechts- oder Steuerberatungsangebot. Dieser Check dient ausschließlich der strukturierten Orientierung.</p>
@@ -197,6 +197,7 @@ var stripeInst = null, stripeEls = null;
       }).catch(function(){});
 
       vfSaveLead({name:name,email:email});
+      if(window.vfEvent)vfEvent('submit_lead_form',{source:'riester-check'});
       setTimeout(function(){showResult({name:name,email:email});},700);
     });
   }
@@ -296,6 +297,7 @@ var stripeInst = null, stripeEls = null;
   }
 
   function _openPayModal(priceLabel,title,sub,cs,tier){
+    if(typeof Stripe==='undefined'){var _a=arguments;var s=document.createElement('script');s.src='https://js.stripe.com/v3/';s.onload=function(){_openPayModal.apply(null,_a);};s.onerror=function(){alert('Zahlungsmodul konnte nicht geladen werden. Bitte erneut versuchen.');};document.head.appendChild(s);return;}
     document.getElementById('pay-modal-price').textContent=priceLabel;
     document.getElementById('pay-modal-title').textContent=title;
     document.getElementById('pay-modal-sub').textContent=sub;
@@ -318,6 +320,7 @@ var stripeInst = null, stripeEls = null;
         if(result.error){errEl.textContent=result.error.message;errEl.style.display='block';}
         else if(result.paymentIntent&&result.paymentIntent.status==='succeeded'){
           vfPaymentId=result.paymentIntent.id;
+          if(window.vfEvent)vfEvent('purchase',{currency:'EUR',transaction_id:vfPaymentId,items:[{item_name:'riester-check-'+tier}]});
           sessionStorage.setItem('vf_payment_id',vfPaymentId);
           _closePayModal();
           if(tier==='ki'){_showUpload();}
@@ -391,5 +394,6 @@ var stripeInst = null, stripeEls = null;
   };
 })();
 </script>
+<script defer src="/assets/js/vf-messung.js?v=1"></script>
 </body>
 </html>

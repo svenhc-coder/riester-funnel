@@ -12,6 +12,9 @@ https://www.versicherungs-fuchs.online/*   https://versicherungs-fuchs.online/:s
 # Pretty-URLs ohne .html
 /datenschutz       /datenschutz.html        200
 /impressum         /impressum.html          200
+/bildnachweis       /bildnachweis.html        200
+/widerrufsbelehrung       /widerrufsbelehrung.html        200
+/erstinformation       /erstinformation.html        200
 /bu-check          /bu-check.html           200
 /baufi-check       /baufi-check.html        200
 /renten-check      /renten-check.html       200
