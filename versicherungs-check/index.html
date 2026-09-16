@@ -28,14 +28,12 @@
     {"@type":"Question","name":"Bekomme ich eine Produktempfehlung?","acceptedAnswer":{"@type":"Answer","text":"Nein. Der Check gibt Ihnen eine ehrliche Einordnung Ihrer Situation – keine Pauschalempfehlung und kein Verkaufsdruck. Eine konkrete Empfehlung gibt es erst im persönlichen Beratungsgespräch, wenn Sie das möchten."}},
     {"@type":"Question","name":"Ich habe eine Vorerkrankung – lohnt sich ein Check?","acceptedAnswer":{"@type":"Answer","text":"Gerade dann. Bei Vorerkrankungen machen wir für Sie eine anonyme Risiko-Voranfrage bei mehreren Versicherern – so wissen Sie, woran Sie sind, ohne dass ein Eintrag oder eine ablehnbare Antragshistorie entsteht."}},
     {"@type":"Question","name":"Was ist der Vorteil eines unabhängigen Maklers?","acceptedAnswer":{"@type":"Answer","text":"Wir sind an keinen Versicherer gebunden und arbeiten in Ihrem Auftrag. Ein Ansprechpartner für alle Verträge, laufende Betreuung und Optimierung, Unterstützung im Schadenfall – und das kostenlos, weil wir über die Courtage vergütet werden."}}]}</script>
-<!-- Consent-Mode + Google Ads (Conversion-Messung). Default "denied";
-     assets/js/cookie-notice.js hebt das nach Zustimmung per consent update auf. -->
+<!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
+     Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-820163824"></script>
-<script>gtag('js',new Date());gtag('config','AW-820163824');gtag('config','G-VYF5P956SP');</script>
 <link rel="stylesheet" href="/assets/css/cookie-notice.css?v=20260916">
-<script defer src="/assets/js/cookie-notice.js?v=20260916"></script>
+<script defer src="/assets/js/cookie-notice.js?v=20260916b"></script>
 <style id="vf-siegel-css">.vf-siegel{position:fixed;right:18px;bottom:24px;z-index:50;display:none;min-width:120px;min-height:20px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .35s,transform .35s}.vf-siegel.ist-da{opacity:1;transform:none;pointer-events:auto}.vf-pe-fallback{display:flex;flex-direction:column;gap:2px;padding:10px 14px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:#151515;color:#f1f1f1;text-decoration:none;font-size:.8rem;line-height:1.3;box-shadow:0 14px 40px -18px rgba(0,0,0,.6)}.vf-pe-fallback b{font-size:.95rem}.vf-pe-fallback span{color:#999}@media(min-width:900px){.vf-siegel{display:flex}}@media(prefers-reduced-motion:reduce){.vf-siegel{transition:none}}@media print{.vf-siegel{display:none}}</style>
 </head>
 <body>
@@ -181,7 +179,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   @media(prefers-reduced-motion:reduce){.vc-card{transition:none}}
 </style>
 <script>try{var p=new URLSearchParams(location.search),u={};["utm_source","utm_medium","utm_campaign","utm_content","utm_term"].forEach(function(k){if(p.get(k))u[k.replace("utm_","")]=p.get(k)});if(Object.keys(u).length&&!sessionStorage.getItem("vf_utm"))sessionStorage.setItem("vf_utm",JSON.stringify(u));if(!sessionStorage.getItem("vf_landing"))sessionStorage.setItem("vf_landing",location.pathname);if(!sessionStorage.getItem("vf_ref")&&document.referrer&&document.referrer.indexOf(location.host)<0)sessionStorage.setItem("vf_ref",document.referrer);}catch(e){}</script>
-<script defer src="/assets/js/vf-messung.js?v=1"></script>
+<script defer src="/assets/js/vf-messung.js?v=20260916b"></script>
 <div class="vf-siegel" aria-label="Kundenbewertungen auf ProvenExpert"><div id="proSealWidget"></div><a class="vf-pe-fallback" href="https://www.provenexpert.com/isurance/" rel="noopener" target="_blank"><b>Kundenbewertungen</b><span>auf ProvenExpert ansehen</span></a></div>
 <script defer src="/assets/js/vf-siegel.js?v=1"></script>
 </body>

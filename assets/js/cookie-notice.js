@@ -1,10 +1,10 @@
 /* VersicherungsFuchs Cookie-Hinweis - TDDDG-konform (§ 25 TDDDG, DSK 2023).
    - "Nur notwendige" und "Alle akzeptieren" gleichberechtigt auf der ersten Ebene
-   - Eine Stufe: Marketing (Google Ads Conversion-Messung + Google Analytics 4, beide im <head>).
+   - Eine Stufe: Marketing (Google Ads Conversion-Messung + Google Analytics 4) — Consent BASIC: die Tags
+     laedt assets/js/vf-messung.js erst nach Zustimmung (Ereignis 'vf-consent'); vorher kein Google-Request.
    - Persistenz: localStorage 'vf_cookie_consent' = 'accepted' | 'necessary'
    - Widerruf: Link mit class="vf-cn-trigger" -> zuruecksetzen + neu laden
-   Das Google-Tag liegt im <head> jeder Seite mit Consent-Default "denied".
-   Hier wird die Entscheidung des Nutzers per gtag(consent,update) durchgereicht. */
+   Im <head> steht nur der dataLayer-Stub mit Consent-Default "denied". */
 (function () {
   'use strict';
 
@@ -61,7 +61,7 @@
       var t = e.target && e.target.closest && e.target.closest('[data-vf-cn]');
       if (!t) return;
       var a = t.getAttribute('data-vf-cn');
-      if (a === 'accept') { writeConsent('accepted');  updateConsent(true);  hide(); }
+      if (a === 'accept') { writeConsent('accepted');  updateConsent(true);  try { window.dispatchEvent(new Event('vf-consent')); } catch (err) {}  hide(); }
       else                { writeConsent('necessary'); updateConsent(false); hide(); }
     });
   }

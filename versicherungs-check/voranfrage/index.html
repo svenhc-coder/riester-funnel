@@ -34,14 +34,12 @@
     #step2{display:none}
     .doneline{color:var(--acc,#ff7a00);font-size:.85rem;margin-top:8px}
   </style>
-<!-- Consent-Mode + Google Ads (Conversion-Messung). Default "denied";
-     assets/js/cookie-notice.js hebt das nach Zustimmung per consent update auf. -->
+<!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
+     Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-820163824"></script>
-<script>gtag('js',new Date());gtag('config','AW-820163824');gtag('config','G-VYF5P956SP');</script>
 <link rel="stylesheet" href="/assets/css/cookie-notice.css?v=20260916">
-<script defer src="/assets/js/cookie-notice.js?v=20260916"></script>
+<script defer src="/assets/js/cookie-notice.js?v=20260916b"></script>
 </head>
 <body>
 <nav><div class="nav-inner"><a href="/" class="nav-logo"><img src="/assets/img/logo-header@2x.png" width="121" height="52" alt="VersicherungsFuchs"></a>
@@ -233,6 +231,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   };
 })();
 </script>
-<script defer src="/assets/js/vf-messung.js?v=1"></script>
+<script defer src="/assets/js/vf-messung.js?v=20260916b"></script>
 </body>
 </html>

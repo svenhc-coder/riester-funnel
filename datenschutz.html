@@ -57,14 +57,12 @@
 .btn-primary,a.btn-primary,button.btn-primary,.nav-cta,.btn-cta,.cta-primary{color:#0a0a0f !important;}
 .btn-primary svg,.nav-cta svg{stroke:#0a0a0f !important;}
 </style>
-<!-- Consent-Mode + Google Ads (Conversion-Messung). Default "denied";
-     assets/js/cookie-notice.js hebt das nach Zustimmung per consent update auf. -->
+<!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
+     Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
 gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted','wait_for_update':500});</script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-820163824"></script>
-<script>gtag('js',new Date());gtag('config','AW-820163824');gtag('config','G-VYF5P956SP');</script>
 <link rel="stylesheet" href="/assets/css/cookie-notice.css?v=20260916">
-<script defer src="/assets/js/cookie-notice.js?v=20260916"></script>
+<script defer src="/assets/js/cookie-notice.js?v=20260916b"></script>
 <style id="vf-rechtslinks">.page-wrap p a,.page-wrap li a{text-decoration:underline;text-underline-offset:2px}</style>
 </head>
 <body>
@@ -126,7 +124,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <hr class="divider">
 
   <h2>3. Cookies und Tracking</h2>
-  <p>Diese Website verwendet technisch notwendige Cookies sowie Session-Storage für die Funktionalität des Riester-Checks (Speicherung Ihrer Antworten während der Nutzung). Ihre Entscheidung im Cookie-Hinweis speichern wir im Browser (Schlüssel <code>vf_cookie_consent</code>, 12 Monate). Nur wenn Sie „Alle akzeptieren“ wählen, setzen wir zusätzlich die beiden folgenden Google-Dienste mit Cookies ein (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Ihre Einwilligung bleiben die Google-Tags im Zustand „denied“ (Consent Mode): Es werden keine Werbe- oder Analyse-Cookies gesetzt; Google erhält lediglich cookielose, nicht personenbezogene Signale zur Modellierung.</p>
+  <p>Diese Website verwendet technisch notwendige Cookies sowie Session-Storage für die Funktionalität des Riester-Checks (Speicherung Ihrer Antworten während der Nutzung). Ihre Entscheidung im Cookie-Hinweis speichern wir im Browser (Schlüssel <code>vf_cookie_consent</code>, 12 Monate). Nur wenn Sie „Alle akzeptieren“ wählen, setzen wir zusätzlich die beiden folgenden Google-Dienste mit Cookies ein (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Ihre Einwilligung wird kein Google-Skript geladen — es fließen dann keine Daten an Google.</p>
 
   <h3>3.1 Google Ads Conversion-Messung</h3>
   <p>Wir messen, ob ein Besuch über eine Google-Anzeige zu einer Anfrage geführt hat (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Dazu setzt Google nach Einwilligung ein Conversion-Cookie (Laufzeit bis 90 Tage). Wir erhalten nur aggregierte Zahlen, keine Identifizierung einzelner Personen. Google kann Daten in die USA übermitteln; Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
@@ -207,6 +205,6 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 
 
 <script src="/assets/js/smooth-scroll.js" defer></script>
-<script defer src="/assets/js/vf-messung.js?v=1"></script>
+<script defer src="/assets/js/vf-messung.js?v=20260916b"></script>
 </body>
 </html>
