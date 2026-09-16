@@ -307,6 +307,17 @@ def banner():
     t = ersetze_einmal(t, ".vf-cn__title{margin:0 0 .4rem;font-size:1rem;font-weight:700}",
                        ".vf-cn__title{margin:0 0 .4rem;font-size:1rem;font-weight:700;color:#1b1b1f}", wo="banner title")
     if t != alt: schreibe(rel, t)
+    # main.css: --txt3 (Fusszeile, Store-Labels, Hinweise) lag bei 2,9:1 auf #0c0c0c; 0.55 -> ~5,6:1. Quellen-Links auf den
+    # Check-Landings hatten Browser-Blau (#0000ee, 1,9:1) auf Dunkel.
+    rel = "assets/css/main.css"; t = lese(rel); alt = t
+    t = ersetze_einmal(t, "--txt3:rgba(242,242,242,0.35);", "--txt3:rgba(242,242,242,0.55);", wo="main.css txt3")
+    if ".quellen-hinweis a{" not in t:
+        t = t.rstrip("\n") + "\n.quellen-hinweis a{color:var(--acc);text-decoration:underline;text-underline-offset:2px}\n"
+    if t != alt: schreibe(rel, t)
+
+
+def main_css_version(t):
+    return t.replace("/assets/css/main.css?v=c7e33c05", "/assets/css/main.css?v=%s" % V)
 
 
 # ---------------------------------------------------------------------------------------------------- 4. CSP
@@ -429,6 +440,7 @@ if __name__ == "__main__":
         t = lese(rel); alt = t
         t = footer_links(rel, t)
         t = messung_seite(t)
+        t = main_css_version(t)
         t = siegel_seite(rel, t)
         t = aussagen(rel, t)
         t = ueberschriften(rel, t)

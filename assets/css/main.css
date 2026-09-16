@@ -1,5 +1,5 @@
 *{box-sizing:border-box;margin:0;padding:0;}
-:root{--acc:#f97316;--acc2:rgba(255,122,0,0.12);--acc3:rgba(255,122,0,0.25);--bg:#0c0c0c;--bg2:#111111;--txt:#f2f2f2;--txt2:rgba(242,242,242,0.65);--txt3:rgba(242,242,242,0.35);--txt4:rgba(242,242,242,0.2);--border:rgba(255,255,255,0.07);--beige:#c6ab7f;}
+:root{--acc:#f97316;--acc2:rgba(255,122,0,0.12);--acc3:rgba(255,122,0,0.25);--bg:#0c0c0c;--bg2:#111111;--txt:#f2f2f2;--txt2:rgba(242,242,242,0.65);--txt3:rgba(242,242,242,0.55);--txt4:rgba(242,242,242,0.2);--border:rgba(255,255,255,0.07);--beige:#c6ab7f;}
 body{background:var(--bg);color:var(--txt,#f2f2f2);font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;line-height:1.6;}
 .glass{background:rgba(255,255,255,0.04);backdrop-filter:blur(12px);border:1px solid var(--border);}
 .glass-warm{background:rgba(255,122,0,0.07);backdrop-filter:blur(12px);border:1px solid var(--acc3);}
@@ -521,3 +521,4 @@ a.btn-primary:visited{color:#fff;}
 button.btn-primary,.cookie-btn-accept{color:#0a0a0f !important;}
 .btn-primary svg,.nav-cta svg{stroke:#0a0a0f;}
 .btn-primary:hover,a.btn-primary:hover,.nav-cta:hover{color:#0a0a0f !important;}
+.quellen-hinweis a{color:var(--acc);text-decoration:underline;text-underline-offset:2px}
