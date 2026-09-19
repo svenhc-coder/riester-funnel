@@ -296,10 +296,12 @@
     .section-sub { color: var(--txt2,#a9a9bf); font-size: 1rem; margin-bottom: 48px; }
 
     .module-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      /* 19.09.2026 Gegencheck: bei 320 px lief die Spalte 4 px über (minmax 300px + Seitenrand) */
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
       gap: 20px;
     }
     .module-card {
+      min-width: 0;
       background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: var(--radius);
