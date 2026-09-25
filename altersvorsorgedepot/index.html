@@ -72,6 +72,18 @@
     .result-form button:hover { opacity: 0.88; }
     .consent-note { font-size: 0.72rem; color: var(--txt2,#8888a0); text-align: center; margin-top: 10px; }
     .submit-success { display:none; text-align:center; color:#4ade80; font-weight:600; font-size:0.95rem; }
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .result-form .rf-field { width: 200px; }
+    .result-form input[type=tel] {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px; padding: 12px 16px; color: var(--txt,#f2f2f2);
+      font-size: 0.95rem; font-family: inherit; outline: none;
+    }
+    .result-form .rf-field input { width: 100%; box-sizing: border-box; }
+    .submit-err { display:none; text-align:center; color:#ffb4a8; font-size:.875rem; margin-top:10px; }
+    .plausi-meldung { margin:6px 0 0; font-size:.875rem; line-height:1.4; color:#ffb4a8; text-align:left; overflow-wrap:anywhere; }
+    [aria-invalid="true"] { border-color:#ef4444 !important; box-shadow:0 0 0 1px #ef4444; }
+    @media(max-width:640px) { .result-form .rf-field { width: 100%; } }
 
     /* ── Info / Bestandsschutz ───────────────────────────────────────────────── */
     .avd-info { max-width: 780px; margin: 0 auto 8px; padding: 0 24px; }
@@ -208,9 +220,10 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 
         <div class="result-cta">
           <p>Kostenlose Einordnung: Was bedeutet das Altersvorsorgedepot für Ihren bestehenden Riester – und passen Ihre übrigen Versicherungen noch? Wir prüfen es neutral im unverbindlichen Termin.</p>
-          <form class="result-form" onsubmit="submitLead(event)">
-            <input type="text"  id="f-name"  placeholder="Ihr Name"  required autocomplete="name" maxlength="120">
-            <input type="email" id="f-email" placeholder="E-Mail"    required autocomplete="email" maxlength="160">
+          <form class="result-form" id="avd-lead-form">
+            <div class="rf-field"><input type="text"  id="f-name"  name="name"    placeholder="Ihr Name" aria-label="Ihr Name" required autocomplete="name" maxlength="120" data-plausi="name"></div>
+            <div class="rf-field"><input type="email" id="f-email" name="email"   placeholder="E-Mail" aria-label="E-Mail" required autocomplete="email" maxlength="160" data-plausi="email"></div>
+            <div class="rf-field"><input type="tel"   id="f-tel"   name="telefon" placeholder="Telefon (für Rückfragen)" aria-label="Telefon (für Rückfragen)" required autocomplete="tel" maxlength="40" data-plausi="telefon"></div>
             <button type="submit">Kostenlose Einordnung anfragen</button>
           </form>
           <p class="consent-note">
@@ -218,6 +231,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
             Ich stimme der <a href="/datenschutz.html" target="_blank" style="color:var(--primary)">Datenschutzerklärung</a> zu.
             Unabhängige Einordnung, kein Verkauf, kein Spam.
           </p>
+          <div class="submit-err" id="submit-err" role="alert"></div>
           <div class="submit-success" id="submit-ok">✓ Anfrage erhalten – wir melden uns persönlich bei Ihnen.</div>
         </div>
       </div>
@@ -300,6 +314,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <p class="footer-disclaimer">Kein Finanz-, Rechts- oder Steuerberatungsangebot. Die Tools dienen ausschließlich der strukturierten Orientierung. Für verbindliche Entscheidungen ist ein zugelassener Berater hinzuzuziehen.</p>
 </div></footer>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script>
 function eur(n) { return n.toLocaleString('de-DE',{style:'currency',currency:'EUR',maximumFractionDigits:0}); }
 
@@ -339,19 +354,47 @@ function submitLead(e) {
   e.preventDefault();
   var consent = document.getElementById('f-consent');
   if (!consent.checked) { consent.focus(); return; }
+  var form  = document.getElementById('avd-lead-form');
+  var btn   = form.querySelector('button[type=submit]');
+  var errEl = document.getElementById('submit-err');
+  var tel   = document.getElementById('f-tel').value.trim();
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  // answers ist im Backend (LeadIn) Pflicht - ohne kam 422 zurueck und der Lead ging verloren.
+  // extra.tel: nur daraus uebernimmt das Backend die Nummer in die Lead-Bridge (Feld phone).
   var payload = {
-    name:  document.getElementById('f-name').value,
-    email: document.getElementById('f-email').value,
+    name:  document.getElementById('f-name').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
     tool:  'avd-zulagenrechner',
     source:'altersvorsorgedepot',
-    legal_scope:'34d-einordnung'
+    legal_scope:'34d-einordnung',
+    answers: {
+      beitrag_monat: +document.getElementById('sl-beitrag').value,
+      alter:         +document.getElementById('sl-alter').value,
+      kinder:        +document.getElementById('sl-kinder').value
+    },
+    ampel_status: 'yellow',
+    extra: { tel: tel }
   };
   fetch('https://api.versicherungs-fuchs.online/api/lead', {
     method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
-  }).catch(function(){});
-  document.querySelector('.result-form').style.display = 'none';
-  document.getElementById('submit-ok').style.display   = 'block';
+  }).then(function (r) {
+    if (!r.ok) throw new Error('status ' + r.status);
+    form.style.display = 'none';
+    document.getElementById('submit-ok').style.display = 'block';
+  }).catch(function () {
+    btn.disabled = false;
+    errEl.textContent = 'Senden gerade nicht möglich. Bitte versuchen Sie es erneut oder schreiben Sie an info@isurance-group.de.';
+    errEl.style.display = 'block';
+  });
 }
+
+// Plausi-Pruefung (Name/Mail/Telefon) vor dem eigenen Submit-Handler anhaengen.
+(function () {
+  var f = document.getElementById('avd-lead-form');
+  if (window.IsuPlausi) IsuPlausi.anschliessen(f);
+  f.addEventListener('submit', submitLead);
+})();
 
 function toggleFaq(el) {
   var item = el.parentElement;

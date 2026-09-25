@@ -65,6 +65,10 @@
 
   
     .footer-logo { height: 48px !important; width: auto !important; max-width: 200px !important; display: block; }
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .lead-input[type=tel] { width: 100%; }
+    .plausi-meldung { margin: 6px 0 0; font-size: .875rem; line-height: 1.4; color: #ffb4a8; text-align: left; overflow-wrap: anywhere; }
+    [aria-invalid="true"] { border-color: #ef4444 !important; box-shadow: 0 0 0 1px #ef4444; }
   </style>
 <!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
      Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
@@ -125,6 +129,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   </div>
 </div>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script src="/assets/js/brand.js"></script>
 <script src="/assets/js/state.js"></script>
 <script src="/assets/js/scoring.js"></script>
@@ -160,19 +165,25 @@ var stripeInst = null, stripeEls = null;
       +'<h2 class="funnel-question" style="margin-bottom:8px">Wo sollen wir das Ergebnis hinschicken?</h2>'
       +'<p class="funnel-hint" style="margin-bottom:28px">Ihr Ergebnis wird direkt angezeigt und per E-Mail zugeschickt. Abmeldung jederzeit möglich.</p>'
       +'<form id="lead-form" class="lead-form">'
-      +'<div class="lead-field"><label class="lead-label">Ihr Name</label><input class="lead-input" type="text" id="inp-name" placeholder="Max Mustermann" required></div>'
-      +'<div class="lead-field"><label class="lead-label">E-Mail-Adresse</label><input class="lead-input" type="email" id="inp-email" placeholder="ihre@email.de" required></div>'
+      +'<div class="lead-field"><label class="lead-label" for="inp-name">Ihr Name</label><input class="lead-input" type="text" id="inp-name" name="name" autocomplete="name" placeholder="Vor- und Nachname" required data-plausi="name"></div>'
+      +'<div class="lead-field"><label class="lead-label" for="inp-email">E-Mail-Adresse</label><input class="lead-input" type="email" id="inp-email" name="email" autocomplete="email" placeholder="ihre@email.de" required data-plausi="email"></div>'
+      +'<div class="lead-field"><label class="lead-label" for="inp-tel">Telefon (für Rückfragen)</label><input class="lead-input" type="tel" id="inp-tel" name="telefon" autocomplete="tel" placeholder="0151 …" required data-plausi="telefon"></div>'
       +'<label class="lead-consent"><input type="checkbox" id="inp-consent" required> <span>Ich bin einverstanden, dass meine Daten zur Bearbeitung meiner Anfrage und Zusendung des Ergebnisses gespeichert und genutzt werden. Eine Weitergabe an Dritte erfolgt nicht. <a href="/datenschutz.html" target="_blank" style="color:var(--txt2,#8888a0);text-decoration:underline">Datenschutz</a></span></label>'
       +'<div id="lead-err" class="lead-error" style="display:none"></div>'
       +'<button type="submit" class="btn-primary btn-lg" id="btn-submit"><span>Ergebnis anzeigen</span>'+A_SVG+'</button>'
       +'</form>'
       +'<p class="lead-disclaimer">'+SHIELD+' Keine Rechts- oder Finanzberatung. Kein Verkauf. Nur strukturierte Orientierung.</p>';
 
-    document.getElementById('lead-form').addEventListener('submit',function(e){
+    var leadForm=document.getElementById('lead-form');
+    // Plausi-Pruefung (Name/Mail/Telefon) VOR dem eigenen Submit-Handler anhaengen: das Formular
+    // entsteht erst hier per innerHTML, der automatische Anschluss bei DOMContentLoaded sieht es nicht.
+    if(window.IsuPlausi)IsuPlausi.anschliessen(leadForm);
+    leadForm.addEventListener('submit',function(e){
       e.preventDefault();
       var name=document.getElementById('inp-name').value.trim(), email=document.getElementById('inp-email').value.trim();
+      var tel=document.getElementById('inp-tel').value.trim();
       var consent=document.getElementById('inp-consent').checked, errEl=document.getElementById('lead-err');
-      if(!name||!email){errEl.textContent='Bitte Namen und E-Mail angeben.';errEl.style.display='block';return;}
+      if(!name||!email||!tel){errEl.textContent='Bitte Name, E-Mail und Telefon angeben.';errEl.style.display='block';return;}
       if(!consent){errEl.textContent='Bitte stimmen Sie der Datenverarbeitung zu.';errEl.style.display='block';return;}
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){errEl.textContent='Bitte eine gültige E-Mail-Adresse eingeben.';errEl.style.display='block';return;}
       errEl.style.display='none';
@@ -181,10 +192,13 @@ var stripeInst = null, stripeEls = null;
 
       // KORREKTER ENDPOINT: /api/lead (singular) mit vollständigem Payload
       fetch(API_URL+'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name:name,email:email,answers:answers,ampel_status:ampel,tier:'ki',source:'riester-check'})
+        body:JSON.stringify({name:name,email:email,answers:answers,ampel_status:ampel,tier:'ki',source:'riester-check',
+          extra:{tel:tel}})
       })
       .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
       .then(function(data){
+        // Conversion erst nach erfolgreicher Server-Antwort (vorher feuerte sie schon beim Klick).
+        if(window.vfEvent)vfEvent('submit_lead_form',{source:'riester-check'});
         if(data.lead_id){
           vfLeadId=data.lead_id; vfClientSecret=data.client_secret||null;
           vfPaymentId=vfClientSecret?vfClientSecret.split('_secret_')[0]:null;
@@ -194,8 +208,7 @@ var stripeInst = null, stripeEls = null;
         }
       }).catch(function(){});
 
-      vfSaveLead({name:name,email:email});
-      if(window.vfEvent)vfEvent('submit_lead_form',{source:'riester-check'});
+      vfSaveLead({name:name,email:email,telefon:tel});
       setTimeout(function(){showResult({name:name,email:email});},700);
     });
   }

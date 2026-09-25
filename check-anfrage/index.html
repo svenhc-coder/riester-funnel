@@ -58,6 +58,9 @@
     footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
     footer a { color: var(--txt2,#8888a0); }
     @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .plausi-meldung { margin: .4rem 0 0; font-size: .875rem; line-height: 1.4; color: #ffb4a8; overflow-wrap: anywhere; }
+    [aria-invalid="true"] { border-color: #ef4444 !important; box-shadow: 0 0 0 1px #ef4444; }
   </style>
 <style>
 /* CTA-Kontrast (Sven 07-23): weisse Schrift auf Orange erreichte nur 2.6 statt 4.5 (WCAG AA).
@@ -95,14 +98,14 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 
       <div class="card">
         <form id="lead-form" novalidate>
-          <label for="name">Name <span class="opt">(optional)</span></label>
-          <input type="text" id="name" name="name" autocomplete="name" placeholder="Vor- und Nachname">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" autocomplete="name" placeholder="Vor- und Nachname" required data-plausi="name">
 
           <label for="email">E-Mail-Adresse</label>
-          <input type="email" id="email" name="email" autocomplete="email" placeholder="name@beispiel.de" required>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="name@beispiel.de" required data-plausi="email">
 
-          <label for="telefon">Telefon <span class="opt">(optional, für schnelleren Rückruf)</span></label>
-          <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="0151 …">
+          <label for="telefon">Telefon (für Rückfragen)</label>
+          <input type="tel" id="telefon" name="telefon" autocomplete="tel" placeholder="0151 …" required data-plausi="telefon">
 
           <label for="nachricht" id="nachricht-label">Ihre Ausgangslage <span class="opt">(optional)</span></label>
           <textarea id="nachricht" name="nachricht" placeholder="Kurz zu Ihrer Situation …"></textarea>
@@ -137,6 +140,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   </div>
 </footer>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script>
   var API_URL = 'https://api.versicherungs-fuchs.online';
   var CFG = {
@@ -171,6 +175,8 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 
   function showErr(msg){ errEl.textContent = msg; errEl.style.display = 'block'; }
 
+  // Plausi-Pruefung (Name/Mail/Telefon) vor dem eigenen Submit-Handler anhaengen.
+  if (window.IsuPlausi) IsuPlausi.anschliessen(form);
   form.addEventListener('submit', function(e){
     e.preventDefault();
     errEl.style.display = 'none';
@@ -180,15 +186,18 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
     if (!document.getElementById('consent').checked) { showErr('Bitte bestätigen Sie die Verarbeitung Ihrer Angaben.'); return; }
 
     btn.disabled = true; btn.textContent = 'Wird gesendet …';
+    var tel = document.getElementById('telefon').value.trim();
     var payload = {
       name: document.getElementById('name').value.trim(),
       email: email,
       answers: {
         check: check || 'allgemein',
-        telefon: document.getElementById('telefon').value.trim(),
+        telefon: tel,
         nachricht: document.getElementById('nachricht').value.trim(),
         quelle: 'check-anfrage'
       },
+      // extra.tel: nur daraus uebernimmt das Backend die Nummer in die Lead-Bridge (Feld phone).
+      extra: { tel: tel },
       source: (check || 'allgemein') + '-check-anfrage'
     };
     fetch(API_URL + '/api/lead', {

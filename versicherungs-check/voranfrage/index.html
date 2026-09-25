@@ -33,6 +33,9 @@
     .trust{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.82rem;color:var(--txt2,#8888a0);margin:6px 0 2px}
     #step2{display:none}
     .doneline{color:var(--acc,#ff7a00);font-size:.85rem;margin-top:8px}
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .plausi-meldung{margin:6px 0 0;font-size:.875rem;line-height:1.4;color:#ffb4a8;overflow-wrap:anywhere}
+    [aria-invalid="true"]{border-color:#ef4444 !important;box-shadow:0 0 0 1px #ef4444}
   </style>
 <!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
      Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
@@ -59,10 +62,10 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
       <h2>1. Wie erreichen wir Sie?</h2>
       <p class="sub">Damit sich ein Berater mit Ihrer Einschätzung bei Ihnen melden kann.</p>
       <div class="vf-row">
-        <div><label class="fl">Vor- und Nachname</label><input type="text" name="name" autocomplete="name"></div>
-        <div><label class="fl">Telefon (optional)</label><input type="tel" name="tel" autocomplete="tel"></div>
+        <div><label class="fl" for="c-name">Vor- und Nachname</label><input type="text" id="c-name" name="name" autocomplete="name" required data-plausi="name"></div>
+        <div><label class="fl" for="c-tel">Telefon (für Rückfragen)</label><input type="tel" id="c-tel" name="tel" autocomplete="tel" required data-plausi="telefon"></div>
       </div>
-      <label class="fl">E-Mail</label><input type="email" name="email" autocomplete="email">
+      <label class="fl" for="c-email">E-Mail</label><input type="email" id="c-email" name="email" autocomplete="email" required data-plausi="email">
       <div class="consent"><input type="checkbox" id="c1"><label for="c1">Ich willige ein, dass VersicherungsFuchs (iSurance Group) meine Angaben verarbeitet und mich zu meiner Anfrage kontaktiert. <a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>
       <div id="cmsg" style="margin-top:10px"></div>
       <button class="btn-primary btn-lg" id="cbtn" type="submit" style="margin-top:14px;width:100%"><span>Kostenlose Einschätzung anfordern</span></button>
@@ -110,6 +113,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <p class="foot">Kostenlos und unverbindlich. Sobald uns Ergebnisse vorliegen, melden wir uns. §&nbsp;34d GewO – keine Anlage- oder Rechtsberatung. <a href="/versicherungs-check/" style="color:var(--acc)">Zurück zu den Checks</a></p>
 </main>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script src="/assets/js/state.js"></script>
 <script src="/assets/js/vf-checks.js?v=20260722d"></script>
 <script>
@@ -126,6 +130,8 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
 
   // ---- SCHRITT 1: Kontakt -> Lead sofort an die zentrale Bridge (auch wenn Schritt 2 abgebrochen wird) ----
   var cf=document.getElementById('cform');
+  // Plausi-Pruefung (Name/Mail/Telefon) vor dem eigenen Submit-Handler anhaengen.
+  if(window.IsuPlausi) IsuPlausi.anschliessen(cf);
   cf.addEventListener('submit',function(e){
     e.preventDefault();
     if(cf.botcheck1.value)return;
@@ -138,7 +144,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
     fetch(API+'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name,email:email,answers:checkAns,source:(check&&check.leadSource||type),ampel_status:checkErg?checkErg.ampel:null,
         extra:Object.assign({tel:(cf.tel.value||'').trim(),request_id:REQUEST_ID}, extra())})})
-    .then(function(r){return r.json().catch(function(){return{};});}).then(function(){
+    .then(function(r){ if(!r.ok) throw new Error('status '+r.status); return r.json().catch(function(){return{};});}).then(function(){
       // Lead gesichert -> Schritt 2 (optionaler Gesundheitsbogen) freigeben
       cf.querySelector('.vf-step').style.opacity='.55';
       btn.style.display='none';

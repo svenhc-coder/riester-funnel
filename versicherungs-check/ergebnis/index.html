@@ -26,6 +26,9 @@
     .res-lead .consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:.85rem;color:var(--txt2,#8888a0)}
     .res-hp{position:absolute;left:-9999px}
     .res-foot{font-size:.8rem;color:var(--txt2,#8888a0);margin-top:22px;line-height:1.6;border-top:1px solid var(--border);padding-top:16px}
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .plausi-meldung{margin:6px 0 0;font-size:.875rem;line-height:1.4;color:#ffb4a8;overflow-wrap:anywhere}
+    [aria-invalid="true"]{border-color:#ef4444 !important;box-shadow:0 0 0 1px #ef4444}
   </style>
 <!-- Consent BASIC (16.09.2026): Google Ads + GA4 laden erst nach Einwilligung (assets/js/vf-messung.js).
      Hier nur dataLayer-Stub + consent default — kein Request an Google. -->
@@ -42,6 +45,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <p style="color:var(--txt2,#8888a0)">Ihr Ergebnis wird geladen …</p>
 </main>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script src="/assets/js/state.js"></script>
 <script src="/assets/js/vf-checks.js"></script>
 <script>
@@ -83,9 +87,9 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
       +'<p style="color:var(--txt2,#8888a0);margin:0;font-size:.92rem">Ein unabhängiger Berater meldet sich bei Ihnen – kostenlos und unverbindlich.</p>'
       +'<form id="leadform" novalidate>'
       +'<input class="res-hp" type="text" name="botcheck" tabindex="-1" autocomplete="off">'
-      +'<label>Name</label><input name="name" autocomplete="name">'
-      +'<label>E-Mail</label><input name="email" type="email" autocomplete="email">'
-      +'<label>Telefon (optional)</label><input name="tel" type="tel" autocomplete="tel">'
+      +'<label for="lf-name">Name</label><input id="lf-name" name="name" autocomplete="name" required data-plausi="name">'
+      +'<label for="lf-email">E-Mail</label><input id="lf-email" name="email" type="email" autocomplete="email" required data-plausi="email">'
+      +'<label for="lf-tel">Telefon (für Rückfragen)</label><input id="lf-tel" name="tel" type="tel" autocomplete="tel" required data-plausi="telefon">'
       +'<div class="consent"><input type="checkbox" id="cons" style="width:auto"><label for="cons" style="margin:0">Ich bin einverstanden, dass mich VersicherungsFuchs zu meiner Anfrage kontaktiert. '
       +'<a href="/datenschutz.html" style="color:var(--acc)">Datenschutz</a>.</label></div>'
       +'<div id="lead-msg" style="margin-top:10px"></div>'
@@ -98,6 +102,9 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   document.getElementById('res').innerHTML=html;
 
   var f=document.getElementById('leadform');
+  if(!f) return; // Voranfrage-Zweig: kein Formular auf dieser Seite (Lead-Erfassung auf /voranfrage/)
+  // Plausi-Pruefung vor dem eigenen Submit-Handler anhaengen (Formular entsteht erst per innerHTML).
+  if(window.IsuPlausi) IsuPlausi.anschliessen(f);
   f.addEventListener('submit',function(e){
     e.preventDefault();
     if(f.botcheck.value) return;
@@ -110,7 +117,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
       body:JSON.stringify({name:name,email:email,answers:answers,
         source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage,
         extra:Object.assign({tel:f.tel.value.trim()}, window.vfExtra?window.vfExtra():{})})})
-    .then(function(x){return x.json();}).then(function(j){
+    .then(function(x){ if(!x.ok) throw new Error('status '+x.status); return x.json().catch(function(){return {};}); }).then(function(j){
       msg.innerHTML='<div class="res-vor" style="margin:0"><strong>Danke! Ihre Anfrage ist bei uns eingegangen.</strong>'
         +'<p style="color:var(--txt2,#8888a0);margin:.3em 0 0">Ein unabhängiger Berater meldet sich bei Ihnen.</p></div>';
       f.querySelector('#lead-btn').style.display='none';

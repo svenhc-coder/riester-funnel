@@ -146,6 +146,10 @@
     }
     .newsletter-form button:hover { background:var(--primary2); }
     .newsletter-disclaimer { font-size:0.75rem; color:var(--txt2,#8888a0); margin-top:12px; }
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) - Meldung unter die Zeile */
+    .newsletter-form .plausi-meldung { flex-basis:100%; order:3; margin:2px 0 0; font-size:.875rem; line-height:1.4; color:#ffb4a8; text-align:left; overflow-wrap:anywhere; }
+    .newsletter-form [aria-invalid="true"] { border-color:#ef4444; box-shadow:0 0 0 1px #ef4444; }
+    .nl-err { display:none; margin-top:10px; font-size:.875rem; color:#ffb4a8; }
 
     footer {
       background:var(--bg); border-top:1px solid var(--border);
@@ -293,10 +297,11 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <div class="newsletter-inner">
     <h2>Neue Analysen per E-Mail</h2>
     <p>Kein Spam, kein Verkauf – nur wenn wir etwas Relevantes veröffentlichen. Abmeldung jederzeit.</p>
-    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
-      <input type="email" id="nl-email" placeholder="ihre@email.de" required>
+    <form class="newsletter-form" id="nl-form">
+      <input type="email" id="nl-email" name="email" placeholder="ihre@email.de" aria-label="E-Mail-Adresse" autocomplete="email" required data-plausi="email">
       <button type="submit">Benachrichtigen</button>
     </form>
+    <p class="nl-err" id="nl-err" role="alert"></p>
     <p class="newsletter-disclaimer">
       Mit der Eingabe stimmen Sie der Verarbeitung Ihrer E-Mail-Adresse zu. 
       <a href="/datenschutz.html" style="color:var(--txt2,#8888a0);text-decoration:underline;">Datenschutz</a>
@@ -316,6 +321,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   </div>
 </footer>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script>
 const API_URL = 'https://api.versicherungs-fuchs.online';
 let allArticles = [];
@@ -465,20 +471,41 @@ async function loadArticles() {
 
 async function subscribeNewsletter(e) {
   e.preventDefault();
-  const email = document.getElementById('nl-email').value;
-  const btn = e.target.querySelector('button');
+  const form = e.currentTarget || e.target;
+  const email = document.getElementById('nl-email').value.trim();
+  const btn = form.querySelector('button');
+  const errEl = document.getElementById('nl-err');
+  errEl.style.display = 'none';
+  btn.disabled = true;
   btn.textContent = 'Wird gespeichert…';
+  let ok = false;
   try {
-    await fetch(API_URL + '/api/newsletter', {
+    const r = await fetch(API_URL + '/api/newsletter', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({email, source:'news-page'})
     });
+    ok = r.ok;
   } catch(err) {}
+  if (!ok) {
+    // Vorher stand hier immer „Eingetragen", auch wenn der Server ablehnte.
+    btn.disabled = false;
+    btn.textContent = 'Benachrichtigen';
+    errEl.textContent = 'Eintragen gerade nicht möglich. Bitte versuchen Sie es später erneut oder schreiben Sie an info@isurance-group.de.';
+    errEl.style.display = 'block';
+    return;
+  }
   btn.textContent = '✓ Eingetragen';
   btn.style.background = '#22c55e';
-  e.target.querySelector('input').value = '';
+  form.querySelector('input').value = '';
 }
+
+// Newsletter: nur E-Mail - Plausi-Pruefung vor dem eigenen Submit-Handler anhaengen.
+(function () {
+  const f = document.getElementById('nl-form');
+  if (window.IsuPlausi) IsuPlausi.anschliessen(f);
+  f.addEventListener('submit', subscribeNewsletter);
+})();
 
 loadArticles();
 </script>

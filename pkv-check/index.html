@@ -132,6 +132,12 @@
     .consent-row { font-size:.72rem; color:var(--txt2,#8888a0); }
     .consent-row input { accent-color:var(--primary,#f97316); }
     .submit-ok { display:none; text-align:center; color:#4ade80; font-weight:600; padding:12px 0; font-size:.95rem; }
+    /* Plausibilitaetspruefung (assets/js/plausi.js, 25.09.2026) */
+    .r-form .r-field { flex: 1; min-width: 160px; }
+    .r-form .r-field input { width: 100%; box-sizing: border-box; }
+    .submit-err { display:none; color:#ffb4a8; font-size:.875rem; margin-top:8px; }
+    .plausi-meldung { margin:6px 0 0; font-size:.875rem; line-height:1.4; color:#ffb4a8; text-align:left; overflow-wrap:anywhere; }
+    [aria-invalid="true"] { border-color:#ef4444 !important; box-shadow:0 0 0 1px #ef4444; }
 
     /* §204 info box */
     .para204-box {
@@ -417,6 +423,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   <p class="footer-disclaimer">Kein Finanz-, Rechts- oder Steuerberatungsangebot. Die Tools dienen ausschließlich der strukturierten Orientierung. Für verbindliche Entscheidungen ist ein zugelassener Berater hinzuzuziehen. Gesundheitsbezogene Angaben werden ausschließlich browser-seitig verarbeitet und nicht gespeichert (Art. 9 Abs. 2 lit. a DSGVO).</p>
 </div></footer>
 
+<script src="/assets/js/plausi.js?v=1.0.1"></script>
 <script>
 // ── State ──────────────────────────────────────────────────────────────────
 var S = { bap: null, bei: null, grund: null, voe: null, kh: null, med: null };
@@ -533,18 +540,25 @@ function showResult() {
     + '<hr class="result-sep">'
     + '<div class="r-lead-title">Kostenlose Experteneinordnung anfordern</div>'
     + '<div class="r-lead-sub">Kein Verkaufsgespräch. Wir schauen gemeinsam auf Ihren konkreten Tarif und zeigen, was bei Ihrer Gesellschaft möglich ist.</div>'
-    + '<form class="r-form" onsubmit="submitLead(event)">'
-    + '<input type="text" id="f-name" placeholder="Ihr Name" required autocomplete="name">'
-    + '<input type="email" id="f-email" placeholder="E-Mail-Adresse" required autocomplete="email">'
+    + '<form class="r-form" id="pkv-lead-form">'
+    + '<div class="r-field"><input type="text" id="f-name" name="name" placeholder="Ihr Name" aria-label="Ihr Name" required autocomplete="name" data-plausi="name"></div>'
+    + '<div class="r-field"><input type="email" id="f-email" name="email" placeholder="E-Mail-Adresse" aria-label="E-Mail-Adresse" required autocomplete="email" data-plausi="email"></div>'
+    + '<div class="r-field"><input type="tel" id="f-tel" name="telefon" placeholder="Telefon (für Rückfragen)" aria-label="Telefon (für Rückfragen)" required autocomplete="tel" data-plausi="telefon"></div>'
     + '<button type="submit">Einordnung anfordern</button>'
     + '</form>'
     + '<div class="consent-row"><label><input type="checkbox" id="f-consent" required> '
     + 'Ich stimme der <a href="/datenschutz.html" target="_blank" style="color:var(--primary)">Datenschutzerklärung</a> zu. '
-    + 'Es werden ausschließlich Name und E-Mail gespeichert. Gesundheitsangaben werden nicht übermittelt.</label></div>'
+    + 'Es werden ausschließlich Name, E-Mail und Telefonnummer gespeichert. Gesundheitsangaben werden nicht übermittelt.</label></div>'
+    + '<div class="submit-err" id="submit-err" role="alert"></div>'
     + '<div class="submit-ok" id="submit-ok">✓ Anfrage erhalten — wir melden uns innerhalb von 24 Stunden.</div>'
     + '</div>';
 
+  S.tier = tier;
   document.getElementById('result-box').innerHTML = html;
+  // Plausi-Pruefung vor dem eigenen Submit-Handler anhaengen (Formular entsteht erst hier per innerHTML).
+  var leadForm = document.getElementById('pkv-lead-form');
+  if (window.IsuPlausi) IsuPlausi.anschliessen(leadForm);
+  leadForm.addEventListener('submit', submitLead);
   goStep('result');
   // mark result dot
   var d4 = document.getElementById('dot-4');
@@ -559,21 +573,39 @@ function submitLead(e) {
   if(!consent || !consent.checked) { if(consent) consent.focus(); return; }
   var beitrag = +document.getElementById('sl-beitrag').value;
   var alter   = +document.getElementById('sl-alter').value;
+  var jahre   = +document.getElementById('sl-jahre').value;
+  var form    = document.querySelector('.r-form');
+  var btn     = form.querySelector('button[type=submit]');
+  var errEl   = document.getElementById('submit-err');
+  var tel     = document.getElementById('f-tel').value.trim();
+  errEl.style.display = 'none';
+  btn.disabled = true;
   // NOTE: NO health data (voe/kh/med) is included in the payload — by design
+  // answers ist im Backend (LeadIn) Pflicht - ohne kam 422 zurueck und der Lead ging verloren.
+  // extra.tel: nur daraus uebernimmt das Backend die Nummer in die Lead-Bridge (Feld phone).
   fetch('https://api.versicherungs-fuchs.online/api/lead', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body: JSON.stringify({
-      name:   document.getElementById('f-name').value,
-      email:  document.getElementById('f-email').value,
+      name:   document.getElementById('f-name').value.trim(),
+      email:  document.getElementById('f-email').value.trim(),
       tool:   'pkv-tarifwechsel-check',
       source: 'pkv-check',
+      answers: { alter: alter, beitrag: beitrag, jahre_pkv: jahre, bap: S.bap, bei: S.bei, grund: S.grund },
+      ampel_status: S.tier === 'high' ? 'red' : S.tier === 'medium' ? 'yellow' : 'green',
+      extra:  { tel: tel },
       meta:   JSON.stringify({ alter: alter, beitrag: beitrag, bap: S.bap, bei: S.bei, grund: S.grund })
       // health fields intentionally omitted
     })
-  }).catch(function(){});
-  document.querySelector('.r-form').style.display = 'none';
-  document.getElementById('submit-ok').style.display = 'block';
+  }).then(function(r){
+    if (!r.ok) throw new Error('status ' + r.status);
+    form.style.display = 'none';
+    document.getElementById('submit-ok').style.display = 'block';
+  }).catch(function(){
+    btn.disabled = false;
+    errEl.textContent = 'Senden gerade nicht möglich. Bitte versuchen Sie es erneut oder schreiben Sie an info@isurance-group.de.';
+    errEl.style.display = 'block';
+  });
 }
 
 // ── FAQ ─────────────────────────────────────────────────────────────────────
