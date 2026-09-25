@@ -116,6 +116,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
     fetch('https://api.versicherungs-fuchs.online/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name,email:email,answers:answers,
         source:check.leadSource,ampel_status:r.ampel,legal_scope:'34d',voranfrage:!!r.voranfrage,
+        phone:f.tel.value.trim(),
         extra:Object.assign({tel:f.tel.value.trim()}, window.vfExtra?window.vfExtra():{})})})
     .then(function(x){ if(!x.ok) throw new Error('status '+x.status); return x.json().catch(function(){return {};}); }).then(function(j){
       msg.innerHTML='<div class="res-vor" style="margin:0"><strong>Danke! Ihre Anfrage ist bei uns eingegangen.</strong>'

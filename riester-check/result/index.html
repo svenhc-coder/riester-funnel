@@ -193,7 +193,7 @@ var stripeInst = null, stripeEls = null;
       // KORREKTER ENDPOINT: /api/lead (singular) mit vollständigem Payload
       fetch(API_URL+'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name:name,email:email,answers:answers,ampel_status:ampel,tier:'ki',source:'riester-check',
-          extra:{tel:tel}})
+          phone:tel, extra:{tel:tel}})
       })
       .then(function(r){return r.ok?r.json():Promise.reject(r.status);})
       .then(function(data){

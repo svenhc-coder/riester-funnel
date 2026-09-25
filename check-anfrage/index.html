@@ -196,7 +196,9 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
         nachricht: document.getElementById('nachricht').value.trim(),
         quelle: 'check-anfrage'
       },
-      // extra.tel: nur daraus uebernimmt das Backend die Nummer in die Lead-Bridge (Feld phone).
+      // extra.tel: daraus uebernimmt das Backend die Nummer in die Lead-Bridge (Feld phone);
+      // phone zusaetzlich top-level (Vorgabe Koordinator 25.09.).
+      phone: tel,
       extra: { tel: tel },
       source: (check || 'allgemein') + '-check-anfrage'
     };

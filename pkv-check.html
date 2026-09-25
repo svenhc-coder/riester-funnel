@@ -593,6 +593,7 @@ function submitLead(e) {
       source: 'pkv-check',
       answers: { alter: alter, beitrag: beitrag, jahre_pkv: jahre, bap: S.bap, bei: S.bei, grund: S.grund },
       ampel_status: S.tier === 'high' ? 'red' : S.tier === 'medium' ? 'yellow' : 'green',
+      phone:  tel,
       extra:  { tel: tel },
       meta:   JSON.stringify({ alter: alter, beitrag: beitrag, bap: S.bap, bei: S.bei, grund: S.grund })
       // health fields intentionally omitted

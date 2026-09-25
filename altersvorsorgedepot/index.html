@@ -374,6 +374,7 @@ function submitLead(e) {
       kinder:        +document.getElementById('sl-kinder').value
     },
     ampel_status: 'yellow',
+    phone: tel,
     extra: { tel: tel }
   };
   fetch('https://api.versicherungs-fuchs.online/api/lead', {

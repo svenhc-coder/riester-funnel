@@ -143,6 +143,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
     btn.disabled=true; btn.querySelector('span').textContent='Wird gesendet …';
     fetch(API+'/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({name:name,email:email,answers:checkAns,source:(check&&check.leadSource||type),ampel_status:checkErg?checkErg.ampel:null,
+        phone:(cf.tel.value||'').trim(),
         extra:Object.assign({tel:(cf.tel.value||'').trim(),request_id:REQUEST_ID}, extra())})})
     .then(function(r){ if(!r.ok) throw new Error('status '+r.status); return r.json().catch(function(){return{};});}).then(function(){
       // Lead gesichert -> Schritt 2 (optionaler Gesundheitsbogen) freigeben
